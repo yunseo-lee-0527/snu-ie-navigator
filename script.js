@@ -292,7 +292,7 @@ function renderCourses() {
   `).join("");
 }
 
-function renderFaqs() {
+function initFaqs() {
   const faqList = document.querySelector("#faqList");
   if (!faqList) return;
 
@@ -307,8 +307,8 @@ function renderFaqs() {
     const button = event.target.closest("button");
     if (!button) return;
     const item = button.closest(".faq-item");
-    item.classList.toggle("open");
-    button.setAttribute("aria-expanded", item.classList.contains("open"));
+    const open = item.classList.toggle("open");
+    button.setAttribute("aria-expanded", open ? "true" : "false");
   });
 }
 
@@ -330,10 +330,6 @@ function initRulesPage() {
         ${note ? `<span>${Array.isArray(note) ? note.join("<br>") : note}</span>` : ""}
       </div>
     `).join("");
-  }
-
-  function compactItems(items) {
-    return items.join(" / ");
   }
 
   function renderRules(year) {
@@ -372,7 +368,7 @@ function initRulesPage() {
 
       <section class="rule-section">
         <h2>전공필수 과목</h2>
-        <div class="placeholder-box">${compactItems(commonMajorRequired)}</div>
+        <div class="placeholder-box">${commonMajorRequired.join(" / ")}</div>
       </section>
 
       <section class="rule-section">
@@ -418,6 +414,6 @@ if (courseSearch) {
   courseSearch.addEventListener("input", renderCourses);
 }
 
-renderFaqs();
+initFaqs();
 renderCourses();
 initRulesPage();
