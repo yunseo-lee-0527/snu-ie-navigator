@@ -488,6 +488,68 @@ h3 {
   font-size: 18px;
 }
 
+.year-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: center;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.year-chip {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.year-chip.active,
+.year-chip:hover {
+  border-color: var(--snu-dark);
+  color: #fff;
+  background: var(--snu-dark);
+}
+
+.rule-output {
+  display: grid;
+  gap: 18px;
+}
+
+.rule-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.rule-summary article,
+.rule-alert {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.rule-summary span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.rule-summary strong {
+  font-size: 19px;
+  line-height: 1.35;
+}
+
 .year-result {
   display: flex;
   align-items: center;
@@ -532,6 +594,13 @@ h3 {
 .rule-detail a {
   color: var(--snu-dark);
   font-weight: 800;
+}
+
+.rule-detail ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.75;
 }
 
 .rules-grid p,
@@ -655,6 +724,7 @@ h3 {
 @media (max-width: 1120px) {
   .home-hero,
   .roadmap-title,
+  .rule-summary,
   .rules-grid,
   .course-grid {
     grid-template-columns: 1fr 1fr;
@@ -679,6 +749,7 @@ h3 {
   .home-hero,
   .portal-grid,
   .student-year-panel,
+  .rule-summary,
   .rules-grid,
   .course-grid {
     grid-template-columns: 1fr;

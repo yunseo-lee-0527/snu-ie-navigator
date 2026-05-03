@@ -49,6 +49,175 @@ const faqs = [
   }
 ];
 
+const ruleData = {
+  2020: {
+    label: "20학번",
+    group: "2020",
+    totalCredits: "130학점",
+    liberalCredits: "교양 50학점 이상",
+    majorCredits: "주전공 59학점",
+    requiredCredits: "전필 28학점",
+    electiveCredits: "학과 전선 21학점 이상",
+    liberal: [
+      "사고의 표현 7학점: 대학 글쓰기 1, 대학글쓰기2 중 택 1, 말하기와 토론",
+      "외국어 4~6학점: 외국어 2개 교과목",
+      "수량적 분석과 추론 16학점: 수학 1/2, 통계학과 통계학실험, 공학수학 1/2",
+      "과학적 사고와 실험 8학점: 물리/화학/생물 영역 중 학기별 4학점",
+      "컴퓨터와 정보 활용 3학점: 컴퓨터의 개념 및 실습",
+      "학문의 세계 12학점: 3개 영역 이상"
+    ],
+    majorNotes: [
+      "전공필수 과목은 20-26학번 공통이며 ★ 표시 과목을 기준으로 합니다.",
+      "20학번 표에는 경영정보시스템, 품질경영, 컴퓨터통합생산시스템/실험, 정보모델링기법과응용, 경영체제개론, 시스템공학개론 등이 포함되어 있습니다."
+    ]
+  },
+  2021: {
+    label: "21학번",
+    group: "2021-2023",
+    totalCredits: "130학점",
+    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    majorCredits: "주전공 59학점",
+    requiredCredits: "전필 28학점",
+    electiveCredits: "학과 전선 21학점 이상",
+    liberal: [
+      "사고의 표현 7학점: 대학 글쓰기 1, 대학글쓰기2 중 택 1, 말하기와 토론",
+      "외국어 6학점: 외국어 2개 교과목",
+      "수량적 분석과 추론 16학점: 수학 1/2, 통계학과 통계학실험, 공학수학 1/2",
+      "과학적 사고와 실험 8학점: 물리/화학/생물 영역 중 학기별 4학점",
+      "컴퓨터와 정보 활용 3학점: 컴퓨터의 개념 및 실습",
+      "학문의 세계 12학점: 3개 영역 이상"
+    ],
+    majorNotes: [
+      "21학번부터 외국어가 6학점 고정으로 정리됩니다.",
+      "전공 표에는 설계공학, 제품개발 및 품질설계, 컴퓨터통합생산시스템/실험, 정보모델링기법과응용 등이 포함되어 있습니다."
+    ]
+  },
+  2022: {
+    label: "22학번",
+    group: "2021-2023",
+    totalCredits: "130학점",
+    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    majorCredits: "주전공 59학점",
+    requiredCredits: "전필 28학점",
+    electiveCredits: "학과 전선 21학점 이상",
+    liberal: [
+      "사고의 표현 7학점",
+      "외국어 6학점",
+      "수량적 분석과 추론 16학점",
+      "과학적 사고와 실험 8학점",
+      "컴퓨터와 정보 활용 3학점",
+      "학문의 세계 12학점: 3개 영역 이상"
+    ],
+    majorNotes: [
+      "22학번은 21-23학번 교양 구조에 속합니다.",
+      "전공 표에는 물류관리, 제품개발 및 품질설계, 서비스공학, 산업경영수리기법, 인간공학 설계, 데이터마이닝 등이 포함됩니다."
+    ]
+  },
+  2023: {
+    label: "23학번",
+    group: "2021-2023",
+    totalCredits: "130학점",
+    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    majorCredits: "주전공 59학점",
+    requiredCredits: "전필 28학점",
+    electiveCredits: "학과 전선 21학점 이상",
+    liberal: [
+      "사고의 표현 7학점",
+      "외국어 6학점",
+      "수량적 분석과 추론 16학점",
+      "과학적 사고와 실험 8학점",
+      "컴퓨터와 정보 활용 3학점",
+      "학문의 세계 12학점: 3개 영역 이상"
+    ],
+    majorNotes: [
+      "23학번은 21-23학번 교양 구조의 마지막 학번입니다.",
+      "전공 표에는 핀테크 개론이 포함되고, 산업공학통계/생산관리/경제성공학 등 전필 구조는 동일합니다."
+    ]
+  },
+  2024: {
+    label: "24학번",
+    group: "2024",
+    totalCredits: "130학점",
+    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    majorCredits: "주전공 59학점",
+    requiredCredits: "전필 28학점",
+    electiveCredits: "학과 전선 21학점 이상",
+    liberal: [
+      "사고의 표현 7학점",
+      "외국어 6학점",
+      "수량적 분석과 추론 16학점",
+      "과학적 사고와 실험 8학점",
+      "컴퓨터와 정보 활용 3학점",
+      "학문의 세계 12학점: 4개 영역 이상"
+    ],
+    majorNotes: [
+      "24학번부터 학문의 세계 이수 조건이 3개 영역 이상에서 4개 영역 이상으로 바뀝니다.",
+      "전공 표에는 핀테크 개론, 빅데이터 산업응용, 데이터마이닝 등이 포함됩니다."
+    ]
+  },
+  2025: {
+    label: "25학번",
+    group: "2025-2026",
+    totalCredits: "130학점",
+    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    majorCredits: "주전공 59학점",
+    requiredCredits: "전필 28학점",
+    electiveCredits: "학과 전선 21학점 이상",
+    liberal: [
+      "학문의 토대 - 사고의 표현 7학점",
+      "학문의 토대 - 외국어 6학점",
+      "학문의 토대 - 수학·과학·컴퓨팅: 수학/통계/공학수학 16학점, 과학 실험 8학점, 컴퓨터 3학점",
+      "지성의 열쇠 9학점: 4개 영역 중 3개 영역에서 9학점 이상",
+      "베리타스 3학점 이상: 베리타스 강좌 1/2 또는 베리타스 실천"
+    ],
+    majorNotes: [
+      "25학번부터 교양 구조가 학문의 토대, 지성의 열쇠, 베리타스로 개편됩니다.",
+      "전공 표에는 최적화알고리즘과 산업 텍스트 애널리틱스가 추가되어 표시됩니다."
+    ]
+  },
+  2026: {
+    label: "26학번",
+    group: "2025-2026",
+    totalCredits: "130학점",
+    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    majorCredits: "주전공 59학점",
+    requiredCredits: "전필 28학점",
+    electiveCredits: "학과 전선 21학점 이상",
+    liberal: [
+      "학문의 토대 - 사고의 표현 7학점",
+      "학문의 토대 - 외국어 6학점",
+      "학문의 토대 - 수학·과학·컴퓨팅: 수학/통계/공학수학 16학점, 과학 실험 8학점, 컴퓨터 3학점",
+      "지성의 열쇠 9학점: 4개 영역 중 3개 영역에서 9학점 이상",
+      "베리타스 3학점 이상"
+    ],
+    majorNotes: [
+      "26학번은 25-26학번 교양 구조에 속합니다.",
+      "전공 표에는 서비스공학, 최적화 알고리즘, 산업 텍스트애널리틱스, 핀테크 개론 등이 포함됩니다."
+    ]
+  }
+};
+
+const commonMajorRequired = [
+  "406.434 산업공학의 이해",
+  "406.211 과학적 관리",
+  "406.304 인간공학",
+  "406.305A 인간공학실험",
+  "406.315 경영과학 1",
+  "406.426B 데이터관리와 분석",
+  "406.317 경영과학 2",
+  "406.432 산업공학통계",
+  "406.310 생산관리",
+  "406.314 경제성공학"
+];
+
+const multiMajorRules = [
+  "복수전공: 해당 기준년도의 모든 전공필수 교과목을 이수해야 하며, 인간공학실험 및 산업공학의 이해는 면제됩니다.",
+  "복수전공: 학과 개설 전공선택 교과목을 추가로 이수하여 최소 39학점을 만족해야 합니다.",
+  "부전공: 전공교과목 21학점 이상, 이 중 전공필수 12학점 이상을 이수해야 하며 산업공학의 이해는 제외됩니다.",
+  "복수전공/부전공 학생에게는 대학원 세미나 과목 이수 요건이 적용되지 않습니다.",
+  "자유전공학부 주전공자는 공과대학 졸업이수기준과 산업공학과 졸업 요건을 동일하게 적용받습니다."
+];
+
 const courseGrid = document.querySelector("#courseGrid");
 const courseSearch = document.querySelector("#courseSearch");
 const filterButtons = document.querySelectorAll(".filter");
@@ -104,37 +273,122 @@ function renderFaqs() {
 
 function initRulesPage() {
   const yearInput = document.querySelector("#studentYear");
-  const yearResult = document.querySelector("#yearResult");
-  const ruleCards = document.querySelectorAll(".rule-card");
+  const ruleOutput = document.querySelector("#ruleOutput");
+  const yearChips = document.querySelectorAll(".year-chip");
+  if (!yearInput || !ruleOutput) return;
 
-  ruleCards.forEach((card) => {
-    const button = card.querySelector("button");
-    button.addEventListener("click", () => {
-      const isOpen = card.classList.toggle("open");
-      button.setAttribute("aria-expanded", isOpen);
+  function listItems(items) {
+    return items.map((item) => `<li>${item}</li>`).join("");
+  }
+
+  function renderRules(year) {
+    const data = ruleData[year];
+    if (!data) {
+      ruleOutput.innerHTML = `
+        <article class="rule-alert">
+          <h2>지원 범위 밖 학번입니다</h2>
+          <p>업로드한 PDF에는 20-26학번 규정이 정리되어 있습니다. 2020부터 2026 사이의 입학연도를 입력해주세요.</p>
+        </article>
+      `;
+      return;
+    }
+
+    yearInput.value = year;
+    yearChips.forEach((chip) => chip.classList.toggle("active", Number(chip.dataset.year) === year));
+
+    ruleOutput.innerHTML = `
+      <div class="rule-summary">
+        <article><span>졸업학점</span><strong>${data.totalCredits}</strong></article>
+        <article><span>교양</span><strong>${data.liberalCredits}</strong></article>
+        <article><span>주전공</span><strong>${data.majorCredits}</strong></article>
+        <article><span>전공필수</span><strong>${data.requiredCredits}</strong></article>
+        <article><span>학과 전선</span><strong>${data.electiveCredits}</strong></article>
+      </div>
+
+      <div class="rules-grid clickable-rules">
+        <article class="rule-card open">
+          <button type="button" aria-expanded="true">
+            <span class="chip">학번</span>
+            <strong>${data.label} 규정 그룹</strong>
+          </button>
+          <div class="rule-detail">
+            <p>${data.label}은 <strong>${data.group}</strong> 기준 규정에 속합니다. 학사과정 졸업을 위해 대학원 세미나 과목 1학점 이수가 요구되며, 3·4학년 수강을 권장합니다.</p>
+          </div>
+        </article>
+
+        <article class="rule-card">
+          <button type="button" aria-expanded="false">
+            <span class="chip">교양</span>
+            <strong>교양 이수 구조</strong>
+          </button>
+          <div class="rule-detail">
+            <ul>${listItems(data.liberal)}</ul>
+          </div>
+        </article>
+
+        <article class="rule-card">
+          <button type="button" aria-expanded="false">
+            <span class="chip">전필</span>
+            <strong>전공필수 과목</strong>
+          </button>
+          <div class="rule-detail">
+            <ul>${listItems(commonMajorRequired)}</ul>
+          </div>
+        </article>
+
+        <article class="rule-card">
+          <button type="button" aria-expanded="false">
+            <span class="chip">전선</span>
+            <strong>전공선택 변화</strong>
+          </button>
+          <div class="rule-detail">
+            <ul>${listItems(data.majorNotes)}</ul>
+          </div>
+        </article>
+
+        <article class="rule-card">
+          <button type="button" aria-expanded="false">
+            <span class="chip">다전공</span>
+            <strong>복수·부·자유전공</strong>
+          </button>
+          <div class="rule-detail">
+            <ul>${listItems(multiMajorRules)}</ul>
+          </div>
+        </article>
+
+        <article class="rule-card">
+          <button type="button" aria-expanded="false">
+            <span class="chip">공식</span>
+            <strong>원문 확인</strong>
+          </button>
+          <div class="rule-detail">
+            <p>세부 인정 여부는 공식 문서와 행정실 확인이 필요합니다.</p>
+            <a href="https://ie.snu.ac.kr/undergrad_regulation/" target="_blank" rel="noreferrer">산업공학과 학부 이수 규정</a>
+          </div>
+        </article>
+      </div>
+    `;
+
+    ruleOutput.querySelectorAll(".rule-card button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const card = button.closest(".rule-card");
+        const isOpen = card.classList.toggle("open");
+        button.setAttribute("aria-expanded", isOpen);
+      });
+    });
+  }
+
+  yearInput.addEventListener("input", () => {
+    renderRules(Number(yearInput.value));
+  });
+
+  yearChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      renderRules(Number(chip.dataset.year));
     });
   });
 
-  if (!yearInput || !yearResult) return;
-
-  yearInput.addEventListener("input", () => {
-    const year = Number(yearInput.value);
-    if (!yearInput.value) {
-      yearResult.textContent = "학번을 입력하면 해당 학번 기준으로 확인해야 할 문서가 표시됩니다.";
-      return;
-    }
-
-    if (year < 2000 || year > 2030) {
-      yearResult.textContent = "입학연도는 2000년부터 2030년 사이로 입력해주세요.";
-      return;
-    }
-
-    const currentRule = year >= 2025
-      ? "2025학번 이후 전공교과목 이수규정과 최신 학과내규를 먼저 확인하세요."
-      : `${year}학번 기준 이수규정은 입학연도별 문서가 다를 수 있습니다. 학과 이수규정 페이지에서 해당 학번 문서를 확인하세요.`;
-
-    yearResult.textContent = `${year}학번: ${currentRule} 교양필수와 다전공 요건도 입학연도 기준이 달라질 수 있습니다.`;
-  });
+  renderRules(2025);
 }
 
 filterButtons.forEach((button) => {
