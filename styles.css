@@ -88,12 +88,13 @@ a {
 }
 
 .roadmap-title {
-  display: grid;
-  grid-template-columns: minmax(340px, 780px) minmax(260px, 1fr);
-  gap: 28px;
-  align-items: end;
+  display: block;
   margin: 0 auto 12px;
   width: min(1500px, 100%);
+}
+
+.roadmap-title h1 {
+  max-width: 820px;
 }
 
 .eyebrow {
@@ -520,12 +521,12 @@ h3 {
 
 .rule-output {
   display: grid;
-  gap: 18px;
+  gap: 22px;
 }
 
 .rule-summary {
   display: grid;
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  grid-template-columns: repeat(5, minmax(140px, 1fr));
   gap: 10px;
 }
 
@@ -548,6 +549,65 @@ h3 {
 .rule-summary strong {
   font-size: 19px;
   line-height: 1.35;
+}
+
+.rule-section {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.rule-section h2 {
+  margin-bottom: 18px;
+  font-size: 25px;
+}
+
+.credit-table {
+  display: grid;
+  gap: 8px;
+}
+
+.credit-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.8fr) minmax(90px, 0.35fr) minmax(240px, 1.4fr);
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+}
+
+.credit-row strong {
+  color: var(--snu-dark);
+}
+
+.credit-row span {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.required-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.required-list li,
+.placeholder-box {
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+  line-height: 1.5;
+}
+
+.placeholder-box {
+  color: var(--muted);
 }
 
 .year-result {
@@ -723,7 +783,6 @@ h3 {
 
 @media (max-width: 1120px) {
   .home-hero,
-  .roadmap-title,
   .rule-summary,
   .rules-grid,
   .course-grid {
@@ -750,6 +809,8 @@ h3 {
   .portal-grid,
   .student-year-panel,
   .rule-summary,
+  .credit-row,
+  .required-list,
   .rules-grid,
   .course-grid {
     grid-template-columns: 1fr;

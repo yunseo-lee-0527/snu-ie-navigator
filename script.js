@@ -218,6 +218,47 @@ const multiMajorRules = [
   "자유전공학부 주전공자는 공과대학 졸업이수기준과 산업공학과 졸업 요건을 동일하게 적용받습니다."
 ];
 
+const liberalRowsByGroup = {
+  "2020": [
+    ["사고의 표현", "7학점", "대학 글쓰기 1, 대학글쓰기2 중 택 1, 말하기와 토론"],
+    ["외국어", "4~6학점", "외국어 2개 교과목"],
+    ["수량적 분석과 추론", "16학점", "수학 1/2, 통계학과 통계학실험, 공학수학 1/2"],
+    ["과학적 사고와 실험", "8학점", "물리/화학/생물 영역 중 학기별 4학점"],
+    ["컴퓨터와 정보 활용", "3학점", "컴퓨터의 개념 및 실습"],
+    ["학문의 세계", "12학점", "3개 영역 이상"]
+  ],
+  "2021-2023": [
+    ["사고의 표현", "7학점", "대학 글쓰기 1, 대학글쓰기2 중 택 1, 말하기와 토론"],
+    ["외국어", "6학점", "외국어 2개 교과목"],
+    ["수량적 분석과 추론", "16학점", "수학 1/2, 통계학과 통계학실험, 공학수학 1/2"],
+    ["과학적 사고와 실험", "8학점", "물리/화학/생물 영역 중 학기별 4학점"],
+    ["컴퓨터와 정보 활용", "3학점", "컴퓨터의 개념 및 실습"],
+    ["학문의 세계", "12학점", "3개 영역 이상"]
+  ],
+  "2024": [
+    ["사고의 표현", "7학점", "대학 글쓰기 1, 대학글쓰기2 중 택 1, 말하기와 토론"],
+    ["외국어", "6학점", "외국어 2개 교과목"],
+    ["수량적 분석과 추론", "16학점", "수학 1/2, 통계학과 통계학실험, 공학수학 1/2"],
+    ["과학적 사고와 실험", "8학점", "물리/화학/생물 영역 중 학기별 4학점"],
+    ["컴퓨터와 정보 활용", "3학점", "컴퓨터의 개념 및 실습"],
+    ["학문의 세계", "12학점", "4개 영역 이상"]
+  ],
+  "2025-2026": [
+    ["사고의 표현", "7학점", "대학 글쓰기 1, 대학글쓰기2 중 택 1, 말하기와 토론"],
+    ["외국어", "6학점", "외국어 2개 교과목"],
+    ["수학·과학·컴퓨팅", "27학점", "수학/통계/공학수학 16학점, 과학 실험 8학점, 컴퓨터 3학점"],
+    ["지성의 열쇠", "9학점", "4개 영역 중 3개 영역 이상"],
+    ["베리타스", "3학점", "베리타스 강좌 1/2 또는 베리타스 실천"]
+  ]
+};
+
+const majorCreditRows = [
+  ["주전공", "59학점", "전공필수와 학과 전공선택을 포함한 주전공 이수학점"],
+  ["전공필수", "28학점", "PDF의 ★ 표시 과목 기준"],
+  ["학과 전공선택", "21학점 이상", "산업공학과 개설 전공선택 및 인정 전선 과목으로 충족"],
+  ["대학원 세미나", "1학점", "학사과정 졸업을 위해 이수. 3·4학년 수강 권장"]
+];
+
 const courseGrid = document.querySelector("#courseGrid");
 const courseSearch = document.querySelector("#courseSearch");
 const filterButtons = document.querySelectorAll(".filter");
@@ -281,6 +322,16 @@ function initRulesPage() {
     return items.map((item) => `<li>${item}</li>`).join("");
   }
 
+  function creditRows(rows) {
+    return rows.map(([area, credits, note]) => `
+      <div class="credit-row">
+        <strong>${area}</strong>
+        <strong>${credits}</strong>
+        <span>${note}</span>
+      </div>
+    `).join("");
+  }
+
   function renderRules(year) {
     const data = ruleData[year];
     if (!data) {
@@ -305,77 +356,37 @@ function initRulesPage() {
         <article><span>학과 전선</span><strong>${data.electiveCredits}</strong></article>
       </div>
 
-      <div class="rules-grid clickable-rules">
-        <article class="rule-card open">
-          <button type="button" aria-expanded="true">
-            <span class="chip">학번</span>
-            <strong>${data.label} 규정 그룹</strong>
-          </button>
-          <div class="rule-detail">
-            <p>${data.label}은 <strong>${data.group}</strong> 기준 규정에 속합니다. 학사과정 졸업을 위해 대학원 세미나 과목 1학점 이수가 요구되며, 3·4학년 수강을 권장합니다.</p>
-          </div>
-        </article>
+      <section class="rule-section">
+        <h2>${data.label} 교양 이수학점</h2>
+        <div class="credit-table">${creditRows(liberalRowsByGroup[data.group])}</div>
+      </section>
 
-        <article class="rule-card">
-          <button type="button" aria-expanded="false">
-            <span class="chip">교양</span>
-            <strong>교양 이수 구조</strong>
-          </button>
-          <div class="rule-detail">
-            <ul>${listItems(data.liberal)}</ul>
-          </div>
-        </article>
+      <section class="rule-section">
+        <h2>전공 이수학점</h2>
+        <div class="credit-table">${creditRows(majorCreditRows)}</div>
+      </section>
 
-        <article class="rule-card">
-          <button type="button" aria-expanded="false">
-            <span class="chip">전필</span>
-            <strong>전공필수 과목</strong>
-          </button>
-          <div class="rule-detail">
-            <ul>${listItems(commonMajorRequired)}</ul>
-          </div>
-        </article>
+      <section class="rule-section">
+        <h2>전공필수 과목</h2>
+        <ul class="required-list">${listItems(commonMajorRequired)}</ul>
+      </section>
 
-        <article class="rule-card">
-          <button type="button" aria-expanded="false">
-            <span class="chip">전선</span>
-            <strong>전공선택 변화</strong>
-          </button>
-          <div class="rule-detail">
-            <ul>${listItems(data.majorNotes)}</ul>
-          </div>
-        </article>
+      <section class="rule-section">
+        <h2>전선 인정 과목</h2>
+        <div class="placeholder-box">추후 전공선택 인정 과목 목록을 여기에 추가할 예정입니다.</div>
+      </section>
 
-        <article class="rule-card">
-          <button type="button" aria-expanded="false">
-            <span class="chip">다전공</span>
-            <strong>복수·부·자유전공</strong>
-          </button>
-          <div class="rule-detail">
-            <ul>${listItems(multiMajorRules)}</ul>
-          </div>
-        </article>
+      <section class="rule-section">
+        <h2>복수전공·부전공·자유전공</h2>
+        <ul class="required-list">${listItems(multiMajorRules)}</ul>
+      </section>
 
-        <article class="rule-card">
-          <button type="button" aria-expanded="false">
-            <span class="chip">공식</span>
-            <strong>원문 확인</strong>
-          </button>
-          <div class="rule-detail">
-            <p>세부 인정 여부는 공식 문서와 행정실 확인이 필요합니다.</p>
-            <a href="https://ie.snu.ac.kr/undergrad_regulation/" target="_blank" rel="noreferrer">산업공학과 학부 이수 규정</a>
-          </div>
-        </article>
-      </div>
+      <section class="rule-section">
+        <h2>원문 확인</h2>
+        <p>세부 인정 여부는 공식 문서와 학과 행정실 확인이 필요합니다.</p>
+        <a href="https://ie.snu.ac.kr/undergrad_regulation/" target="_blank" rel="noreferrer">산업공학과 학부 이수 규정</a>
+      </section>
     `;
-
-    ruleOutput.querySelectorAll(".rule-card button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const card = button.closest(".rule-card");
-        const isOpen = card.classList.toggle("open");
-        button.setAttribute("aria-expanded", isOpen);
-      });
-    });
   }
 
   yearInput.addEventListener("input", () => {
