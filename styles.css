@@ -352,6 +352,43 @@ h3 {
 .c8b { grid-column: 8; align-self: end; }
 .c8c { grid-column: 8; align-self: start; }
 
+/* Roadmap course-name mapping. These selectors intentionally use visible
+   course names so the layout can be checked against the curriculum image. */
+.course[data-course="수학 및 연습"] { grid-column: 1; }
+.course[data-course="수학2 및 연습"] { grid-column: 2; }
+.course[data-course="통계학 및 실험"] { grid-column: 3; align-self: start; }
+.course[data-course="공학수학1"] { grid-column: 3; align-self: end; }
+.course[data-course="공학수학2"] { grid-column: 4; }
+.course[data-course="산업공학의 이해"] { grid-column: 2; }
+.course[data-course="산업공정설계"] { grid-column: 3; align-self: start; }
+.course[data-course="과학적 관리"] { grid-column: 3; align-self: end; }
+.course[data-course="공학도를 위한 창의적 사고"] { grid-column: 6; }
+.course[data-course="컴퓨터의 개념 및 실습"] { grid-column: 1; }
+.course[data-course="산업컴퓨팅개론"] { grid-column: 3; align-self: end; }
+.course[data-course="데이터관리와 분석"] { grid-column: 4; }
+.course[data-course="산업공학통계"] { grid-column: 6; }
+.course[data-course="데이터마이닝"] { grid-column: 8; align-self: start; }
+.course[data-course="빅데이터 산업응용"] { grid-column: 8; align-self: center; }
+.course[data-course="산업 텍스트 애널리틱스"] { grid-column: 8; align-self: end; }
+.course[data-course="경영과학1"] { grid-column: 5; }
+.course[data-course="경영과학2"] { grid-column: 6; }
+.course[data-course="최적화모형 및 응용"] { grid-column: 7; align-self: start; }
+.course[data-course="산업경영 수리기법"] { grid-column: 7; align-self: end; }
+.course[data-course="시뮬레이션"] { grid-column: 8; align-self: start; }
+.course[data-course="최적화 알고리즘"] { grid-column: 8; align-self: end; }
+.course[data-course="물류관리"] { grid-column: 6; }
+.course[data-course="생산관리"] { grid-column: 7; }
+.course[data-course="제품개발 및 품질설계"] { grid-column: 6; }
+.course[data-course="서비스공학"] { grid-column: 7; }
+.course[data-course="기술경영"] { grid-column: 7; }
+.course[data-course="경제성공학"] { grid-column: 8; }
+.course[data-course="금융학개론"] { grid-column: 8; align-self: start; }
+.course[data-course="핀테크 개론"] { grid-column: 8; align-self: end; }
+.course[data-course="인간공학"] { grid-column: 5; align-self: start; }
+.course[data-course="인간공학 실험"] { grid-column: 5; align-self: end; }
+.course[data-course="인간공학 설계"] { grid-column: 7; }
+.course[data-course="휴먼인터페이스 디자인"] { grid-column: 8; }
+
 .toolbar {
   display: flex;
   flex-wrap: wrap;
