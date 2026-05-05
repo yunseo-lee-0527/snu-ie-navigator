@@ -217,6 +217,7 @@ h3 {
 }
 
 .roadmap-board {
+  position: relative;
   display: grid;
   grid-template-columns: 88px repeat(8, 126px) 138px;
   grid-template-rows: 38px repeat(9, 78px);
@@ -226,9 +227,32 @@ h3 {
   background: var(--white);
 }
 
+.roadmap-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 1267px;
+  height: 773px;
+  pointer-events: none;
+}
+
+.roadmap-lines .line {
+  fill: none;
+  stroke: rgba(66, 66, 66, 0.58);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.roadmap-lines .dotted {
+  stroke-dasharray: 3 4;
+  stroke-linecap: round;
+}
+
 .corner,
 .sem,
 .area {
+  position: relative;
+  z-index: 3;
   display: grid;
   place-items: center;
   text-align: center;
@@ -261,6 +285,7 @@ h3 {
 .lane,
 .grad-lane {
   position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   align-items: center;
@@ -285,7 +310,7 @@ h3 {
 .course,
 .grad-course {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   display: grid;
   place-items: center;
   min-height: 28px;
@@ -298,53 +323,6 @@ h3 {
   font-weight: 800;
   line-height: 1.25;
   text-align: center;
-}
-
-.course::before,
-.grad-course::before {
-  content: none;
-}
-
-.course[data-course="수학2 및 연습"]::before,
-.course[data-course="통계학 및 실험"]::before,
-.course[data-course="공학수학1"]::before,
-.course[data-course="공학수학2"]::before,
-.course[data-course="데이터관리와 분석"]::before,
-.course[data-course="경영과학2"]::before,
-.course[data-course="경제성공학"]::before,
-.course[data-course="인간공학 설계"]::before,
-.course[data-course="휴먼인터페이스 디자인"]::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  width: 18px;
-  border-top: 2px solid rgba(64, 64, 64, 0.55);
-}
-
-.course[data-course="데이터마이닝"]::before,
-.course[data-course="빅데이터 산업응용"]::before,
-.course[data-course="산업 텍스트 애널리틱스"]::before,
-.course[data-course="물류관리"]::before,
-.course[data-course="재고관리"]::before,
-.course[data-course="제품공학"]::before,
-.course[data-course="공업경제분석"]::before,
-.course[data-course="인간성능"]::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  width: 18px;
-  border-top: 2px dotted rgba(64, 64, 64, 0.55);
-}
-
-.grad-course::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  width: 12px;
-  border-top: 2px dotted rgba(64, 64, 64, 0.55);
 }
 
 .course.emphasis,
