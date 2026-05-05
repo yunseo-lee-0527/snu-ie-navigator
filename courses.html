@@ -18,16 +18,21 @@
       <div class="section-head">
         <p class="eyebrow">Courses</p>
         <h1>개설 과목 탐색</h1>
-        <p>과목명, 코드, 분야로 검색하고 전공필수 과목만 빠르게 걸러볼 수 있습니다.</p>
+        <p>향후 2년간 개설 예정 과목을 과목명, 구분, 영역, 학기별로 검색하고 필터링할 수 있습니다.</p>
       </div>
       <div class="toolbar">
         <label class="search">
           <span>검색</span>
-          <input id="courseSearch" type="search" placeholder="예: 데이터, 406.315, 인간공학">
+          <input id="courseSearch" type="search" placeholder="예: 데이터, 인간공학, 2026-1, 연합전공">
         </label>
         <button class="filter active" type="button" data-filter="all">전체</button>
         <button class="filter" type="button" data-filter="required">전공필수</button>
-        <button class="filter" type="button" data-filter="data">데이터/컴퓨팅</button>
+        <button class="filter" type="button" data-filter="elective">전공선택</button>
+        <button class="filter" type="button" data-filter="graduate">대학원</button>
+        <button class="filter" type="button" data-filter="2026-1">2026-1</button>
+        <button class="filter" type="button" data-filter="2026-2">2026-2</button>
+        <button class="filter" type="button" data-filter="2027-1">2027-1</button>
+        <button class="filter" type="button" data-filter="2027-2">2027-2</button>
       </div>
       <div class="course-grid" id="courseGrid"></div>
     </section>

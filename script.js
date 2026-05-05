@@ -26,6 +26,60 @@ const courses = [
   { code: "406.432", name: "산업공학통계", credits: "3-3-0", field: "통계/데이터", required: true, tag: "data" }
 ];
 
+const upcomingCourses = [
+  { category: "1학년", name: "산업공학의 이해", type: "전필", offerings: [["2026-1", "O(25-2학기미개설로인해)"], ["2026-2", "O"]] },
+  { category: "2학년", name: "과학적관리", type: "전필", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "2학년", name: "경영과학1", type: "전필", offerings: [["2026-1", "O(연합전공)"], ["2026-2", "O"], ["2027-2", "O"]] },
+  { category: "2학년", name: "데이터관리와 분석", type: "전필", offerings: [["2026-1", "O(연합전공)"], ["2027-1", "O(연합전공)"], ["2027-2", "O"]] },
+  { category: "2학년", name: "인간공학", type: "전필", offerings: [["2026-2", "O"]] },
+  { category: "2학년", name: "인간공학실험", type: "전필", offerings: [["2026-2", "O"]] },
+  { category: "2학년", name: "산업공정설계", type: "전선", offerings: [["2026-1", "O"]] },
+  { category: "3학년", name: "경영과학2", type: "전필", offerings: [["2026-1", "O"], ["2026-2", "O"], ["2027-1", "O"], ["2027-2", "O(연합전공)"]] },
+  { category: "3학년", name: "산업공학통계", type: "전필", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "3학년", name: "생산관리", type: "전필", offerings: [["2026-1", "O(연합전공)"], ["2026-2", "O"]] },
+  { category: "3학년", name: "물류관리", type: "전선", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "3학년", name: "산업경영수리기법", type: "전선", offerings: [["2027-2", "O"]] },
+  { category: "3학년", name: "기술경영", type: "전선", offerings: [["2026-2", "O"], ["2027-2", "O"]] },
+  { category: "3학년", name: "서비스공학", type: "전선", offerings: [["2026-1", "O"]] },
+  { category: "3학년", name: "최적화모형 및 응용", type: "전선", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "3학년", name: "제품개발 및 품질설계", type: "전선", offerings: [["2027-2", "O"]] },
+  { category: "3학년", name: "기술경영개론", type: "전선", offerings: [["2026-1", "O"]] },
+  { category: "3학년", name: "지식경영전략", type: "전선", offerings: [["2026-1", "O(연합전공)"]] },
+  { category: "4학년", name: "경제성공학", type: "전필", offerings: [["2026-1", "O"], ["2026-2", "O(연합전공)"], ["2027-2", "O(연합전공)"]] },
+  { category: "4학년", name: "시뮬레이션", type: "전선", offerings: [["2026-1", "O"]] },
+  { category: "4학년", name: "휴먼인터페이스디자인", type: "전선", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "4학년", name: "데이터마이닝", type: "전선", offerings: [["2026-1", "O"]] },
+  { category: "4학년", name: "산업텍스트애널리틱스", type: "전선", offerings: [["2027-2", "O"]] },
+  { category: "4학년", name: "기술창업론", type: "전선", offerings: [["2026-1", "O(연합전공)"]] },
+  { category: "4학년", name: "최적화알고리즘", type: "전선", offerings: [["2026-2", "O"]] },
+  { category: "교양", name: "공학수학1", type: "", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "교양", name: "컴퓨터의개념및실습", type: "", offerings: [["2026-1", "O"], ["2026-2", "O(연합전공)"], ["2027-1", "O"], ["2027-2", "O(연합전공)"]] },
+  { category: "공대공통과목", name: "공학연구의 실습2", type: "전선", offerings: [["2026-1", "O"]] },
+  { category: "타과수강전선", name: "산업공학개론", type: "", offerings: [["2026-1", "O"]] },
+  { category: "대학원", name: "인간성능", type: "핵심", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "대학원", name: "작업생체역학", type: "핵심", offerings: [["2027-2", "O"]] },
+  { category: "대학원", name: "정수최적화", type: "핵심", offerings: [["2026-1", "O"], ["2026-2", "O"], ["2027-2", "O"]] },
+  { category: "대학원", name: "제품공학", type: "핵심", offerings: [["2026-1", "O"], ["2027-2", "O"]] },
+  { category: "대학원", name: "재고관리", type: "핵심", offerings: [["2026-2", "O"]] },
+  { category: "대학원", name: "생산계획 및 통제", type: "핵심", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "대학원", name: "데이터마이닝기법", type: "핵심", offerings: [["2027-2", "O"]] },
+  { category: "대학원", name: "데이터기반학습", type: "핵심", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "대학원", name: "응용 다변량 통계분석", type: "핵심", offerings: [["2027-1", "O"]] },
+  { category: "대학원", name: "기술혁신이론 및 연구방법론", type: "핵심", offerings: [["2026-1", "O"], ["2027-1", "O"]] },
+  { category: "대학원", name: "공업경제분석", type: "핵심", offerings: [["2026-1", "O"]] },
+  { category: "대학원", name: "산업공학세미나", type: "필수", offerings: [["2026-1", "O"]] },
+  { category: "대학원", name: "인간-기계 인터페이스 설계 및 평가", type: "", offerings: [["2026-2", "O"]] },
+  { category: "대학원", name: "자동차 인간공학", type: "", offerings: [["2026-1", "O"], ["2027-2", "O"]] },
+  { category: "대학원", name: "통계학습 고등논제", type: "", offerings: [["2027-2", "O"]] },
+  { category: "대학원", name: "경쟁시스템분석", type: "", offerings: [["2026-2", "O"]] },
+  { category: "대학원", name: "산업공학특론", type: "", offerings: [["2026-2", "O"], ["2027-2", "O"]] },
+  { category: "대학원", name: "조합최적화", type: "", offerings: [["2026-2", "O"]] },
+  { category: "대학원", name: "기술예측과 인텔리전스", type: "", offerings: [["2026-2", "O"]] },
+  { category: "대학원", name: "선형최적화", type: "", offerings: [["2027-1", "O"]] },
+  { category: "대학원", name: "수치최적화", type: "", offerings: [["2027-1", "O"]] },
+  { category: "대학원", name: "스케줄링이론및응용", type: "", offerings: [["2026-1", "O"]] }
+];
+
 const faqs = [
   {
     q: "졸업 요건은 이 사이트만 보고 판단해도 되나요?",
@@ -307,13 +361,16 @@ function renderCourses() {
   if (!courseGrid || !courseSearch) return;
 
   const query = courseSearch.value.trim().toLowerCase();
-  const filtered = courses.filter((course) => {
-    const haystack = `${course.code} ${course.name} ${course.field}`.toLowerCase();
+  const filtered = upcomingCourses.filter((course) => {
+    const offeringText = course.offerings.map(([term, note]) => `${term} ${note}`).join(" ");
+    const haystack = `${course.category} ${course.name} ${course.type} ${offeringText}`.toLowerCase();
     const matchesQuery = haystack.includes(query);
     const matchesFilter =
       activeFilter === "all" ||
-      (activeFilter === "required" && course.required) ||
-      (activeFilter === "data" && course.tag === "data");
+      (activeFilter === "required" && course.type === "전필") ||
+      (activeFilter === "elective" && course.type === "전선") ||
+      (activeFilter === "graduate" && course.category === "대학원") ||
+      course.offerings.some(([term]) => term === activeFilter);
     return matchesQuery && matchesFilter;
   });
 
@@ -321,12 +378,14 @@ function renderCourses() {
     <article class="course-card">
       <header>
         <div>
-          <span class="course-code">${course.code}</span>
+          <span class="course-code">${course.category}</span>
           <h3>${course.name}</h3>
         </div>
-        ${course.required ? '<span class="badge required">전공필수</span>' : '<span class="badge">전공선택</span>'}
+        ${course.type ? `<span class="badge ${course.type === "전필" ? "required" : ""}">${course.type}</span>` : '<span class="badge">교과목</span>'}
       </header>
-      <p class="course-meta">${course.field} · ${course.credits}</p>
+      <div class="offering-list">
+        ${course.offerings.map(([term, note]) => `<span>${term}${note !== "O" ? ` · ${note}` : ""}</span>`).join("")}
+      </div>
     </article>
   `).join("");
 }
