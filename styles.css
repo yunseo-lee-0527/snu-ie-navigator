@@ -230,7 +230,9 @@ h3 {
 .roadmap-lines {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
   width: 1267px;
   height: 773px;
   pointer-events: none;
@@ -252,7 +254,7 @@ h3 {
 .sem,
 .area {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   display: grid;
   place-items: center;
   text-align: center;
@@ -310,7 +312,7 @@ h3 {
 .course,
 .grad-course {
   position: relative;
-  z-index: 4;
+  z-index: 5;
   display: grid;
   place-items: center;
   min-height: 28px;
