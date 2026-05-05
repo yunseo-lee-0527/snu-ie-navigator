@@ -282,29 +282,6 @@ h3 {
   overflow: hidden;
 }
 
-.lane::before {
-  content: "";
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  top: 50%;
-  z-index: 0;
-  border-top: 2px solid rgba(70, 70, 70, 0.42);
-}
-
-.intro::before,
-.service::before {
-  display: none;
-}
-
-.data::before,
-.or::before,
-.scm::before,
-.finance::before,
-.human::before {
-  border-top-style: dotted;
-}
-
 .course,
 .grad-course {
   position: relative;
@@ -321,6 +298,53 @@ h3 {
   font-weight: 800;
   line-height: 1.25;
   text-align: center;
+}
+
+.course::before,
+.grad-course::before {
+  content: none;
+}
+
+.course[data-course="수학2 및 연습"]::before,
+.course[data-course="통계학 및 실험"]::before,
+.course[data-course="공학수학1"]::before,
+.course[data-course="공학수학2"]::before,
+.course[data-course="데이터관리와 분석"]::before,
+.course[data-course="경영과학2"]::before,
+.course[data-course="경제성공학"]::before,
+.course[data-course="인간공학 설계"]::before,
+.course[data-course="휴먼인터페이스 디자인"]::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 18px;
+  border-top: 2px solid rgba(64, 64, 64, 0.55);
+}
+
+.course[data-course="데이터마이닝"]::before,
+.course[data-course="빅데이터 산업응용"]::before,
+.course[data-course="산업 텍스트 애널리틱스"]::before,
+.course[data-course="물류관리"]::before,
+.course[data-course="재고관리"]::before,
+.course[data-course="제품공학"]::before,
+.course[data-course="공업경제분석"]::before,
+.course[data-course="인간성능"]::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 18px;
+  border-top: 2px dotted rgba(64, 64, 64, 0.55);
+}
+
+.grad-course::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 12px;
+  border-top: 2px dotted rgba(64, 64, 64, 0.55);
 }
 
 .course.emphasis,
