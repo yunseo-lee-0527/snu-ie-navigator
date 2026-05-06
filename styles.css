@@ -304,8 +304,10 @@ h3 {
   grid-template-columns: 1fr;
   align-content: center;
   gap: 5px;
+  padding-left: 10px;
+  padding-right: 7px;
   background: #bdbdbd;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .course,
@@ -335,8 +337,9 @@ h3 {
 
 .grad-course {
   min-height: 24px;
-  width: 100%;
+  width: calc(100% - 8px);
   min-width: 0;
+  justify-self: end;
   padding: 3px 5px;
   align-self: center;
   font-size: 10.5px;
@@ -348,8 +351,8 @@ h3 {
   content: "";
   position: absolute;
   top: 50%;
-  right: calc(100% + 8px);
-  width: 14px;
+  right: 100%;
+  width: 8px;
   border-top: 1.7px dotted rgba(70, 70, 70, 0.6);
   transform: translateY(-50%);
 }
