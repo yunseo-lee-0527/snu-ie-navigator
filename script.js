@@ -604,20 +604,25 @@ function initRoadmapLines() {
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
     svg.setAttribute("width", width);
     svg.setAttribute("height", height);
-    svg.replaceChildren();
+    while (svg.firstChild) {
+      svg.removeChild(svg.firstChild);
+    }
 
     solidConnections.forEach(([from, to]) => draw(from, to, "solid"));
     dottedConnections.forEach(([from, to]) => draw(from, to, "dotted"));
   };
 
-  render();
+  requestAnimationFrame(render);
+  window.addEventListener("load", render);
   window.addEventListener("resize", render);
 }
 
-filterButtons.forEach((button) => {
+initRoadmapLines();
+
+Array.from(filterButtons).forEach((button) => {
   button.addEventListener("click", () => {
     activeFilter = button.dataset.filter;
-    filterButtons.forEach((target) => target.classList.toggle("active", target === button));
+    Array.from(filterButtons).forEach((target) => target.classList.toggle("active", target === button));
     renderCourses();
   });
 });
@@ -629,4 +634,3 @@ if (courseSearch) {
 initFaqs();
 renderCourses();
 initRulesPage();
-initRoadmapLines();
