@@ -517,6 +517,103 @@ function initRulesPage() {
   renderRules(2025);
 }
 
+function initRoadmapLines() {
+  const board = document.querySelector(".roadmap-board");
+  const svg = document.querySelector(".roadmap-lines");
+
+  if (!board || !svg) return;
+
+  const solidConnections = [
+    ["수학 및 연습", "수학2 및 연습"],
+    ["수학2 및 연습", "공학수학1"],
+    ["공학수학1", "공학수학2"],
+    ["컴퓨터의 개념 및 실습", "데이터관리와 분석"],
+    ["데이터관리와 분석", "데이터마이닝"],
+    ["데이터관리와 분석", "빅데이터 산업응용"],
+    ["데이터관리와 분석", "산업 텍스트 애널리틱스"],
+    ["산업공학통계", "데이터마이닝"],
+    ["산업공학통계", "빅데이터 산업응용"],
+    ["산업공학통계", "산업 텍스트 애널리틱스"],
+    ["경영과학1", "경영과학2"],
+    ["경영과학2", "최적화모형 및 응용"],
+    ["경영과학2", "산업경영 수리기법"],
+    ["인간공학", "인간공학 설계"],
+    ["인간공학 설계", "휴먼인터페이스 디자인"]
+  ];
+
+  const dottedConnections = [
+    ["산업컴퓨팅개론", "데이터관리와 분석"],
+    ["데이터마이닝", "데이터마이닝 기법"],
+    ["빅데이터 산업응용", "데이터기반학습"],
+    ["시뮬레이션", "볼록최적화"],
+    ["시뮬레이션", "정수최적화"],
+    ["시뮬레이션", "추계학"],
+    ["산업공학통계", "물류관리"],
+    ["생산관리", "재고관리"],
+    ["생산관리", "생산계획 및 통제"],
+    ["서비스공학", "제품공학"],
+    ["금융학개론", "공업경제분석"],
+    ["핀테크 개론", "기술혁신이론 및 연구방법론"],
+    ["인간공학", "인간공학 실험"],
+    ["인간공학", "인간성능"],
+    ["인간공학", "작업생체역학"]
+  ];
+
+  const findCourse = (name) => {
+    return [...board.querySelectorAll("[data-course]")].find((node) => node.dataset.course === name);
+  };
+
+  const point = (element, side) => {
+    const boardRect = board.getBoundingClientRect();
+    const rect = element.getBoundingClientRect();
+    return {
+      x: side === "left" ? rect.left - boardRect.left : rect.right - boardRect.left,
+      y: rect.top - boardRect.top + rect.height / 2
+    };
+  };
+
+  const pathBetween = (from, to) => {
+    const start = point(from, "right");
+    const end = point(to, "left");
+    const horizontalGap = end.x - start.x;
+
+    if (Math.abs(start.y - end.y) < 12) {
+      return `M ${start.x} ${start.y} H ${end.x}`;
+    }
+
+    const bendX = horizontalGap > 28 ? start.x + horizontalGap / 2 : start.x + 22;
+    return `M ${start.x} ${start.y} H ${bendX} V ${end.y} H ${end.x}`;
+  };
+
+  const draw = (fromName, toName, type) => {
+    const from = findCourse(fromName);
+    const to = findCourse(toName);
+
+    if (!from || !to) return;
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", `line ${type}`);
+    path.setAttribute("d", pathBetween(from, to));
+    svg.appendChild(path);
+  };
+
+  const render = () => {
+    const width = board.scrollWidth;
+    const height = board.scrollHeight;
+
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("width", width);
+    svg.setAttribute("height", height);
+    svg.replaceChildren();
+
+    solidConnections.forEach(([from, to]) => draw(from, to, "solid"));
+    dottedConnections.forEach(([from, to]) => draw(from, to, "dotted"));
+  };
+
+  render();
+  window.addEventListener("resize", render);
+}
+
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     activeFilter = button.dataset.filter;
@@ -532,3 +629,4 @@ if (courseSearch) {
 initFaqs();
 renderCourses();
 initRulesPage();
+initRoadmapLines();
