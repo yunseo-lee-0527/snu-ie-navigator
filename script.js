@@ -617,7 +617,7 @@ function initRoadmapLines() {
   const sideLoopPath = (from, to) => {
     const a = rectFor(from);
     const b = rectFor(to);
-    const loopX = Math.min(a.left, b.left) - 42;
+    const loopX = Math.max(12, Math.min(a.left, b.left) - 220);
     return `M ${a.left} ${a.centerY} H ${loopX} V ${b.centerY} H ${b.left}`;
   };
 
