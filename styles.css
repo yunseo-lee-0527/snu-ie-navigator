@@ -240,8 +240,8 @@ h3 {
 
 .roadmap-lines .line {
   fill: none;
-  stroke: rgba(70, 70, 70, 0.52);
-  stroke-width: 1.7;
+  stroke: rgba(66, 66, 66, 0.58);
+  stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
 }
 

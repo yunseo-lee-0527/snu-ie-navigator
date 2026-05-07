@@ -563,26 +563,52 @@ function initRoadmapLines() {
     return [...board.querySelectorAll("[data-course]")].find((node) => node.dataset.course === name);
   };
 
-  const point = (element, side) => {
+  const rectFor = (element) => {
     const boardRect = board.getBoundingClientRect();
     const rect = element.getBoundingClientRect();
     return {
-      x: side === "left" ? rect.left - boardRect.left : rect.right - boardRect.left,
-      y: rect.top - boardRect.top + rect.height / 2
+      left: rect.left - boardRect.left,
+      right: rect.right - boardRect.left,
+      top: rect.top - boardRect.top,
+      bottom: rect.bottom - boardRect.top,
+      centerX: rect.left - boardRect.left + rect.width / 2,
+      centerY: rect.top - boardRect.top + rect.height / 2,
+      width: rect.width,
+      height: rect.height
     };
   };
 
   const pathBetween = (from, to) => {
-    const start = point(from, "right");
-    const end = point(to, "left");
-    const horizontalGap = end.x - start.x;
+    const a = rectFor(from);
+    const b = rectFor(to);
+    const sameColumn = Math.abs(a.centerX - b.centerX) < Math.max(a.width, b.width) * 0.65;
 
-    if (Math.abs(start.y - end.y) < 12) {
-      return `M ${start.x} ${start.y} H ${end.x}`;
+    if (sameColumn) {
+      if (b.centerY >= a.centerY) {
+        return `M ${a.centerX} ${a.bottom} V ${b.top}`;
+      }
+      return `M ${a.centerX} ${a.top} V ${b.bottom}`;
     }
 
-    const bendX = horizontalGap > 28 ? start.x + horizontalGap / 2 : start.x + 22;
-    return `M ${start.x} ${start.y} H ${bendX} V ${end.y} H ${end.x}`;
+    if (b.left >= a.right) {
+      const start = { x: a.right, y: a.centerY };
+      const end = { x: b.left, y: b.centerY };
+
+      if (Math.abs(start.y - end.y) < 8) {
+        return `M ${start.x} ${start.y} H ${end.x}`;
+      }
+
+      const bendX = start.x + (end.x - start.x) / 2;
+      return `M ${start.x} ${start.y} H ${bendX} V ${end.y} H ${end.x}`;
+    }
+
+    if (b.centerY >= a.centerY) {
+      const bendY = a.bottom + Math.max(10, (b.top - a.bottom) / 2);
+      return `M ${a.centerX} ${a.bottom} V ${bendY} H ${b.centerX} V ${b.top}`;
+    }
+
+    const bendY = a.top - Math.max(10, (a.top - b.bottom) / 2);
+    return `M ${a.centerX} ${a.top} V ${bendY} H ${b.centerX} V ${b.bottom}`;
   };
 
   const draw = (fromName, toName, type) => {
