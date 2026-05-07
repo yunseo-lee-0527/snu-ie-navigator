@@ -386,7 +386,7 @@ h3 {
 .course[data-course="생산관리"] { grid-column: 7; }
 .course[data-course="제품개발 및 품질설계"] { grid-column: 6; }
 .course[data-course="서비스공학"] { grid-column: 7; }
-.course[data-course="기술경영"] { grid-column: 7; }
+.course[data-course="기술경영"] { grid-column: 6; }
 .course[data-course="경제성공학"] { grid-column: 8; }
 .course[data-course="금융학개론"] { grid-column: 8; align-self: start; }
 .course[data-course="핀테크 개론"] { grid-column: 8; align-self: end; }
