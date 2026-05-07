@@ -220,7 +220,7 @@ h3 {
   position: relative;
   display: grid;
   grid-template-columns: 88px repeat(8, 126px) 138px;
-  grid-template-rows: 38px repeat(9, 78px);
+  grid-template-rows: 38px 78px 78px 78px 104px 78px 78px 78px 78px 78px;
   gap: 3px;
   width: max-content;
   min-width: 1235px;
