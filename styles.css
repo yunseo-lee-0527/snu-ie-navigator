@@ -380,12 +380,12 @@ h3 {
 .course[data-course="경영과학2"] { grid-column: 6; }
 .course[data-course="최적화모형 및 응용"] { grid-column: 7; align-self: center; transform: translateY(-17px); }
 .course[data-course="산업경영 수리기법"] { grid-column: 7; align-self: center; transform: translateY(17px); }
-.course[data-course="시뮬레이션"] { grid-column: 8; align-self: start; }
-.course[data-course="최적화 알고리즘"] { grid-column: 8; align-self: end; }
+.course[data-course="시뮬레이션"] { grid-column: 8; align-self: center; transform: translateY(-17px); }
+.course[data-course="최적화 알고리즘"] { grid-column: 8; align-self: center; transform: translateY(17px); }
 .course[data-course="물류관리"] { grid-column: 6; }
 .course[data-course="생산관리"] { grid-column: 7; }
-.course[data-course="제품개발 및 품질설계"] { grid-column: 6; }
-.course[data-course="서비스공학"] { grid-column: 7; }
+.course[data-course="제품개발 및 품질설계"] { grid-column: 5; }
+.course[data-course="서비스공학"] { grid-column: 6; }
 .course[data-course="기술경영"] { grid-column: 6; }
 .course[data-course="경제성공학"] { grid-column: 7; }
 .course[data-course="금융학개론"] { grid-column: 8; align-self: start; }

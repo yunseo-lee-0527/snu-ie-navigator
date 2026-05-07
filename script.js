@@ -614,6 +614,13 @@ function initRoadmapLines() {
     return `M ${a.centerX} ${a.top} V ${bendY} H ${b.centerX} V ${b.bottom}`;
   };
 
+  const sideLoopPath = (from, to) => {
+    const a = rectFor(from);
+    const b = rectFor(to);
+    const loopX = Math.min(a.left, b.left) - 42;
+    return `M ${a.left} ${a.centerY} H ${loopX} V ${b.centerY} H ${b.left}`;
+  };
+
   const draw = (fromName, toName, type) => {
     const from = findCourse(fromName);
     const to = findCourse(toName);
@@ -622,7 +629,12 @@ function initRoadmapLines() {
 
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("class", `line ${type}`);
-    path.setAttribute("d", pathBetween(from, to));
+    path.setAttribute(
+      "d",
+      fromName === "산업공학통계" && toName === "물류관리"
+        ? sideLoopPath(from, to)
+        : pathBetween(from, to)
+    );
     svg.appendChild(path);
   };
 
