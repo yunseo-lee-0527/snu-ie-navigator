@@ -524,7 +524,7 @@ function initRoadmapLines() {
   if (!board || !svg) return;
 
   const solidConnections = [
-    ["수학 및 연습", "수학2 및 연습"],
+    ["수학1 및 연습", "수학2 및 연습"],
     ["수학2 및 연습", "공학수학1"],
     ["공학수학1", "공학수학2"],
     ["컴퓨터의 개념 및 실습", "데이터관리와 분석"],

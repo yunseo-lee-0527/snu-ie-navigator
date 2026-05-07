@@ -299,6 +299,14 @@ h3 {
   grid-column: 2 / span 8;
 }
 
+.lane.math,
+.lane.intro,
+.lane.computing {
+  grid-template-rows: 1fr 28px 28px 1fr;
+  align-items: stretch;
+  row-gap: 4px;
+}
+
 .lane.or {
   grid-template-rows: 1fr 28px 28px 1fr;
   align-items: stretch;
@@ -379,18 +387,18 @@ h3 {
 
 /* Roadmap course-name mapping. These selectors intentionally use visible
    course names so the layout can be checked against the curriculum image. */
-.course[data-course="수학 및 연습"] { grid-column: 1; }
-.course[data-course="수학2 및 연습"] { grid-column: 2; }
-.course[data-course="통계학 및 실험"] { grid-column: 3; align-self: start; }
-.course[data-course="공학수학1"] { grid-column: 3; align-self: end; }
-.course[data-course="공학수학2"] { grid-column: 4; }
-.course[data-course="산업공학의 이해"] { grid-column: 2; }
-.course[data-course="산업공정설계"] { grid-column: 3; align-self: start; }
-.course[data-course="과학적 관리"] { grid-column: 3; align-self: end; }
-.course[data-course="공학도를 위한 창의적 사고"] { grid-column: 6; }
-.course[data-course="컴퓨터의 개념 및 실습"] { grid-column: 1; }
-.course[data-course="산업컴퓨팅개론"] { grid-column: 3; align-self: end; }
-.course[data-course="데이터관리와 분석"] { grid-column: 4; }
+.course[data-course="수학1 및 연습"] { grid-column: 1; grid-row: 2; align-self: center; }
+.course[data-course="수학2 및 연습"] { grid-column: 2; grid-row: 2; align-self: center; }
+.course[data-course="통계학 및 실험"] { grid-column: 3; grid-row: 2; align-self: center; }
+.course[data-course="공학수학1"] { grid-column: 3; grid-row: 3; align-self: center; }
+.course[data-course="공학수학2"] { grid-column: 4; grid-row: 3; align-self: center; }
+.course[data-course="산업공학의 이해"] { grid-column: 2; grid-row: 2; align-self: center; }
+.course[data-course="산업공정설계"] { grid-column: 3; grid-row: 3; align-self: center; }
+.course[data-course="과학적 관리"] { grid-column: 3; grid-row: 2; align-self: center; }
+.course[data-course="공학도를 위한 창의적 사고"] { grid-column: 6; grid-row: 2 / 4; align-self: center; }
+.course[data-course="컴퓨터의 개념 및 실습"] { grid-column: 1; grid-row: 2; align-self: center; }
+.course[data-course="산업컴퓨팅개론"] { grid-column: 3; grid-row: 3; align-self: center; }
+.course[data-course="데이터관리와 분석"] { grid-column: 4; grid-row: 2; align-self: center; }
 .course[data-course="산업공학통계"] { grid-column: 5; grid-row: 3; align-self: center; }
 .course[data-course="데이터마이닝"] { grid-column: 7; grid-row: 2; align-self: center; }
 .course[data-course="빅데이터 산업응용"] { grid-column: 7; grid-row: 3; align-self: center; }
