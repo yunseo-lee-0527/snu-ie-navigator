@@ -621,6 +621,37 @@ function initRoadmapLines() {
     return `M ${a.left} ${a.centerY} H ${loopX} V ${b.centerY} H ${b.left}`;
   };
 
+  const managementSciencePath = (from, to) => {
+    const a = rectFor(from);
+    const b = rectFor(to);
+
+    if (from.dataset.course === "경영과학2") {
+      const trunkX = a.right + 8;
+      return `M ${a.right} ${a.centerY} H ${trunkX} V ${b.centerY} H ${b.left}`;
+    }
+
+    return `M ${a.right} ${a.centerY} H ${b.left}`;
+  };
+
+  const customPath = (fromName, toName, from, to) => {
+    if (fromName === "산업공학통계" && toName === "물류관리") {
+      return sideLoopPath(from, to);
+    }
+
+    const managementSciencePairs = [
+      "경영과학2->최적화모형 및 응용",
+      "경영과학2->산업경영 수리기법",
+      "최적화모형 및 응용->시뮬레이션",
+      "산업경영 수리기법->최적화 알고리즘"
+    ];
+
+    if (managementSciencePairs.includes(`${fromName}->${toName}`)) {
+      return managementSciencePath(from, to);
+    }
+
+    return pathBetween(from, to);
+  };
+
   const draw = (fromName, toName, type) => {
     const from = findCourse(fromName);
     const to = findCourse(toName);
@@ -629,12 +660,7 @@ function initRoadmapLines() {
 
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("class", `line ${type}`);
-    path.setAttribute(
-      "d",
-      fromName === "산업공학통계" && toName === "물류관리"
-        ? sideLoopPath(from, to)
-        : pathBetween(from, to)
-    );
+    path.setAttribute("d", customPath(fromName, toName, from, to));
     svg.appendChild(path);
   };
 
