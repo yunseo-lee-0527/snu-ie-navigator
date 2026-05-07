@@ -528,12 +528,6 @@ function initRoadmapLines() {
     ["수학2 및 연습", "공학수학1"],
     ["공학수학1", "공학수학2"],
     ["컴퓨터의 개념 및 실습", "데이터관리와 분석"],
-    ["데이터관리와 분석", "데이터마이닝"],
-    ["데이터관리와 분석", "빅데이터 산업응용"],
-    ["데이터관리와 분석", "산업 텍스트 애널리틱스"],
-    ["산업공학통계", "데이터마이닝"],
-    ["산업공학통계", "빅데이터 산업응용"],
-    ["산업공학통계", "산업 텍스트 애널리틱스"],
     ["경영과학1", "경영과학2"],
     ["경영과학2", "최적화모형 및 응용"],
     ["경영과학2", "산업경영 수리기법"],
@@ -633,26 +627,9 @@ function initRoadmapLines() {
     return `M ${a.right} ${a.centerY} H ${b.left}`;
   };
 
-  const statisticsBranchPath = (from, to) => {
-    const a = rectFor(from);
-    const b = rectFor(to);
-    const trunkX = b.left - 16;
-    return `M ${a.right} ${a.centerY} H ${trunkX} V ${b.centerY} H ${b.left}`;
-  };
-
   const customPath = (fromName, toName, from, to) => {
     if (fromName === "산업공학통계" && toName === "물류관리") {
       return sideLoopPath(from, to);
-    }
-
-    const statisticsPairs = [
-      "산업공학통계->데이터마이닝",
-      "산업공학통계->빅데이터 산업응용",
-      "산업공학통계->산업 텍스트 애널리틱스"
-    ];
-
-    if (statisticsPairs.includes(`${fromName}->${toName}`)) {
-      return statisticsBranchPath(from, to);
     }
 
     const managementSciencePairs = [
@@ -669,16 +646,48 @@ function initRoadmapLines() {
     return pathBetween(from, to);
   };
 
+  const appendPath = (d, type) => {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", `line ${type}`);
+    path.setAttribute("d", d);
+    svg.appendChild(path);
+  };
+
   const draw = (fromName, toName, type) => {
     const from = findCourse(fromName);
     const to = findCourse(toName);
 
     if (!from || !to) return;
 
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("class", `line ${type}`);
-    path.setAttribute("d", customPath(fromName, toName, from, to));
-    svg.appendChild(path);
+    appendPath(customPath(fromName, toName, from, to), type);
+  };
+
+  const drawDataMerge = () => {
+    const dataManagement = findCourse("데이터관리와 분석");
+    const statistics = findCourse("산업공학통계");
+    const targets = [
+      findCourse("데이터마이닝"),
+      findCourse("빅데이터 산업응용"),
+      findCourse("산업 텍스트 애널리틱스")
+    ];
+
+    if (!dataManagement || !statistics || targets.some((target) => !target)) return;
+
+    const dataRect = rectFor(dataManagement);
+    const statRect = rectFor(statistics);
+    const targetRects = targets.map(rectFor);
+    const trunkX = Math.min(...targetRects.map((rect) => rect.left)) - 18;
+    const ys = [dataRect.centerY, statRect.centerY, ...targetRects.map((rect) => rect.centerY)];
+    const trunkTop = Math.min(...ys);
+    const trunkBottom = Math.max(...ys);
+    const branches = targetRects.map((rect) => `M ${trunkX} ${rect.centerY} H ${rect.left}`).join(" ");
+
+    appendPath(
+      `M ${dataRect.right} ${dataRect.centerY} H ${trunkX} ` +
+        `M ${statRect.right} ${statRect.centerY} H ${trunkX} ` +
+        `M ${trunkX} ${trunkTop} V ${trunkBottom} ${branches}`,
+      "solid"
+    );
   };
 
   const render = () => {
@@ -696,6 +705,7 @@ function initRoadmapLines() {
     }
 
     solidConnections.forEach(([from, to]) => draw(from, to, "solid"));
+    drawDataMerge();
     dottedConnections.forEach(([from, to]) => draw(from, to, "dotted"));
   };
 
