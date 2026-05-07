@@ -222,6 +222,7 @@ h3 {
   grid-template-columns: 88px repeat(8, 126px) 138px;
   grid-template-rows: 38px repeat(9, 78px);
   gap: 3px;
+  width: max-content;
   min-width: 1235px;
   padding: 3px;
   background: var(--white);
@@ -233,8 +234,6 @@ h3 {
   z-index: 3;
   grid-column: 1 / -1;
   grid-row: 1 / -1;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
   overflow: visible;
 }

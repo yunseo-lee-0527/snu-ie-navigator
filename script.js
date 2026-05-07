@@ -598,12 +598,15 @@ function initRoadmapLines() {
   };
 
   const render = () => {
-    const width = board.scrollWidth;
-    const height = board.scrollHeight;
+    const boardRect = board.getBoundingClientRect();
+    const width = boardRect.width;
+    const height = boardRect.height;
 
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
     svg.setAttribute("width", width);
     svg.setAttribute("height", height);
+    svg.style.width = `${width}px`;
+    svg.style.height = `${height}px`;
     while (svg.firstChild) {
       svg.removeChild(svg.firstChild);
     }
@@ -615,6 +618,11 @@ function initRoadmapLines() {
   requestAnimationFrame(render);
   window.addEventListener("load", render);
   window.addEventListener("resize", render);
+
+  if ("ResizeObserver" in window) {
+    const observer = new ResizeObserver(render);
+    observer.observe(board);
+  }
 }
 
 initRoadmapLines();
