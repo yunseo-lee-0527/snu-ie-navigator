@@ -633,9 +633,26 @@ function initRoadmapLines() {
     return `M ${a.right} ${a.centerY} H ${b.left}`;
   };
 
+  const statisticsBranchPath = (from, to) => {
+    const a = rectFor(from);
+    const b = rectFor(to);
+    const trunkX = b.left - 16;
+    return `M ${a.right} ${a.centerY} H ${trunkX} V ${b.centerY} H ${b.left}`;
+  };
+
   const customPath = (fromName, toName, from, to) => {
     if (fromName === "산업공학통계" && toName === "물류관리") {
       return sideLoopPath(from, to);
+    }
+
+    const statisticsPairs = [
+      "산업공학통계->데이터마이닝",
+      "산업공학통계->빅데이터 산업응용",
+      "산업공학통계->산업 텍스트 애널리틱스"
+    ];
+
+    if (statisticsPairs.includes(`${fromName}->${toName}`)) {
+      return statisticsBranchPath(from, to);
     }
 
     const managementSciencePairs = [
