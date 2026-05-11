@@ -324,6 +324,7 @@ const recognizedElectives = {
 const recognizedElectiveCredits = {
   "212.201": "3",
   "212.202": "3",
+  "251.209": "3",
   "251.301": "3",
   "251.303": "3",
   "251.305": "3",
@@ -333,9 +334,13 @@ const recognizedElectiveCredits = {
   "300.204": "4",
   "326.313": "3",
   "326.315": "3",
+  "326.416": "3",
   "3341.201": "3",
   "3341.202": "3",
+  "414.436A": "3",
+  "414.463": "3",
   "4190.101": "3",
+  "4190.301": "3",
   "4190.306": "3",
   "4190.407": "3",
   "4190.408": "3",
@@ -352,6 +357,9 @@ const recognizedElectiveCredits = {
   "458.405": "3",
   "465.202": "3",
   "465.319": "3",
+  "465.413": "3",
+  "465.422": "3",
+  "465.435": "3",
   "881.003": "3",
   "881.008": "3",
   "881.319": "3",
@@ -361,10 +369,18 @@ const recognizedElectiveCredits = {
   "M1540.000100": "3",
   "M1540.000200": "3",
   "M1540.000300": "3",
+  "M1540.000400": "3",
   "M1540.000500": "3",
   "M2794.001700": "3",
+  "M2794.002100": "3",
+  "M2794.002400": "3",
   "M2794.002700": "3",
+  "M2794.002800": "3",
+  "M2794.003300": "3",
+  "M2794.003500": "3",
   "M2794.003600": "3",
+  "M2794.004400": "3",
+  "M2794.005100": "3",
   "M2794.013600": "3"
 };
 
@@ -500,11 +516,11 @@ function initRulesPage() {
 
   function creditBadges(subject) {
     const codes = courseCodes(subject);
-    const badges = codes
+    const credits = codes
       .filter((code, index) => codes.indexOf(code) === index && recognizedElectiveCredits[code])
-      .map((code) => `<strong>${recognizedElectiveCredits[code]}학점</strong>`);
+      .map((code) => `${recognizedElectiveCredits[code]}학점`);
 
-    return badges.length ? `<span class="credit-badges">${badges.join("")}</span>` : "";
+    return credits.length ? `<span class="credit-badges"><strong>${credits.join("/")}</strong></span>` : "";
   }
 
   function electiveDepartments(year) {
@@ -520,7 +536,7 @@ function initRulesPage() {
 
   function pdfLink(activeYear) {
     return `
-      <a class="active" href="${requirementPdfs[activeYear]}" target="_blank" rel="noreferrer">${String(activeYear).slice(2)}학번 PDF</a>
+      <a class="active" href="${requirementPdfs[activeYear]}" target="_blank" rel="noreferrer">${String(activeYear).slice(2)}학번_이수규정</a>
     `;
   }
 
@@ -541,7 +557,7 @@ function initRulesPage() {
     yearChips.forEach((chip) => chip.classList.toggle("active", Number(chip.dataset.year) === year));
     if (selectedPdfLink) {
       selectedPdfLink.innerHTML = `
-        <span>해당 학번 PDF</span>
+        <span>${data.label} 이수 규정 PDF 보기:</span>
         <div class="pdf-link-grid">${pdfLink(year)}</div>
       `;
     }
