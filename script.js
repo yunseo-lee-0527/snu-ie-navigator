@@ -424,6 +424,7 @@ function initRulesPage() {
   const yearInput = document.querySelector("#studentYear");
   const ruleOutput = document.querySelector("#ruleOutput");
   const yearChips = document.querySelectorAll(".year-chip");
+  const selectedPdfLink = document.querySelector("#selectedPdfLink");
   if (!yearInput || !ruleOutput) return;
 
   function listItems(items) {
@@ -457,15 +458,16 @@ function initRulesPage() {
     `).join("");
   }
 
-  function pdfLinks(activeYear) {
-    return Object.entries(requirementPdfs).map(([year, path]) => `
-      <a class="${Number(year) === activeYear ? "active" : ""}" href="${path}" target="_blank" rel="noreferrer">${String(year).slice(2)}학번 PDF</a>
-    `).join("");
+  function pdfLink(activeYear) {
+    return `
+      <a class="active" href="${requirementPdfs[activeYear]}" target="_blank" rel="noreferrer">${String(activeYear).slice(2)}학번 PDF</a>
+    `;
   }
 
   function renderRules(year) {
     const data = ruleData[year];
     if (!data) {
+      if (selectedPdfLink) selectedPdfLink.innerHTML = "";
       ruleOutput.innerHTML = `
         <article class="rule-alert">
           <h2>지원 범위 밖 학번입니다</h2>
@@ -477,6 +479,12 @@ function initRulesPage() {
 
     yearInput.value = year;
     yearChips.forEach((chip) => chip.classList.toggle("active", Number(chip.dataset.year) === year));
+    if (selectedPdfLink) {
+      selectedPdfLink.innerHTML = `
+        <span>해당 학번 PDF</span>
+        <div class="pdf-link-grid">${pdfLink(year)}</div>
+      `;
+    }
 
     ruleOutput.innerHTML = `
       <div class="rule-summary">
@@ -511,12 +519,6 @@ function initRulesPage() {
         <h2>복수전공·부전공·자유전공</h2>
         <p class="section-note">단전공생 이수학점과 별도로 확인해야 하는 다전공 기준입니다. 복수전공, 부전공, 자유전공학부 학생은 이 섹션을 꼭 확인하세요.</p>
         <ul class="required-list">${listItems(multiMajorRules)}</ul>
-      </section>
-
-      <section class="rule-section">
-        <h2>PDF로 확인하기</h2>
-        <p>선택한 학번의 원문 PDF와 다른 학번 PDF를 함께 확인할 수 있습니다.</p>
-        <div class="pdf-link-grid">${pdfLinks(year)}</div>
       </section>
     `;
   }
