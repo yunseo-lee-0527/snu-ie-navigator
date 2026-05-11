@@ -9,8 +9,6 @@
   --green: #2f7d6d;
   --gold: #b77b27;
   --white: #fff;
-  --lane: #ededed;
-  --label: #c9c9c9;
   font-family: "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
 }
 
@@ -79,22 +77,6 @@ a {
 
 .nav a:hover {
   background: var(--wash);
-}
-
-.roadmap-hero {
-  min-height: calc(100vh - 64px);
-  padding: 18px 2vw 24px;
-  background: linear-gradient(180deg, #f7f9fc 0%, #ffffff 88%);
-}
-
-.roadmap-title {
-  display: block;
-  margin: 0 auto 12px;
-  width: min(1500px, 100%);
-}
-
-.roadmap-title h1 {
-  max-width: 820px;
 }
 
 .eyebrow {
@@ -198,241 +180,6 @@ h3 {
   margin: 0;
   color: var(--muted);
   line-height: 1.65;
-}
-
-.roadmap-title p:last-child {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.roadmap-shell {
-  width: min(1500px, 100%);
-  margin: 0 auto;
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--white);
-  box-shadow: 0 18px 44px rgba(24, 33, 47, 0.12);
-}
-
-.roadmap-board {
-  position: relative;
-  display: grid;
-  grid-template-columns: 88px repeat(8, 126px) 138px;
-  grid-template-rows: 38px 78px 78px 78px 104px 78px 78px 78px 78px 78px;
-  gap: 3px;
-  width: max-content;
-  min-width: 1235px;
-  padding: 3px;
-  background: var(--white);
-}
-
-.roadmap-lines {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-  pointer-events: none;
-  overflow: visible;
-}
-
-.roadmap-lines .line {
-  fill: none;
-  stroke: rgba(66, 66, 66, 0.58);
-  stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
-}
-
-.roadmap-lines .dotted {
-  stroke-dasharray: 3 4;
-  stroke-linecap: round;
-}
-
-.corner,
-.sem,
-.area {
-  position: relative;
-  z-index: 4;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.corner {
-  color: var(--white);
-  background: var(--snu-dark);
-}
-
-.sem {
-  border: 1px solid #cfd6de;
-  background: var(--white);
-}
-
-.grad-head {
-  background: #f1f3f7;
-}
-
-.area {
-  min-width: 0;
-  padding: 6px;
-  background: var(--label);
-  color: #101820;
-  line-height: 1.25;
-}
-
-.lane,
-.grad-lane {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  align-items: center;
-  gap: 4px;
-  padding: 7px 8px;
-  background: var(--lane);
-}
-
-.lane {
-  grid-column: 2 / span 8;
-}
-
-.lane.math,
-.lane.intro,
-.lane.computing {
-  grid-template-rows: repeat(2, 28px);
-  align-content: center;
-  align-items: center;
-  row-gap: 4px;
-}
-
-.lane.or {
-  grid-template-rows: repeat(2, 28px);
-  align-content: center;
-  align-items: center;
-  row-gap: 4px;
-}
-
-.lane.data {
-  grid-template-rows: repeat(3, 28px);
-  align-content: center;
-  align-items: center;
-  row-gap: 3px;
-}
-
-.lane.finance,
-.lane.human {
-  grid-template-rows: repeat(2, 28px);
-  align-content: center;
-  align-items: center;
-  row-gap: 4px;
-}
-
-.grad-lane {
-  grid-column: 10;
-  grid-template-columns: 1fr;
-  align-content: center;
-  gap: 5px;
-  background: #bdbdbd;
-  overflow: hidden;
-}
-
-.course,
-.grad-course {
-  position: relative;
-  z-index: 5;
-  display: grid;
-  place-items: center;
-  min-height: 28px;
-  padding: 3px 6px;
-  border: 1px solid #9ea8b8;
-  border-radius: 4px;
-  background: var(--white);
-  color: #172033;
-  font-size: 11px;
-  font-weight: 800;
-  line-height: 1.25;
-  text-align: center;
-}
-
-.course.emphasis,
-.grad-course.emphasis {
-  border-color: var(--snu);
-  color: var(--white);
-  background: var(--snu);
-}
-
-.grad-course {
-  min-height: 24px;
-  width: 100%;
-  min-width: 0;
-  padding: 3px 5px;
-  align-self: center;
-  font-size: 10.5px;
-  line-height: 1.18;
-  background: #fff;
-}
-
-.c1 { grid-column: 1; }
-.c2 { grid-column: 2; }
-.c3 { grid-column: 3; }
-.c3b { grid-column: 3; align-self: start; }
-.c4 { grid-column: 4; }
-.c5 { grid-column: 5; }
-.c5b { grid-column: 5; align-self: end; }
-.c6 { grid-column: 6; }
-.c7 { grid-column: 7; }
-.c7b { grid-column: 7; align-self: end; }
-.c8 { grid-column: 8; }
-.c8b { grid-column: 8; align-self: end; }
-.c8c { grid-column: 8; align-self: start; }
-
-/* Roadmap course-name mapping. These selectors intentionally use visible
-   course names so the layout can be checked against the curriculum image. */
-.course[data-course="수학1 및 연습"] { grid-column: 1; grid-row: 1 / 3; align-self: center; }
-.course[data-course="수학2 및 연습"] { grid-column: 2; grid-row: 1 / 3; align-self: center; }
-.course[data-course="통계학 및 실험"] { grid-column: 3; grid-row: 1; align-self: center; }
-.course[data-course="공학수학1"] { grid-column: 3; grid-row: 2; align-self: center; }
-.course[data-course="공학수학2"] { grid-column: 4; grid-row: 1 / 3; align-self: center; }
-.course[data-course="산업공학의 이해"] { grid-column: 2; grid-row: 1 / 3; align-self: center; }
-.course[data-course="산업공정설계"] { grid-column: 3; grid-row: 2; align-self: center; }
-.course[data-course="과학적 관리"] { grid-column: 3; grid-row: 1; align-self: center; }
-.course[data-course="공학도를 위한 창의적 사고"] { grid-column: 5; grid-row: 1 / 3; align-self: center; }
-.course[data-course="컴퓨터의 개념 및 실습"] { grid-column: 1; grid-row: 1; align-self: center; }
-.course[data-course="산업컴퓨팅개론"] { grid-column: 3; grid-row: 2; align-self: center; }
-.course[data-course="데이터관리와 분석"] { grid-column: 4; grid-row: 1; align-self: center; }
-.course[data-course="산업공학통계"] { grid-column: 5; grid-row: 2; align-self: center; }
-.course[data-course="데이터마이닝"] { grid-column: 7; grid-row: 1; align-self: center; }
-.course[data-course="빅데이터 산업응용"] { grid-column: 7; grid-row: 2; align-self: center; }
-.course[data-course="산업 텍스트 애널리틱스"] { grid-column: 7; grid-row: 3; align-self: center; }
-.course[data-course="경영과학1"] { grid-column: 4; grid-row: 1 / 3; align-self: center; }
-.course[data-course="경영과학2"] { grid-column: 5; grid-row: 1 / 3; align-self: center; }
-.course[data-course="최적화모형 및 응용"] { grid-column: 6; grid-row: 1; align-self: center; }
-.course[data-course="산업경영 수리기법"] { grid-column: 6; grid-row: 2; align-self: center; }
-.course[data-course="시뮬레이션"] { grid-column: 7; grid-row: 1; align-self: center; }
-.course[data-course="최적화 알고리즘"] { grid-column: 7; grid-row: 2; align-self: center; }
-.course[data-course="물류관리"] { grid-column: 5; }
-.course[data-course="생산관리"] { grid-column: 6; }
-.course[data-course="제품개발 및 품질설계"] { grid-column: 5; }
-.course[data-course="서비스공학"] { grid-column: 6; }
-.course[data-course="기술경영"] { grid-column: 6; grid-row: 1 / 3; align-self: center; }
-.course[data-course="경제성공학"] { grid-column: 7; grid-row: 1 / 3; align-self: center; }
-.course[data-course="금융학개론"] { grid-column: 8; grid-row: 1; align-self: center; }
-.course[data-course="핀테크 개론"] { grid-column: 8; grid-row: 2; align-self: center; }
-.course[data-course="인간공학"] { grid-column: 4; grid-row: 1; align-self: center; }
-.course[data-course="인간공학 실험"] { grid-column: 4; grid-row: 2; align-self: center; }
-.course[data-course="인간공학 설계"] { grid-column: 6; grid-row: 2; align-self: center; }
-.course[data-course="휴먼인터페이스 디자인"] { grid-column: 7; grid-row: 2; align-self: center; }
-
-.course[data-course="수학1 및 연습"],
-.course[data-course="수학2 및 연습"],
-.course[data-course="통계학 및 실험"],
-.course[data-course="공학수학1"],
-.course[data-course="공학수학2"],
-.course[data-course="컴퓨터의 개념 및 실습"] {
-  color: var(--snu);
 }
 
 .toolbar {
@@ -936,7 +683,6 @@ h3 {
     padding-bottom: 2px;
   }
 
-  .roadmap-title,
   .home-hero,
   .portal-grid,
   .student-year-panel,
@@ -951,10 +697,6 @@ h3 {
   .home-hero {
     min-height: auto;
     padding-top: 42px;
-  }
-
-  .roadmap-hero {
-    padding-top: 22px;
   }
 
   h1 {
