@@ -264,6 +264,16 @@ const commonMajorRequired = [
   "406.314 경제성공학"
 ];
 
+const requirementPdfs = {
+  2020: "docs/requirements/20.pdf",
+  2021: "docs/requirements/21.pdf",
+  2022: "docs/requirements/22.pdf",
+  2023: "docs/requirements/23.pdf",
+  2024: "docs/requirements/24.pdf",
+  2025: "docs/requirements/25.pdf",
+  2026: "docs/requirements/26.pdf"
+};
+
 const multiMajorRules = [
   "복수전공: 해당 기준년도의 모든 전공필수 교과목을 이수해야 하며, 인간공학실험 및 산업공학의 이해는 면제됩니다.",
   "복수전공: 학과 개설 전공선택 교과목을 추가로 이수하여 최소 39학점을 만족해야 합니다.",
@@ -440,8 +450,16 @@ function initRulesPage() {
     return recognizedElectives[electiveGroupForYear(year)].map(([department, subjects]) => `
       <article class="elective-dept">
         <h3>${department}</h3>
-        <p>${subjects.join(" / ")}</p>
+        <ul class="elective-subjects">
+          ${subjects.map((subject) => `<li><span>${subject}</span><strong>3학점</strong></li>`).join("")}
+        </ul>
       </article>
+    `).join("");
+  }
+
+  function pdfLinks(activeYear) {
+    return Object.entries(requirementPdfs).map(([year, path]) => `
+      <a class="${Number(year) === activeYear ? "active" : ""}" href="${path}" target="_blank" rel="noreferrer">${String(year).slice(2)}학번 PDF</a>
     `).join("");
   }
 
@@ -486,7 +504,6 @@ function initRulesPage() {
 
       <section class="rule-section">
         <h2>전선 인정 과목</h2>
-        <p class="section-note">${data.label}은 <strong>${electiveGroupForYear(year)}</strong> 기준 전공선택 인정 과목을 확인하면 됩니다.</p>
         <div class="elective-grid">${electiveDepartments(year)}</div>
       </section>
 
@@ -497,9 +514,9 @@ function initRulesPage() {
       </section>
 
       <section class="rule-section">
-        <h2>원문 확인</h2>
-        <p>세부 인정 여부는 공식 문서와 학과 행정실 확인이 필요합니다.</p>
-        <a href="https://ie.snu.ac.kr/undergrad_regulation/" target="_blank" rel="noreferrer">산업공학과 학부 이수 규정</a>
+        <h2>PDF로 확인하기</h2>
+        <p>선택한 학번의 원문 PDF와 다른 학번 PDF를 함께 확인할 수 있습니다.</p>
+        <div class="pdf-link-grid">${pdfLinks(year)}</div>
       </section>
     `;
   }

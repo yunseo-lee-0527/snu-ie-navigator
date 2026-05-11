@@ -399,7 +399,7 @@ h3 {
 .course[data-course="산업공학의 이해"] { grid-column: 2; grid-row: 1 / 3; align-self: center; }
 .course[data-course="산업공정설계"] { grid-column: 3; grid-row: 2; align-self: center; }
 .course[data-course="과학적 관리"] { grid-column: 3; grid-row: 1; align-self: center; }
-.course[data-course="공학도를 위한 창의적 사고"] { grid-column: 6; grid-row: 1 / 3; align-self: center; }
+.course[data-course="공학도를 위한 창의적 사고"] { grid-column: 5; grid-row: 1 / 3; align-self: center; }
 .course[data-course="컴퓨터의 개념 및 실습"] { grid-column: 1; grid-row: 1; align-self: center; }
 .course[data-course="산업컴퓨팅개론"] { grid-column: 3; grid-row: 2; align-self: center; }
 .course[data-course="데이터관리와 분석"] { grid-column: 4; grid-row: 1; align-self: center; }
@@ -689,10 +689,58 @@ h3 {
   font-size: 17px;
 }
 
+.elective-subjects {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.elective-subjects li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: start;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.elective-subjects strong {
+  min-width: 48px;
+  color: var(--snu-dark);
+  font-size: 13px;
+  text-align: right;
+}
+
 .elective-dept p {
   margin: 0;
   color: var(--muted);
   line-height: 1.65;
+}
+
+.pdf-link-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pdf-link-grid a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+  color: var(--snu-dark);
+  font-weight: 800;
+}
+
+.pdf-link-grid a.active {
+  border-color: var(--snu);
+  background: var(--snu);
+  color: var(--white);
 }
 
 .faq-answer,
