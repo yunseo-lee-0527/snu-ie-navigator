@@ -225,8 +225,15 @@ function drawConnectors() {
   });
 }
 
+function debounce(fn, ms) {
+  let timer;
+  return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), ms); };
+}
+
+const debouncedDraw = debounce(drawConnectors, 80);
+
 document.addEventListener("DOMContentLoaded", drawConnectors);
-window.addEventListener("resize", drawConnectors);
+window.addEventListener("resize", debouncedDraw);
 window.addEventListener("load", drawConnectors);
 
 if ("ResizeObserver" in window) {
@@ -234,7 +241,7 @@ if ("ResizeObserver" in window) {
     const grid = document.querySelector(".roadmap-grid");
     if (!grid) return;
 
-    const observer = new ResizeObserver(drawConnectors);
+    const observer = new ResizeObserver(debouncedDraw);
     observer.observe(grid);
   });
 }
