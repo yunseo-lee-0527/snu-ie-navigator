@@ -502,9 +502,9 @@ function initRulesPage() {
     const codes = courseCodes(subject);
     const badges = codes
       .filter((code, index) => codes.indexOf(code) === index && recognizedElectiveCredits[code])
-      .map((code) => `<strong>${code} ${recognizedElectiveCredits[code]}학점</strong>`);
+      .map((code) => `<strong>${recognizedElectiveCredits[code]}학점</strong>`);
 
-    return badges.length ? `<div class="credit-badges">${badges.join("")}</div>` : "";
+    return badges.length ? `<span class="credit-badges">${badges.join("")}</span>` : "";
   }
 
   function electiveDepartments(year) {

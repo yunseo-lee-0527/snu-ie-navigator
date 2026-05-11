@@ -722,27 +722,31 @@ h3 {
 }
 
 .elective-subjects li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: start;
   color: var(--muted);
   line-height: 1.55;
 }
 
 .credit-badges {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin-top: 4px;
+  justify-content: flex-end;
 }
 
 .credit-badges strong {
   display: inline-flex;
   align-items: center;
-  min-height: 22px;
-  padding: 0 7px;
-  border-radius: 999px;
-  background: #edf3ff;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
   color: var(--snu-dark);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
+  white-space: nowrap;
 }
 
 .elective-dept p {
