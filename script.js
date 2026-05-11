@@ -321,6 +321,53 @@ const recognizedElectives = {
   ]
 };
 
+const recognizedElectiveCredits = {
+  "212.201": "3",
+  "212.202": "3",
+  "251.301": "3",
+  "251.303": "3",
+  "251.305": "3",
+  "251.306": "3",
+  "251.321": "3",
+  "251.322": "3",
+  "300.204": "4",
+  "326.313": "3",
+  "326.315": "3",
+  "3341.201": "3",
+  "3341.202": "3",
+  "4190.101": "3",
+  "4190.306": "3",
+  "4190.407": "3",
+  "4190.408": "3",
+  "4190.426A": "3",
+  "4251.002A": "3",
+  "457.203": "3",
+  "457.208": "3",
+  "457.210A": "3",
+  "457.301": "3",
+  "457.302": "3",
+  "457.307": "3",
+  "458.308": "3",
+  "458.401": "3",
+  "458.405": "3",
+  "465.202": "3",
+  "465.319": "3",
+  "881.003": "3",
+  "881.008": "3",
+  "881.319": "3",
+  "881.320": "3",
+  "M1522.000900": "3",
+  "M1522.001400": "3",
+  "M1540.000100": "3",
+  "M1540.000200": "3",
+  "M1540.000300": "3",
+  "M1540.000500": "3",
+  "M2794.001700": "3",
+  "M2794.002700": "3",
+  "M2794.003600": "3",
+  "M2794.013600": "3"
+};
+
 const liberalRowsByGroup = {
   "2020": [
     ["사고의 표현", "7학점", ["대학 글쓰기 1", "대학글쓰기2: 인문학글쓰기/사회과학글쓰기/과학기술글쓰기 중 택 1", "말하기와 토론"]],
@@ -447,12 +494,25 @@ function initRulesPage() {
     return "2026";
   }
 
+  function courseCodes(text) {
+    return text.match(/\b(?:M\d{4}\.\d{6}|\d{3,4}\.\d{3}[A-Z]?)\b/g) || [];
+  }
+
+  function creditBadges(subject) {
+    const codes = courseCodes(subject);
+    const badges = codes
+      .filter((code, index) => codes.indexOf(code) === index && recognizedElectiveCredits[code])
+      .map((code) => `<strong>${code} ${recognizedElectiveCredits[code]}학점</strong>`);
+
+    return badges.length ? `<div class="credit-badges">${badges.join("")}</div>` : "";
+  }
+
   function electiveDepartments(year) {
     return recognizedElectives[electiveGroupForYear(year)].map(([department, subjects]) => `
       <article class="elective-dept">
         <h3>${department}</h3>
         <ul class="elective-subjects">
-          ${subjects.map((subject) => `<li><span>${subject}</span></li>`).join("")}
+          ${subjects.map((subject) => `<li><span>${subject}</span>${creditBadges(subject)}</li>`).join("")}
         </ul>
       </article>
     `).join("");
