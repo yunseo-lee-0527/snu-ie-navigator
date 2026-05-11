@@ -21,13 +21,13 @@ const connectorSpecs = [
   { kind: "link", from: "course-optimization-models", to: "course-simulation", type: "solid" },
   { kind: "link", from: "course-industrial-math-methods", to: "course-optimization-algorithms", type: "solid" },
   {
-    kind: "shared-trunk",
-    from: ["course-simulation", "course-optimization-algorithms"],
+    kind: "branch",
+    from: "course-simulation",
     to: ["course-grad-convex-optimization", "course-grad-integer-optimization", "course-grad-stochastic"],
     type: "dashed"
   },
 
-  { kind: "left-trunk", nodes: ["course-ie-stat", "course-or2", "course-logistics"], type: "dashed" },
+  { kind: "left-trunk", nodes: ["course-ie-stat", "course-logistics"], leftOf: "course-or1", type: "dashed" },
   { kind: "link", from: "course-logistics", to: "course-production-management", type: "solid" },
   { kind: "branch", from: "course-production-management", to: ["course-grad-inventory-management", "course-grad-production-planning"], type: "dashed" },
 
@@ -40,7 +40,7 @@ const connectorSpecs = [
   { kind: "vertical", from: "course-ergonomics", to: "course-ergonomics-lab", type: "dashed" },
   { kind: "link", from: "course-ergonomics", to: "course-ergonomics-design", type: "solid" },
   { kind: "link", from: "course-ergonomics-design", to: "course-human-interface-design", type: "solid" },
-  { kind: "branch", from: "course-human-interface-design", to: ["course-grad-human-performance", "course-grad-biomechanics"], type: "dashed" }
+  { kind: "late-branch", from: "course-ergonomics", to: ["course-grad-human-performance", "course-grad-biomechanics"], type: "dashed" }
 ];
 
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -154,11 +154,32 @@ function drawConnectors() {
     return `${incoming} M ${trunkX} ${minY} V ${maxY} ${outgoing}`;
   };
 
-  const leftTrunkPath = (nodes) => {
+  const lateBranchPath = (from, targets) => {
+    const start = pointFor(from);
+    const ends = targets.map(pointFor);
+    if (!start || ends.some((point) => !point)) return "";
+
+    const trunkX = Math.min(...ends.map((point) => point.left)) - TRUNK_OFFSET;
+    const allYs = [start.centerY, ...ends.map((point) => point.centerY)];
+    const minY = Math.min(...allYs);
+    const maxY = Math.max(...allYs);
+
+    const incoming = `M ${start.right} ${start.centerY} H ${trunkX}`;
+    const trunk = `M ${trunkX} ${minY} V ${maxY}`;
+    const branches = ends.map((point) => `M ${trunkX} ${point.centerY} H ${point.left}`).join(" ");
+
+    return `${incoming} ${trunk} ${branches}`;
+  };
+
+  const leftTrunkPath = (nodes, leftOfId) => {
     const points = nodes.map(pointFor);
     if (points.some((point) => !point)) return "";
 
-    const trunkX = Math.min(...points.map((point) => point.left)) - LEFT_TRUNK_OFFSET;
+    const anchor = leftOfId ? pointFor(leftOfId) : null;
+    const trunkX = anchor
+      ? anchor.left - LEFT_TRUNK_OFFSET
+      : Math.min(...points.map((point) => point.left)) - LEFT_TRUNK_OFFSET;
+
     const ys = points.map((point) => point.centerY);
     const minY = Math.min(...ys);
     const maxY = Math.max(...ys);
@@ -188,12 +209,14 @@ function drawConnectors() {
       d = linkPath(spec.from, spec.to);
     } else if (spec.kind === "branch") {
       d = branchPath(spec.from, spec.to);
+    } else if (spec.kind === "late-branch") {
+      d = lateBranchPath(spec.from, spec.to);
     } else if (spec.kind === "merge") {
       d = mergePath(spec.from, spec.to);
     } else if (spec.kind === "shared-trunk") {
       d = sharedTrunkPath(spec.from, spec.to);
     } else if (spec.kind === "left-trunk") {
-      d = leftTrunkPath(spec.nodes);
+      d = leftTrunkPath(spec.nodes, spec.leftOf);
     } else if (spec.kind === "vertical") {
       d = verticalPath(spec.from, spec.to);
     }
