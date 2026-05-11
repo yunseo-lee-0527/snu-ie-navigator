@@ -356,7 +356,7 @@ const liberalRowsByGroup = {
 };
 
 const majorCreditRows = [
-  ["주전공", "59학점"],
+  ["주전공", "59학점", ["전공필수 28학점과 학과 전공선택 21학점을 반드시 충족", "나머지 10학점은 학과 전공선택 또는 타과 전선 인정 과목으로 충족 가능"]],
   ["전공필수", "28학점"],
   ["학과 전공선택", "21학점 이상"],
   ["대학원 세미나", "1학점"]
@@ -452,7 +452,7 @@ function initRulesPage() {
       <article class="elective-dept">
         <h3>${department}</h3>
         <ul class="elective-subjects">
-          ${subjects.map((subject) => `<li><span>${subject}</span><strong>3학점</strong></li>`).join("")}
+          ${subjects.map((subject) => `<li><span>${subject}</span></li>`).join("")}
         </ul>
       </article>
     `).join("");
@@ -511,7 +511,7 @@ function initRulesPage() {
       </section>
 
       <section class="rule-section">
-        <h2>전선 인정 과목</h2>
+        <h2>타과 전선 인정 과목</h2>
         <div class="elective-grid">${electiveDepartments(year)}</div>
       </section>
 
