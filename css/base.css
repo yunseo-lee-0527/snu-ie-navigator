@@ -441,6 +441,21 @@ h3 {
   font-size: 17px;
 }
 
+.major-elective-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.major-elective-list span {
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 .elective-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
@@ -689,6 +704,7 @@ h3 {
   .rule-summary,
   .credit-row,
   .required-list,
+  .major-elective-list,
   .elective-grid,
   .course-grid {
     grid-template-columns: 1fr;
