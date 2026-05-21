@@ -251,21 +251,26 @@ const commonMajorRequired = [
 
 // ─── 학과 전공선택 과목 ───────────────────────────────────────────────────────
 const departmentMajorElectives = [
-  "산업공정설계",
-  "물류관리",
-  "산업경영수리기법",
-  "기술경영",
-  "서비스공학",
-  "최적화모형 및 응용",
-  "제품개발 및 품질설계",
-  "기술경영개론",
-  "지식경영전략",
-  "시뮬레이션",
-  "휴먼인터페이스디자인",
-  "데이터마이닝",
-  "산업텍스트애널리틱스",
-  "기술창업론",
-  "최적화알고리즘"
+  "406.436 산업공정설계",
+  "406.324A 공학도를 위한 창의적 사고",
+  "406.325 물류관리",
+  "406.327 산업경영수리기법",
+  "406.319 기술경영",
+  "406.322 서비스공학",
+  "406.321 최적화모형 및 응용",
+  "406.326 인간공학 설계",
+  "M1505.001500 제품개발 및 품질설계",
+  "M1540.000200 기술경영개론",
+  "4251.002A 지식경영전략",
+  "406.311 시뮬레이션",
+  "406.427A 휴먼인터페이스디자인",
+  "406.429 데이터마이닝",
+  "M0000.026700 빅데이터 산업응용",
+  "M1505.002100 산업 텍스트 애널리틱스",
+  "406.433 금융공학개론",
+  "M1505.001900 핀테크 개론",
+  "M1540.000100 기술창업론",
+  "M1505.002000 최적화알고리즘"
 ];
 
 // ─── 이수규정 PDF 링크 ────────────────────────────────────────────────────────
@@ -292,8 +297,13 @@ const multiMajorRules = [
 // ─── 추가 이수 요건 ───────────────────────────────────────────────────────────
 const additionalRequirements = [
   "생명존중(자살예방) 교육 이수: 2016학번부터 적용됩니다.",
-  "외국어진행강좌 수강 의무: 학번별 기준이 다를 수 있으므로 본인 학번 PDF와 공과대학 규정집을 함께 확인하세요.",
   "공과대학 공통 교과목 중 '공학기타' 제외 영역에서 3학점 이수: 학번별 적용 여부는 전공과목 이수표준형태 표에서 확인하세요."
+];
+
+const foreignLanguageLectureRows = [
+  ["2008학번~2011학번", "대학영어(대학영어1, 대학영어2, 고급영어) 포함", "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 의무 수강"],
+  ["2012학번~2023학번", "대학영어(대학영어1, 대학영어2, 고급영어) 제외", "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 의무 수강"],
+  ["2024학번~", "대학영어(대학영어1, 대학영어2, 고급영어) 제외", "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 수강 권장"]
 ];
 
 // ─── 타과 전선 인정 과목 ──────────────────────────────────────────────────────
@@ -575,6 +585,26 @@ function initRulesPage() {
     `).join("");
   }
 
+  function foreignLanguageLectureTable() {
+    return `
+      <div class="foreign-language-table" role="table" aria-label="외국어 진행강좌 수강 기준">
+        <div class="foreign-language-row header" role="row">
+          <strong role="columnheader">학번</strong>
+          <strong role="columnheader">과목 기준</strong>
+          <strong role="columnheader">공통 기준</strong>
+        </div>
+        ${foreignLanguageLectureRows.map(([yearRange, subjectRule, commonRule]) => `
+          <div class="foreign-language-row" role="row">
+            <span role="cell">${yearRange}</span>
+            <span role="cell">${subjectRule}</span>
+            <span role="cell">${commonRule}</span>
+          </div>
+        `).join("")}
+      </div>
+      <p class="section-note">필요에 따라 학과(부)별 별도 기준이 있을 수 있으며, 외국대학에서 이수한 교과목 중 「서울대학교 공과대학 학생의 외국대학 수학 및 학점인정에 관한 규정」을 충족하는 교과목은 외국어진행강좌로 인정될 수 있습니다.</p>
+    `;
+  }
+
   function pdfLink(activeYear) {
     return `
       <a class="active" href="${requirementPdfs[activeYear]}" target="_blank" rel="noreferrer">${String(activeYear).slice(2)}학번_이수규정</a>
@@ -625,6 +655,8 @@ function initRulesPage() {
       <section class="rule-section">
         <h2>추가 이수 요건</h2>
         <ul class="required-list">${listItems(additionalRequirements)}</ul>
+        <h3 class="subsection-title">외국어진행강좌 기준</h3>
+        ${foreignLanguageLectureTable()}
       </section>
 
       <section class="rule-section">

@@ -379,6 +379,12 @@ h3 {
   font-size: 25px;
 }
 
+.subsection-title {
+  margin: 20px 0 10px;
+  color: var(--snu-dark);
+  font-size: 18px;
+}
+
 .section-note {
   margin-bottom: 14px;
   color: var(--muted);
@@ -454,6 +460,43 @@ h3 {
   background: #fbfcfe;
   color: var(--muted);
   line-height: 1.5;
+}
+
+.foreign-language-table {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+}
+
+.foreign-language-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.7fr) minmax(260px, 1.35fr) minmax(320px, 1.8fr);
+  border-top: 1px solid var(--line);
+}
+
+.foreign-language-row:first-child {
+  border-top: 0;
+}
+
+.foreign-language-row.header {
+  background: #f3f6fb;
+}
+
+.foreign-language-row > * {
+  padding: 12px 14px;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.foreign-language-row > *:first-child {
+  border-left: 0;
+}
+
+.foreign-language-row strong {
+  color: var(--snu-dark);
 }
 
 .elective-grid {
@@ -703,11 +746,21 @@ h3 {
   .student-year-panel,
   .rule-summary,
   .credit-row,
+  .foreign-language-row,
   .required-list,
   .major-elective-list,
   .elective-grid,
   .course-grid {
     grid-template-columns: 1fr;
+  }
+
+  .foreign-language-row > * {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .foreign-language-row > *:first-child {
+    border-top: 0;
   }
 
   .home-hero {
