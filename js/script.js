@@ -643,6 +643,13 @@ function initRulesPage() {
       </div>
 
       <section class="rule-section">
+        <h2>추가 이수 요건</h2>
+        <ul class="required-list">${listItems(additionalRequirements)}</ul>
+        <h3 class="subsection-title">외국어진행강좌 기준</h3>
+        ${foreignLanguageLectureTable()}
+      </section>
+
+      <section class="rule-section">
         <h2>${data.label} 교양 이수학점</h2>
         <div class="credit-table">${creditRows(liberalRowsByGroup[data.group])}</div>
       </section>
@@ -650,13 +657,6 @@ function initRulesPage() {
       <section class="rule-section">
         <h2>전공 이수학점</h2>
         <div class="credit-table compact">${creditRows(majorCreditRows)}</div>
-      </section>
-
-      <section class="rule-section">
-        <h2>추가 이수 요건</h2>
-        <ul class="required-list">${listItems(additionalRequirements)}</ul>
-        <h3 class="subsection-title">외국어진행강좌 기준</h3>
-        ${foreignLanguageLectureTable()}
       </section>
 
       <section class="rule-section">
