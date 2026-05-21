@@ -11,7 +11,9 @@
 }
 
 .roadmap-title h1 {
-  max-width: 820px;
+  max-width: none;
+  font-size: clamp(34px, 4.6vw, 58px);
+  white-space: nowrap;
 }
 
 .roadmap-wrapper {
@@ -202,6 +204,11 @@
 @media (max-width: 720px) {
   .roadmap-hero {
     padding-top: 22px;
+  }
+
+  .roadmap-title h1 {
+    font-size: 34px;
+    white-space: normal;
   }
 
   .roadmap-wrapper {
