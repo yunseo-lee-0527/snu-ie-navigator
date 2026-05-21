@@ -462,41 +462,47 @@ h3 {
   line-height: 1.5;
 }
 
-.foreign-language-table {
+.foreign-language-card {
   display: grid;
-  overflow: hidden;
+  grid-template-columns: 110px 1fr;
+  gap: 14px;
+  align-items: stretch;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fbfcfe;
 }
 
-.foreign-language-row {
-  display: grid;
-  grid-template-columns: minmax(150px, 0.7fr) minmax(260px, 1.35fr) minmax(320px, 1.8fr);
-  border-top: 1px solid var(--line);
+.foreign-language-card.is-required {
+  border-color: rgba(28, 65, 131, 0.34);
+  background: #f7faff;
 }
 
-.foreign-language-row:first-child {
-  border-top: 0;
-}
-
-.foreign-language-row.header {
-  background: #f3f6fb;
-}
-
-.foreign-language-row > * {
-  padding: 12px 14px;
-  border-left: 1px solid var(--line);
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-.foreign-language-row > *:first-child {
-  border-left: 0;
-}
-
-.foreign-language-row strong {
+.foreign-language-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #e8edf6;
   color: var(--snu-dark);
+  font-weight: 900;
+}
+
+.foreign-language-card.is-required .foreign-language-status {
+  background: var(--snu);
+  color: var(--white);
+}
+
+.foreign-language-detail {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.foreign-language-detail strong {
+  color: var(--snu-dark);
+  font-size: 17px;
 }
 
 .elective-grid {
@@ -746,21 +752,12 @@ h3 {
   .student-year-panel,
   .rule-summary,
   .credit-row,
-  .foreign-language-row,
+  .foreign-language-card,
   .required-list,
   .major-elective-list,
   .elective-grid,
   .course-grid {
     grid-template-columns: 1fr;
-  }
-
-  .foreign-language-row > * {
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .foreign-language-row > *:first-child {
-    border-top: 0;
   }
 
   .home-hero {

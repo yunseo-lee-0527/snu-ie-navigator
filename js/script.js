@@ -300,11 +300,32 @@ const additionalRequirements = [
   "공과대학 공통 교과목 중 '공학기타' 제외 영역에서 3학점 이수: 학번별 적용 여부는 전공과목 이수표준형태 표에서 확인하세요."
 ];
 
-const foreignLanguageLectureRows = [
-  ["2008학번~2011학번", "대학영어(대학영어1, 대학영어2, 고급영어) 포함", "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 의무 수강"],
-  ["2012학번~2023학번", "대학영어(대학영어1, 대학영어2, 고급영어) 제외", "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 의무 수강"],
-  ["2024학번~", "대학영어(대학영어1, 대학영어2, 고급영어) 제외", "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 수강 권장"]
-];
+function foreignLanguageLectureRule(year) {
+  if (year <= 2011) {
+    return {
+      yearRange: "2008학번~2011학번",
+      subjectRule: "대학영어(대학영어1, 대학영어2, 고급영어) 포함",
+      commonRule: "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 의무 수강",
+      required: true
+    };
+  }
+
+  if (year <= 2023) {
+    return {
+      yearRange: "2012학번~2023학번",
+      subjectRule: "대학영어(대학영어1, 대학영어2, 고급영어) 제외",
+      commonRule: "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 의무 수강",
+      required: true
+    };
+  }
+
+  return {
+    yearRange: "2024학번~26학번",
+    subjectRule: "대학영어(대학영어1, 대학영어2, 고급영어) 제외",
+    commonRule: "1강좌 이상의 주전공교과목을 포함하여 3과목 이상의 외국어진행강좌 수강 권장",
+    required: false
+  };
+}
 
 // ─── 타과 전선 인정 과목 ──────────────────────────────────────────────────────
 // 세 학번 그룹(2020-2022, 2023-2025, 2026)에서 동일한 학과 목록은
@@ -585,21 +606,18 @@ function initRulesPage() {
     `).join("");
   }
 
-  function foreignLanguageLectureTable() {
+  function foreignLanguageLectureTable(year) {
+    const rule = foreignLanguageLectureRule(year);
+    const status = rule.required ? "의무 수강" : "수강 권장";
+
     return `
-      <div class="foreign-language-table" role="table" aria-label="외국어 진행강좌 수강 기준">
-        <div class="foreign-language-row header" role="row">
-          <strong role="columnheader">학번</strong>
-          <strong role="columnheader">과목 기준</strong>
-          <strong role="columnheader">공통 기준</strong>
+      <div class="foreign-language-card ${rule.required ? "is-required" : ""}">
+        <div class="foreign-language-status">${status}</div>
+        <div class="foreign-language-detail">
+          <strong>${rule.yearRange}</strong>
+          <span>${rule.subjectRule}</span>
+          <span>${rule.commonRule}</span>
         </div>
-        ${foreignLanguageLectureRows.map(([yearRange, subjectRule, commonRule]) => `
-          <div class="foreign-language-row" role="row">
-            <span role="cell">${yearRange}</span>
-            <span role="cell">${subjectRule}</span>
-            <span role="cell">${commonRule}</span>
-          </div>
-        `).join("")}
       </div>
       <p class="section-note">필요에 따라 학과(부)별 별도 기준이 있을 수 있으며, 외국대학에서 이수한 교과목 중 「서울대학교 공과대학 학생의 외국대학 수학 및 학점인정에 관한 규정」을 충족하는 교과목은 외국어진행강좌로 인정될 수 있습니다.</p>
     `;
@@ -646,7 +664,7 @@ function initRulesPage() {
         <h2>추가 이수 요건</h2>
         <ul class="required-list">${listItems(additionalRequirements)}</ul>
         <h3 class="subsection-title">외국어진행강좌 기준</h3>
-        ${foreignLanguageLectureTable()}
+        ${foreignLanguageLectureTable(year)}
       </section>
 
       <section class="rule-section">
