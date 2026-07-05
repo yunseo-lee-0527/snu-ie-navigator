@@ -231,8 +231,8 @@ a{color:inherit;}
         <span id="prod" class="course-box highlight c5" style="grid-row:5;" data-name="생산관리" data-old="406.310" data-new="IE.3210" data-desc="">생산관리</span>
         <span id="logi" class="course-box c7" style="grid-row:5;" data-name="물류관리" data-old="406.325" data-new="IE.3251" data-desc="">물류관리</span>
         <div class="g-cell grad-col" style="grid-row:5;grid-column:11/13;">
-          <span id="g_prodplan" class="course-box graduate" data-name="생산계획 및 통제" data-old="406.552" data-new="IE.G210" data-desc="">생산계획 및 통제<span class="star">＊</span></span>
-          <span id="g_inventory" class="course-box graduate" data-name="재고관리" data-old="M1505.000100" data-new="IE.G270" data-desc="">재고관리<span class="star">＊</span></span>
+          <span id="g_prodplan" class="course-box graduate" data-name="생산계획 및 통제" data-old="406.552" data-new="IE.G210" data-desc="">생산계획 및 통제</span>
+          <span id="g_inventory" class="course-box graduate" data-name="재고관리" data-old="M1505.000100" data-new="IE.G270" data-desc="">재고관리</span>
         </div>
         <div class="g-cell grad-col" style="grid-row:5;grid-column:13/17;"><span id="g_strategy" class="course-box graduate" data-name="전략기획 및 통제" data-old="406.660" data-new="IE.G221" data-desc="">전략기획 및 통제</span></div>
 
@@ -263,7 +263,7 @@ a{color:inherit;}
         </div></div>
         <span id="sim" class="course-box c7" style="grid-row:7;" data-name="시뮬레이션" data-old="406.311" data-new="IE.4451" data-desc="">시뮬레이션</span>
         <div class="g-cell grad-col" style="grid-row:7;grid-column:11/13;">
-          <span id="g_stoch" class="course-box graduate" data-name="추계학" data-old="406.544" data-new="IE.G410" data-desc="">추계학<span class="star">＊</span></span>
+          <span id="g_stoch" class="course-box graduate" data-name="추계학" data-old="406.544" data-new="IE.G410" data-desc="">추계학</span>
           <span id="g_multivar" class="course-box graduate" data-name="응용 다변량 통계분석" data-old="406.659" data-new="IE.G420" data-desc="">응용 다변량 통계분석</span>
         </div>
         <div class="g-cell grad-col" style="grid-row:7;grid-column:13/17;"><span id="g_probmodel" class="course-box graduate" data-name="확률모형특론" data-old="406.568" data-new="IE.G431" data-desc="">확률모형특론</span></div>
@@ -279,7 +279,7 @@ a{color:inherit;}
         <span id="textan" class="course-box c8" style="grid-row:8;" data-name="산업 텍스트 애널리틱스" data-old="M1505.002100" data-new="IE.4551" data-desc="">산업 텍스트 애널리틱스</span>
         <div class="g-cell grad-col" style="grid-row:8;grid-column:11/13;">
           <span id="g_datalearn" class="course-box graduate" data-name="데이터기반학습" data-old="406.561" data-new="IE.G510" data-desc="">데이터기반학습</span>
-          <span id="g_dmmethod" class="course-box graduate" data-name="데이터마이닝기법" data-old="406.546" data-new="IE.G520" data-desc="">데이터마이닝기법<span class="star">＊</span></span>
+          <span id="g_dmmethod" class="course-box graduate" data-name="데이터마이닝기법" data-old="406.546" data-new="IE.G520" data-desc="">데이터마이닝기법</span>
         </div>
         <div class="g-cell grad-col" style="grid-row:8;grid-column:13/17;">
           <span id="g_statlearn" class="course-box graduate" data-name="통계학습 고등논제" data-old="406.550" data-new="IE.G531" data-desc="">통계학습 고등논제</span>
@@ -344,19 +344,6 @@ a{color:inherit;}
       </div>
     </div>
 
-    <div class="grad-notes" id="gradNotes" hidden>
-      <div class="card">
-        <h4 class="req-title">대학원 · 추가 필수 선이수</h4>
-        <p>생산계획 및 통제 ← 경영과학1, 경영과학2</p>
-        <p>재고관리 ← 생산관리</p>
-        <p>데이터마이닝기법 ← 데이터마이닝, 산업 텍스트 애널리틱스</p>
-      </div>
-      <div class="card">
-        <h4>수강 제한</h4>
-        <p>추계학 — 학부생 수강 불허</p>
-        <p style="color:#93a0b2;">＊ 표시 과목은 위 추가 선이수 / 수강 제한 참고</p>
-      </div>
-    </div>
   </section>
 </main>
 
@@ -399,13 +386,11 @@ function bindTips(scope){
 function initGradToggle(){
   const btn=document.getElementById("gradToggle");
   const grid=document.getElementById("ugGrid");
-  const notes=document.getElementById("gradNotes");
   const wrapper=document.querySelector(".roadmap-wrapper");
   btn.addEventListener("click",()=>{
     const open=btn.getAttribute("aria-expanded")==="true";
     btn.setAttribute("aria-expanded",String(!open));
     grid.classList.toggle("show-grad",!open);
-    notes.hidden=open;
     requestAnimationFrame(()=>{
       drawConnectors();
       if(!open)wrapper.scrollTo({left:wrapper.scrollWidth,behavior:"smooth"});
