@@ -1,174 +1,541 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>로드맵 | SNU IE Navigator</title>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/roadmap.css">
-  <script defer src="js/script.js"></script>
-  <script defer src="js/roadmap.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전공 로드맵 | SNU IE Navigator</title>
+<style>
+:root{
+  --ink:#18212f; --muted:#5d6877; --line:#dbe2ea; --paper:#fbfcfe; --wash:#eef4f7;
+  --snu:#243f9f; --snu-dark:#17366d; --blue:#1b3f8b; --green:#2f7d6d; --gold:#b77b27; --white:#fff;
+  --req:#e2482b; /* 필수선수(빨강) */
+  font-family:"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;color:var(--ink);background:var(--paper);}
+a{color:inherit;}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  min-height:64px;padding:0 3vw;border-bottom:1px solid rgba(24,33,47,.08);
+  background:rgba(251,252,254,.94);backdrop-filter:blur(16px);}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;}
+.brand-mark{display:grid;width:36px;height:36px;place-items:center;border-radius:8px;color:#fff;background:var(--snu-dark);}
+.nav{display:flex;gap:6px;font-size:14px;}
+.nav a{padding:9px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;}
+.nav a:hover{background:var(--wash);}
+
+/* hero / title */
+.roadmap-hero{padding:22px 2vw 48px;background:linear-gradient(180deg,#f7f9fc 0%,#fff 88%);}
+.roadmap-title{width:min(1500px,100%);margin:0 auto 16px;}
+.eyebrow{margin:0 0 8px;color:var(--green);font-size:13px;font-weight:800;text-transform:uppercase;}
+.roadmap-title h1{margin:0 0 8px;font-size:clamp(30px,4vw,52px);line-height:1.1;}
+.roadmap-title .subtitle{margin:0 0 18px;color:var(--muted);font-size:16px;line-height:1.6;}
+
+/* prominent code-guide button */
+.code-guide-btn{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border-radius:12px;
+  background:linear-gradient(135deg,var(--snu) 0%,var(--snu-dark) 100%);color:#fff;text-decoration:none;
+  font-size:18px;font-weight:900;letter-spacing:.2px;
+  box-shadow:0 12px 30px rgba(36,63,159,.38);border:2px solid transparent;
+  transition:transform .16s ease,box-shadow .16s ease;}
+.code-guide-btn:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 18px 40px rgba(36,63,159,.5);}
+.code-guide-btn .kbd{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;
+  background:rgba(255,255,255,.18);font-size:19px;}
+.code-guide-btn .arrow{font-size:20px;transition:transform .16s ease;}
+.code-guide-btn:hover .arrow{transform:translateX(4px);}
+
+/* roadmap grid */
+.roadmap-wrapper{position:relative;width:min(1500px,100%);min-width:1100px;margin:0 auto;overflow:auto;
+  border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 18px 44px rgba(24,33,47,.12);}
+.roadmap-grid{position:relative;display:grid;grid-template-columns:118px repeat(8,1fr);
+  grid-template-rows:40px repeat(10,minmax(72px,auto));gap:12px 10px;min-width:1080px;padding:12px;}
+.connector-svg{position:absolute;top:0;left:0;z-index:2;width:100%;height:100%;pointer-events:none;overflow:visible;}
+
+.term-header,.area-header{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;
+  min-height:40px;padding:8px;border-radius:5px;text-align:center;font-size:13px;font-weight:700;line-height:1.25;}
+.term-header{border:1px solid #cfd6de;background:#fff;color:var(--ink);}
+.area-header{position:sticky;left:0;z-index:10;background:#eef1f5;color:#101820;font-weight:800;}
+.area-header.corner{background:var(--snu-dark);color:#fff;font-weight:900;}
+
+.lane-bg{z-index:0;grid-column:2 / -1;min-height:72px;border-radius:7px;background:#ededed;}
+.lane-bg.alt{background:#e9edf2;}
+
+.course-cell,.course-box{position:relative;z-index:3;}
+.course-cell{display:flex;align-items:center;justify-content:center;min-width:0;}
+.course-stack{display:grid;width:100%;gap:8px;align-content:center;justify-items:center;}
+
+.course-box{display:flex;align-items:center;justify-content:center;align-self:center;justify-self:center;
+  width:calc(100% - 14px);min-width:0;min-height:40px;padding:6px 10px;border:1px solid #ccc;border-radius:6px;
+  background:#fff;color:#333;font-size:12px;font-weight:700;line-height:1.25;text-align:center;word-break:keep-all;
+  cursor:default;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;}
+.course-box:hover,.course-box:focus-visible{transform:translateY(-2px);border-color:var(--snu);
+  box-shadow:0 8px 20px rgba(24,33,47,.18);outline:none;z-index:6;}
+.course-box.highlight{border-color:var(--blue);background:var(--blue);color:#fff;}
+.course-box.foundation{border-color:#b8c5df;color:var(--blue);}
+.course-box.slot-top{align-self:start;}
+.course-box.slot-bottom{align-self:end;}
+.course-box .star{color:var(--req);font-weight:900;margin-left:2px;}
+
+/* row / col placement */
+.rowhead{grid-row:1;}
+.r1{grid-row:2;}.r2{grid-row:3;}.r3{grid-row:4;}.r4{grid-row:5;}.r5{grid-row:6;}
+.r6{grid-row:7;}.r7{grid-row:8;}.r8{grid-row:9;}.r9{grid-row:10;}.r10{grid-row:11;}
+.ca{grid-column:1;}
+.c1{grid-column:2;}.c2{grid-column:3;}.c3{grid-column:4;}.c4{grid-column:5;}
+.c5{grid-column:6;}.c6{grid-column:7;}.c7{grid-column:8;}.c8{grid-column:9;}
+
+/* legend + notes */
+.road-meta{width:min(1500px,100%);margin:16px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.legend,.notes{border:1px solid var(--line);border-radius:10px;background:#fff;padding:16px 18px;}
+.legend h3,.notes h3{margin:0 0 10px;font-size:15px;color:var(--snu-dark);}
+.legend ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);}
+.legend li{display:flex;align-items:center;gap:8px;}
+.swatch{width:26px;height:0;border-top:2.5px solid var(--req);}
+.swatch.dash{border-top:2.5px dashed #888;}
+.swatch.box{width:16px;height:16px;border-radius:4px;border:1px solid var(--blue);background:var(--blue);}
+.swatch.boxf{width:16px;height:16px;border-radius:4px;border:1px solid #b8c5df;background:#fff;}
+.notes p{margin:0 0 6px;font-size:13px;line-height:1.6;color:var(--muted);}
+.notes .req-title{color:var(--req);font-weight:800;}
+
+/* graduate toggle + panel */
+.grad-toggle{display:flex;align-items:center;justify-content:center;gap:14px;width:min(1500px,100%);
+  margin:26px auto 0;padding:20px 24px;border:none;border-radius:12px;cursor:pointer;
+  background:linear-gradient(135deg,var(--snu-dark) 0%,#0f2650 100%);color:#fff;font:inherit;font-size:19px;font-weight:900;
+  box-shadow:0 12px 30px rgba(23,54,109,.34);transition:transform .16s ease,box-shadow .16s ease;}
+.grad-toggle:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(23,54,109,.46);}
+.grad-toggle .badge{padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.18);font-size:14px;font-weight:800;}
+.grad-toggle .chev{font-size:22px;transition:transform .25s ease;}
+.grad-toggle[aria-expanded="true"] .chev{transform:rotate(180deg);}
+.grad-toggle .label-open{display:none;}
+.grad-toggle[aria-expanded="true"] .label-closed{display:none;}
+.grad-toggle[aria-expanded="true"] .label-open{display:inline;}
+
+.grad-panel{width:min(1500px,100%);margin:14px auto 0;border:1px solid var(--line);border-radius:12px;
+  background:#fff;box-shadow:0 18px 44px rgba(24,33,47,.10);padding:18px;overflow:auto;}
+.grad-panel[hidden]{display:none;}
+.grad-panel h2{margin:2px 0 4px;font-size:22px;color:var(--snu-dark);}
+.grad-panel .g-sub{margin:0 0 16px;color:var(--muted);font-size:14px;}
+.grad-grid{display:grid;grid-template-columns:110px repeat(3,1fr);gap:10px;min-width:820px;}
+.g-head{display:flex;align-items:center;justify-content:center;padding:8px;border-radius:6px;
+  background:var(--snu-dark);color:#fff;font-weight:800;font-size:14px;}
+.g-head.area{background:#eef1f5;color:#101820;}
+.g-area{display:flex;align-items:center;justify-content:center;padding:8px;border-radius:6px;
+  background:#eef1f5;color:#101820;font-weight:800;font-size:13px;text-align:center;}
+.g-cell{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding:10px;border-radius:6px;background:#f4f6f9;}
+.g-cell.empty{background:#f4f6f9;}
+.g-box{display:inline-flex;align-items:center;min-height:38px;padding:6px 12px;border:1px solid var(--blue);
+  border-radius:6px;background:#fff;color:var(--blue);font-size:12px;font-weight:700;line-height:1.2;text-align:center;
+  cursor:default;transition:transform .12s ease,box-shadow .12s ease;word-break:keep-all;}
+.g-box:hover,.g-box:focus-visible{transform:translateY(-2px);box-shadow:0 8px 20px rgba(24,33,47,.18);outline:none;
+  background:var(--blue);color:#fff;}
+.g-box .star{color:var(--req);font-weight:900;margin-left:2px;}
+.g-box:hover .star{color:#ffd3c9;}
+.grad-notes{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grad-notes .card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fbfcfe;}
+.grad-notes h4{margin:0 0 8px;font-size:14px;}
+.grad-notes .req-title{color:var(--req);}
+.grad-notes p{margin:0 0 5px;font-size:13px;line-height:1.6;color:var(--muted);}
+
+/* tooltip */
+.course-tip{position:fixed;z-index:60;max-width:280px;min-width:190px;padding:0;border-radius:10px;
+  background:#0f1c34;color:#fff;box-shadow:0 16px 40px rgba(9,18,34,.42);pointer-events:none;
+  opacity:0;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease;overflow:hidden;}
+.course-tip.show{opacity:1;transform:translateY(0);}
+.course-tip .tip-name{padding:11px 14px 9px;font-size:14px;font-weight:800;background:rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.12);}
+.course-tip .tip-rows{padding:10px 14px;display:grid;gap:6px;}
+.course-tip .tip-row{display:flex;justify-content:space-between;gap:14px;font-size:12.5px;}
+.course-tip .tip-row span{color:#9fb3d4;font-weight:700;}
+.course-tip .tip-row b{font-weight:800;letter-spacing:.3px;}
+.course-tip .tip-row b.old{color:#ffd9a8;}
+.course-tip .tip-row b.new{color:#bfe0ff;}
+.course-tip .tip-desc{padding:0 14px 12px;font-size:12px;line-height:1.55;color:#cdd8ea;}
+.course-tip .tip-desc.empty{color:#7186a8;font-style:italic;}
+
+@media (max-width:720px){
+  .topbar{flex-direction:column;align-items:flex-start;padding-top:12px;padding-bottom:12px;}
+  .nav{width:100%;overflow-x:auto;}
+  .road-meta,.grad-notes{grid-template-columns:1fr;}
+  .code-guide-btn{width:100%;justify-content:center;font-size:16px;}
+}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="index.html" aria-label="SNU IE Navigator 홈">
-      <span class="brand-mark">IE</span>
-      <span>SNU IE Navigator</span>
-    </a>
-    <nav class="nav" aria-label="주요 메뉴">
-      <a href="roadmap.html">전공 로드맵</a>
-      <a href="rules.html">이수규정</a>
-      <a href="faq.html">자주 묻는 질문</a>
-      <a href="courses.html">개설 과목 검색</a>
-    </nav>
-  </header>
+<header class="topbar">
+  <a class="brand" href="index.html" aria-label="SNU IE Navigator 홈">
+    <span class="brand-mark">IE</span><span>SNU IE Navigator</span>
+  </a>
+  <nav class="nav" aria-label="주요 메뉴">
+    <a href="roadmap.html">전공 로드맵</a>
+    <a href="rules.html">이수규정</a>
+    <a href="faq.html">자주 묻는 질문</a>
+    <a href="courses.html">개설 과목 검색</a>
+  </nav>
+</header>
 
-  <main>
-    <section class="roadmap-hero" aria-labelledby="roadmapTitle">
-      <div class="roadmap-title">
-        <p class="eyebrow">Roadmap</p>
-        <h1 id="roadmapTitle">학부에서 대학원까지 이어지는 전공 로드맵</h1>
+<main>
+  <section class="roadmap-hero" aria-labelledby="roadmapTitle">
+    <div class="roadmap-title">
+      <p class="eyebrow">Roadmap</p>
+      <h1 id="roadmapTitle">산업공학과 전공 로드맵</h1>
+      <p class="subtitle">각 과목 위에 마우스를 올리면 <b>구 교과목코드 · 신 교과목코드 · 과목 설명</b>이 나타납니다.
+        대학원 교과목은 아래 버튼으로 펼쳐볼 수 있습니다.</p>
+      <a class="code-guide-btn" href="code-guide.html">
+        <span class="kbd">🔑</span>
+        <span>신 교과목 코드 읽는 방법</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="roadmap-wrapper" aria-label="산업공학과 학부 전공 로드맵">
+      <div class="roadmap-grid" id="ugGrid">
+        <!-- header row -->
+        <div class="area-header corner rowhead ca">전공영역</div>
+        <div class="term-header rowhead c1">1학년<br>1학기</div>
+        <div class="term-header rowhead c2">1학년<br>2학기</div>
+        <div class="term-header rowhead c3">2학년<br>1학기</div>
+        <div class="term-header rowhead c4">2학년<br>2학기</div>
+        <div class="term-header rowhead c5">3학년<br>1학기</div>
+        <div class="term-header rowhead c6">3학년<br>2학기</div>
+        <div class="term-header rowhead c7">4학년<br>1학기</div>
+        <div class="term-header rowhead c8">4학년<br>2학기</div>
+
+        <!-- 교양필수 -->
+        <div class="lane-bg r1"></div>
+        <div class="area-header r1 ca">교양필수</div>
+        <span id="math1" class="course-box foundation r1 c1" data-name="수학1 및 연습" data-old="—" data-new="교양필수" data-desc="">수학1 및 연습</span>
+        <span id="math2" class="course-box foundation r1 c2" data-name="수학2 및 연습" data-old="—" data-new="교양필수" data-desc="">수학2 및 연습</span>
+        <div class="course-cell r1 c3"><div class="course-stack">
+          <span id="stat" class="course-box foundation" data-name="통계학 및 실험" data-old="—" data-new="교양필수" data-desc="">통계학 및 실험</span>
+          <span id="emath1" class="course-box foundation" data-name="공학수학1" data-old="—" data-new="교양필수" data-desc="">공학수학1</span>
+        </div></div>
+        <span id="emath2" class="course-box foundation r1 c4" data-name="공학수학2" data-old="—" data-new="교양필수" data-desc="">공학수학2</span>
+
+        <!-- 공통 -->
+        <div class="lane-bg alt r2"></div>
+        <div class="area-header r2 ca">공통</div>
+        <span id="comp" class="course-box foundation r2 c1" data-name="컴퓨터의 개념 및 실습" data-old="—" data-new="교양필수" data-desc="">컴퓨터의 개념 및 실습</span>
+        <span id="ieintro" class="course-box highlight r2 c2" data-name="산업공학의 이해" data-old="406.434" data-new="IE.1010" data-desc="">산업공학의 이해</span>
+        <div class="course-cell r2 c3"><div class="course-stack">
+          <span id="scimgmt" class="course-box highlight" data-name="과학적 관리" data-old="406.211" data-new="IE.2020" data-desc="">과학적 관리</span>
+          <span id="icomp" class="course-box" data-name="산업컴퓨팅개론" data-old="406.212" data-new="IE.2030" data-desc="">산업컴퓨팅개론</span>
+        </div></div>
+        <span id="creative" class="course-box r2 c5" data-name="공학도를 위한 창의적 사고" data-old="406.324A" data-new="IE.3051" data-desc="">공학도를 위한 창의적 사고</span>
+        <span id="imrm" class="course-box r2 c6" data-name="산업경영 수리기법" data-old="406.327" data-new="IE.3061" data-desc="">산업경영 수리기법</span>
+
+        <!-- 시스템설계 -->
+        <div class="lane-bg r3"></div>
+        <div class="area-header r3 ca">시스템<br>설계</div>
+        <span id="ipd" class="course-box r3 c3" data-name="산업공정설계" data-old="406.436" data-new="IE.2110" data-desc="">산업공정설계</span>
+        <span id="pqd" class="course-box r3 c5" data-name="제품개발 및 품질설계" data-old="M1505.001500" data-new="IE.3151" data-desc="">제품개발 및 품질설계</span>
+        <span id="svc" class="course-box r3 c6" data-name="서비스공학" data-old="406.322" data-new="IE.3161" data-desc="">서비스공학</span>
+
+        <!-- 시스템운영 -->
+        <div class="lane-bg alt r4"></div>
+        <div class="area-header r4 ca">시스템<br>운영</div>
+        <span id="prod" class="course-box highlight r4 c5" data-name="생산관리" data-old="406.310" data-new="IE.3210" data-desc="">생산관리</span>
+        <span id="logi" class="course-box r4 c7" data-name="물류관리" data-old="406.325" data-new="IE.3251" data-desc="">물류관리</span>
+
+        <!-- 최적화 -->
+        <div class="lane-bg r5"></div>
+        <div class="area-header r5 ca">최적화</div>
+        <span id="or1" class="course-box highlight r5 c4" data-name="경영과학1" data-old="406.315" data-new="IE.2310" data-desc="">경영과학1</span>
+        <span id="optm" class="course-box r5 c6" data-name="최적화모형 및 응용" data-old="406.321" data-new="IE.3351" data-desc="">최적화모형 및 응용</span>
+        <span id="opta" class="course-box r5 c7" data-name="최적화 알고리즘" data-old="M1505.002000" data-new="IE.4362" data-desc="">최적화 알고리즘</span>
+
+        <!-- 확률모형 -->
+        <div class="lane-bg alt r6"></div>
+        <div class="area-header r6 ca">확률모형</div>
+        <div class="course-cell r6 c5"><div class="course-stack">
+          <span id="or2" class="course-box highlight" data-name="경영과학2" data-old="406.317" data-new="IE.3410" data-desc="">경영과학2</span>
+          <span id="iestat" class="course-box highlight" data-name="산업공학통계" data-old="406.432" data-new="IE.3420" data-desc="">산업공학통계</span>
+        </div></div>
+        <span id="sim" class="course-box r6 c7" data-name="시뮬레이션" data-old="406.311" data-new="IE.4451" data-desc="">시뮬레이션</span>
+
+        <!-- 데이터과학 -->
+        <div class="lane-bg r7"></div>
+        <div class="area-header r7 ca">데이터<br>과학</div>
+        <span id="dma" class="course-box highlight r7 c4" data-name="데이터관리와 분석" data-old="406.426B" data-new="IE.2510" data-desc="">데이터관리와 분석</span>
+        <div class="course-cell r7 c7"><div class="course-stack">
+          <span id="dmine" class="course-box" data-name="데이터마이닝" data-old="406.429" data-new="IE.4520" data-desc="">데이터마이닝</span>
+          <span id="bigdata" class="course-box" data-name="빅데이터 산업응용" data-old="M0000.026700" data-new="IE.4561" data-desc="">빅데이터 산업응용</span>
+        </div></div>
+        <span id="textan" class="course-box r7 c8" data-name="산업 텍스트 애널리틱스" data-old="M1505.002100" data-new="IE.4551" data-desc="">산업 텍스트 애널리틱스</span>
+
+        <!-- 인간공학 -->
+        <div class="lane-bg alt r8"></div>
+        <div class="area-header r8 ca">인간공학</div>
+        <div class="course-cell r8 c4"><div class="course-stack">
+          <span id="ergo" class="course-box highlight" data-name="인간공학" data-old="406.304" data-new="IE.2610" data-desc="">인간공학</span>
+          <span id="ergolab" class="course-box highlight" data-name="인간공학 실험" data-old="406.305A" data-new="IE.2620" data-desc="">인간공학 실험</span>
+        </div></div>
+        <span id="ergodes" class="course-box r8 c6" data-name="인간공학 설계" data-old="406.326" data-new="IE.3661" data-desc="">인간공학 설계</span>
+        <span id="hid" class="course-box r8 c7" data-name="휴먼인터페이스 디자인" data-old="406.427A" data-new="IE.4651" data-desc="">휴먼인터페이스 디자인</span>
+
+        <!-- 기술경영 -->
+        <div class="lane-bg r9"></div>
+        <div class="area-header r9 ca">기술경영</div>
+        <span id="techm" class="course-box r9 c6" data-name="기술경영" data-old="406.319" data-new="IE.3710" data-desc="">기술경영</span>
+        <span id="econ" class="course-box highlight r9 c7" data-name="경제성공학" data-old="406.314" data-new="IE.4720" data-desc="">경제성공학</span>
+
+        <!-- 금융공학 -->
+        <div class="lane-bg alt r10"></div>
+        <div class="area-header r10 ca">금융공학</div>
+        <div class="course-cell r10 c8"><div class="course-stack">
+          <span id="finintro" class="course-box" data-name="금융공학개론" data-old="406.433" data-new="IE.4820" data-desc="">금융공학개론</span>
+          <span id="fintech" class="course-box" data-name="핀테크 개론" data-old="M1505.001900" data-new="IE.4810" data-desc="">핀테크 개론</span>
+        </div></div>
       </div>
+      <svg class="connector-svg" aria-hidden="true"></svg>
+    </div>
 
-      <div class="roadmap-wrapper" aria-label="산업공학과 학업 로드맵 표">
-        <div class="roadmap-grid">
-          <div class="area-header corner row-head col-area">전공영역</div>
-          <div class="term-header row-head col-1">1학년<br>1학기</div>
-          <div class="term-header row-head col-2">1학년<br>2학기</div>
-          <div class="term-header row-head col-3">2학년<br>1학기</div>
-          <div class="term-header row-head col-4">2학년<br>2학기</div>
-          <div class="term-header row-head col-5">3학년<br>1학기</div>
-          <div class="term-header row-head col-6">3학년<br>2학기</div>
-          <div class="term-header row-head col-7">4학년<br>1학기</div>
-          <div class="term-header row-head col-8">4학년<br>2학기</div>
-          <div class="term-header graduate row-head col-9">대학원<br>연계</div>
+    <div class="road-meta">
+      <div class="legend">
+        <h3>범례</h3>
+        <ul>
+          <li><span class="swatch"></span> 필수 선수과목</li>
+          <li><span class="swatch dash"></span> 권장 선수과목</li>
+          <li><span class="swatch box"></span> 전공필수</li>
+          <li><span class="swatch boxf"></span> 교양필수</li>
+        </ul>
+      </div>
+      <div class="notes">
+        <h3>선수과목 안내</h3>
+        <p><span class="req-title">추가 필수 선이수</span> — 경영과학2 ← 공학수학2 · 산업공학통계 ← 공학수학2, 통계학 · 데이터마이닝 ← 산업컴퓨팅개론</p>
+        <p><b>추가 권장 선이수</b> — 생산관리 · 물류관리는 경영과학1, 2 선이수 권장</p>
+      </div>
+    </div>
 
-          <div class="lane-bg row-math"></div>
-          <div class="area-header row-math col-area">수학/통계</div>
-          <span id="course-math1" class="course-box foundation row-math col-1" data-course="수학1 및 연습">수학1 및 연습</span>
-          <span id="course-math2" class="course-box foundation row-math col-2" data-course="수학2 및 연습">수학2 및 연습</span>
-          <div class="course-cell row-math col-3">
-            <div class="course-stack">
-              <span id="course-stat" class="course-box foundation" data-course="통계학 및 실험">통계학 및 실험</span>
-              <span id="course-eng-math1" class="course-box foundation" data-course="공학수학1">공학수학1</span>
-            </div>
-          </div>
-          <span id="course-eng-math2" class="course-box foundation row-math col-4" data-course="공학수학2">공학수학2</span>
+    <!-- 대학원 펼치기 -->
+    <button class="grad-toggle" id="gradToggle" aria-expanded="false" aria-controls="gradPanel">
+      <span class="chev">▾</span>
+      <span class="label-closed">대학원 교과목 펼쳐보기</span>
+      <span class="label-open">대학원 교과목 접기</span>
+      <span class="badge">총 37과목</span>
+    </button>
 
-          <div class="lane-bg row-intro"></div>
-          <div class="area-header row-intro col-area">산업공학<br>입문</div>
-          <span id="course-ie-intro" class="course-box highlight slot-top row-intro col-2" data-course="산업공학의 이해">산업공학의 이해</span>
-          <div class="course-cell row-intro col-3">
-            <div class="course-stack">
-              <span id="course-industrial-process-design" class="course-box" data-course="산업공정설계">산업공정설계</span>
-              <span id="course-scientific-management" class="course-box highlight" data-course="과학적 관리">과학적 관리</span>
-            </div>
-          </div>
-          <span id="course-creative-thinking" class="course-box row-intro col-5" data-course="공학도를 위한 창의적 사고">공학도를 위한 창의적 사고</span>
-          <span id="course-grad-ie-seminar" class="course-box graduate highlight row-intro col-9" data-course="산업공학세미나">산업공학세미나</span>
-
-          <div class="lane-bg row-computing"></div>
-          <div class="area-header row-computing col-area">컴퓨터 DB</div>
-          <span id="course-computer-practice" class="course-box foundation slot-top row-computing col-1" data-course="컴퓨터의 개념 및 실습">컴퓨터의 개념 및 실습</span>
-          <span id="course-industrial-computing" class="course-box slot-bottom row-computing col-3" data-course="산업컴퓨팅개론">산업컴퓨팅개론</span>
-          <span id="course-data-management" class="course-box highlight slot-top row-computing col-4" data-course="데이터관리와 분석">데이터관리와 분석</span>
-
-          <div class="lane-bg row-data"></div>
-          <div class="area-header row-data col-area">통계<br>데이터</div>
-          <span id="course-ie-stat" class="course-box highlight row-data col-5" data-course="산업공학통계">산업공학통계</span>
-          <div class="course-cell row-data col-7">
-            <div class="course-stack">
-              <span id="course-data-mining" class="course-box" data-course="데이터마이닝">데이터마이닝</span>
-              <span id="course-bigdata-applications" class="course-box" data-course="빅데이터 산업응용">빅데이터 산업응용</span>
-              <span id="course-text-analytics" class="course-box" data-course="산업 텍스트 애널리틱스">산업 텍스트 애널리틱스</span>
-            </div>
-          </div>
-          <div class="course-cell row-data col-9">
-            <div class="course-stack">
-              <span id="course-grad-data-mining-methods" class="course-box graduate" data-course="데이터마이닝 기법">데이터마이닝 기법</span>
-              <span id="course-grad-data-learning" class="course-box graduate" data-course="데이터기반학습">데이터기반학습</span>
-              <span id="course-grad-multivariate-analysis" class="course-box graduate" data-course="응용 다변량 통계분석">응용 다변량 통계분석</span>
-            </div>
-          </div>
-
-          <div class="lane-bg row-or"></div>
-          <div class="area-header row-or col-area">경영과학</div>
-          <span id="course-or1" class="course-box highlight row-or col-4" data-course="경영과학1">경영과학1</span>
-          <span id="course-or2" class="course-box highlight row-or col-5" data-course="경영과학2">경영과학2</span>
-          <div class="course-cell row-or col-6">
-            <div class="course-stack">
-              <span id="course-optimization-models" class="course-box" data-course="최적화모형 및 응용">최적화모형 및 응용</span>
-              <span id="course-industrial-math-methods" class="course-box" data-course="산업경영수리기법">산업경영수리기법</span>
-            </div>
-          </div>
-          <div class="course-cell row-or col-7">
-            <div class="course-stack">
-              <span id="course-simulation" class="course-box" data-course="시뮬레이션">시뮬레이션</span>
-              <span id="course-optimization-algorithms" class="course-box" data-course="최적화 알고리즘">최적화 알고리즘</span>
-            </div>
-          </div>
-          <div class="course-cell row-or col-9">
-            <div class="course-stack">
-              <span id="course-grad-convex-optimization" class="course-box graduate" data-course="볼록최적화">볼록최적화</span>
-              <span id="course-grad-integer-optimization" class="course-box graduate" data-course="정수최적화">정수최적화</span>
-              <span id="course-grad-stochastic" class="course-box graduate" data-course="추계학">추계학</span>
-            </div>
-          </div>
-
-          <div class="lane-bg row-scm"></div>
-          <div class="area-header row-scm col-area">운영관리<br>SCM</div>
-          <span id="course-logistics" class="course-box row-scm col-5" data-course="물류관리">물류관리</span>
-          <span id="course-production-management" class="course-box highlight row-scm col-6" data-course="생산관리">생산관리</span>
-          <div class="course-cell row-scm col-9">
-            <div class="course-stack">
-              <span id="course-grad-inventory-management" class="course-box graduate" data-course="재고관리">재고관리</span>
-              <span id="course-grad-production-planning" class="course-box graduate" data-course="생산계획 및 통제">생산계획 및 통제</span>
-            </div>
-          </div>
-
-          <div class="lane-bg row-service"></div>
-          <div class="area-header row-service col-area">제품<br>서비스</div>
-          <span id="course-product-quality" class="course-box row-service col-5" data-course="제품개발 및 품질설계">제품개발 및 품질설계</span>
-          <span id="course-service-engineering" class="course-box row-service col-6" data-course="서비스공학">서비스공학</span>
-          <span id="course-grad-product-engineering" class="course-box graduate row-service col-9" data-course="제품공학">제품공학</span>
-
-          <div class="lane-bg row-finance"></div>
-          <div class="area-header row-finance col-area">경제 금융</div>
-          <span id="course-tech-management" class="course-box row-finance col-6" data-course="기술경영">기술경영</span>
-          <span id="course-engineering-economy" class="course-box highlight row-finance col-7" data-course="경제성공학">경제성공학</span>
-          <div class="course-cell row-finance col-8">
-            <div class="course-stack">
-              <span id="course-finance-intro" class="course-box" data-course="금융학개론">금융학개론</span>
-              <span id="course-fintech-intro" class="course-box" data-course="핀테크 개론">핀테크 개론</span>
-            </div>
-          </div>
-          <div class="course-cell row-finance col-9">
-            <div class="course-stack">
-              <span id="course-grad-industrial-economic-analysis" class="course-box graduate" data-course="공업경제분석">공업경제분석</span>
-              <span id="course-grad-tech-innovation-methods" class="course-box graduate" data-course="기술혁신이론 및 연구방법론">기술혁신이론 및 연구방법론</span>
-            </div>
-          </div>
-
-          <div class="lane-bg row-human"></div>
-          <div class="area-header row-human col-area">인간공학</div>
-          <div class="course-cell row-human col-4">
-            <div class="course-stack">
-              <span id="course-ergonomics" class="course-box highlight" data-course="인간공학">인간공학</span>
-              <span id="course-ergonomics-lab" class="course-box highlight" data-course="인간공학 실험">인간공학 실험</span>
-            </div>
-          </div>
-          <span id="course-ergonomics-design" class="course-box row-human col-6" data-course="인간공학 설계">인간공학 설계</span>
-          <span id="course-human-interface-design" class="course-box row-human col-7" data-course="휴먼인터페이스 디자인">휴먼인터페이스 디자인</span>
-          <div class="course-cell row-human col-9">
-            <div class="course-stack">
-              <span id="course-grad-human-performance" class="course-box graduate" data-course="인간성능">인간성능</span>
-              <span id="course-grad-biomechanics" class="course-box graduate" data-course="작업생체역학">작업생체역학</span>
-            </div>
-          </div>
+    <section class="grad-panel" id="gradPanel" hidden aria-label="대학원 교과목">
+      <h2>대학원 교과목</h2>
+      <p class="g-sub">전공영역별 기초 · 심화 · 응용 구분. 과목 위에 마우스를 올리면 구/신 교과목코드가 나타납니다. (<span style="color:var(--req);font-weight:800;">＊</span> = 아래 선수과목 안내 참고)</p>
+      <div class="grad-grid" id="gradGrid">
+        <div class="g-head area">전공영역</div>
+        <div class="g-head">기초</div>
+        <div class="g-head">심화</div>
+        <div class="g-head">응용</div>
+        <!-- rows injected by JS -->
+      </div>
+      <div class="grad-notes">
+        <div class="card">
+          <h4 class="req-title">추가 필수 선이수</h4>
+          <p>생산계획 및 통제 ← 경영과학1, 경영과학2</p>
+          <p>재고관리 ← 생산관리</p>
+          <p>데이터마이닝기법 ← 데이터마이닝, 산업 텍스트 애널리틱스</p>
         </div>
-        <svg class="connector-svg" aria-hidden="true"></svg>
+        <div class="card">
+          <h4>수강 제한</h4>
+          <p>추계학 — 학부생 수강 불허</p>
+        </div>
       </div>
     </section>
-  </main>
+  </section>
+</main>
+
+<div id="courseTip" class="course-tip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+/* ---------- graduate data ---------- */
+const gradAreas = [
+  { area:"시스템설계", 기초:[["제품공학","406.547","IE.G150"]],
+    심화:[["헬스케어 서비스 혁신","M1505.002600","IE.G161"]],
+    응용:[["협업설계 및 공학응용","M1505.000900","IE.G182"]] },
+  { area:"시스템운영", 기초:[["생산계획 및 통제","406.552","IE.G210",true],["재고관리","M1505.000100","IE.G270",true]],
+    심화:[["전략기획 및 통제","406.660","IE.G221"]], 응용:[] },
+  { area:"최적화", 기초:[["선형최적화","M1505.002200","IE.G310"],["볼록최적화","M1505.003100","IE.G320"]],
+    심화:[["정수최적화","406.667","IE.G331"],["조합최적화","406.652","IE.G341"],["동적최적화","M1505.002500","IE.G351"],["수치최적화","M1505.002300","IE.G361"]],
+    응용:[["스케줄링 이론 및 응용","M1505.002400","IE.G372"]] },
+  { area:"확률모형", 기초:[["추계학","406.544","IE.G410",true],["응용 다변량 통계분석","406.659","IE.G420"]],
+    심화:[["확률모형특론","406.568","IE.G431"]], 응용:[] },
+  { area:"데이터과학", 기초:[["데이터기반학습","406.561","IE.G510"],["데이터마이닝기법","406.546","IE.G520",true]],
+    심화:[["통계학습 고등논제","406.550","IE.G531"],["기계학습 산업응용","M1505.001300","IE.G561"]], 응용:[] },
+  { area:"인간공학", 기초:[["인간성능","406.554","IE.G610"],["작업생체역학","406.565","IE.G620"]],
+    심화:[["인간-기계 인터페이스 설계 및 평가","406.548","IE.G651"],["사용자중심 제품설계개발론","406.557","IE.G661"],["스마트시스템 인간공학","M1505.001700","IE.G671"],["자동차 인간공학","406.752","IE.G681"]], 응용:[] },
+  { area:"기술경영", 기초:[["기술혁신이론 및 연구방법론","406.545","IE.G710"],["공업경제분석","406.556","IE.G720"]],
+    심화:[["기술예측과 인텔리전스","M1505.001800","IE.G731"],["경쟁시스템분석","M1505.001200","IE.G741"]], 응용:[] },
+  { area:"공통", 기초:[], 심화:[],
+    응용:[["산업공학세미나","406.751","IE.G022"],["산업공학특론","406.559","IE.G012"],["글로벌 산업공학 인사이트","M1505.003000","IE.G032"],["산업공학 프로젝트","M1505.002900","IE.G042"],["산업공학 인턴십 1","M1505.002700","IE.G062"],["산업공학 인턴십 2","M1505.002800","IE.G052"],["대학원 논문연구","406.811","IE.G002"]] }
+];
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+
+function buildGradGrid(){
+  const grid = document.getElementById("gradGrid");
+  gradAreas.forEach(row=>{
+    const areaEl=document.createElement("div");
+    areaEl.className="g-area";areaEl.innerHTML=esc(row.area);
+    grid.appendChild(areaEl);
+    ["기초","심화","응용"].forEach(level=>{
+      const cell=document.createElement("div");
+      cell.className="g-cell"+(row[level].length?"":" empty");
+      row[level].forEach(c=>{
+        const [name,oldc,newc,star]=c;
+        const b=document.createElement("span");
+        b.className="g-box";b.tabIndex=0;
+        b.dataset.name=name;b.dataset.old=oldc;b.dataset.new=newc;b.dataset.desc="";
+        b.innerHTML=esc(name)+(star?'<span class="star">＊</span>':"");
+        cell.appendChild(b);
+      });
+      grid.appendChild(cell);
+    });
+  });
+}
+
+/* ---------- tooltip ---------- */
+const tip=document.getElementById("courseTip");
+function showTip(el,evt){
+  const name=el.dataset.name||el.textContent.trim();
+  const oldc=el.dataset.old||"—";
+  const newc=el.dataset.new||"—";
+  const desc=(el.dataset.desc||"").trim();
+  tip.innerHTML=
+    '<div class="tip-name">'+esc(name)+'</div>'+
+    '<div class="tip-rows">'+
+      '<div class="tip-row"><span>구 교과목코드</span><b class="old">'+esc(oldc)+'</b></div>'+
+      '<div class="tip-row"><span>신 교과목코드</span><b class="new">'+esc(newc)+'</b></div>'+
+    '</div>'+
+    (desc?'<div class="tip-desc">'+esc(desc)+'</div>'
+         :'<div class="tip-desc empty">과목 설명 준비 중</div>');
+  tip.classList.add("show");tip.setAttribute("aria-hidden","false");
+  moveTip(evt,el);
+}
+function moveTip(evt,el){
+  const pad=14;
+  let x,y;
+  if(evt&&typeof evt.clientX==="number"&&evt.clientX){x=evt.clientX+16;y=evt.clientY+18;}
+  else{const r=el.getBoundingClientRect();x=r.left+r.width/2;y=r.bottom+10;}
+  const tw=tip.offsetWidth,th=tip.offsetHeight;
+  if(x+tw+pad>window.innerWidth)x=window.innerWidth-tw-pad;
+  if(y+th+pad>window.innerHeight)y=(evt?evt.clientY:0)-th-18;
+  if(x<pad)x=pad;if(y<pad)y=pad;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+}
+function hideTip(){tip.classList.remove("show");tip.setAttribute("aria-hidden","true");}
+function bindTips(scope){
+  scope.addEventListener("mouseover",e=>{const el=e.target.closest(".course-box,.g-box");if(el)showTip(el,e);});
+  scope.addEventListener("mousemove",e=>{const el=e.target.closest(".course-box,.g-box");if(el&&tip.classList.contains("show"))moveTip(e,el);});
+  scope.addEventListener("mouseout",e=>{const el=e.target.closest(".course-box,.g-box");if(el)hideTip();});
+  scope.addEventListener("focusin",e=>{const el=e.target.closest(".course-box,.g-box");if(el)showTip(el,null);});
+  scope.addEventListener("focusout",e=>{const el=e.target.closest(".course-box,.g-box");if(el)hideTip();});
+}
+
+/* ---------- graduate toggle ---------- */
+function initGradToggle(){
+  const btn=document.getElementById("gradToggle");
+  const panel=document.getElementById("gradPanel");
+  btn.addEventListener("click",()=>{
+    const open=btn.getAttribute("aria-expanded")==="true";
+    btn.setAttribute("aria-expanded",String(!open));
+    panel.hidden=open;
+    if(!open)panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+  });
+}
+
+/* ---------- connectors (undergraduate) ---------- */
+const REQ="#e2482b", REC="#8a94a3";
+const specs=[
+  // foundation
+  {k:"link",from:"math1",to:"math2",t:"solid"},
+  {k:"link",from:"math2",to:"stat",t:"solid"},
+  {k:"link",from:"math2",to:"emath1",t:"solid"},
+  {k:"link",from:"emath1",to:"emath2",t:"solid"},
+  // required (red)
+  {k:"link",from:"emath1",to:"or1",t:"req"},
+  {k:"link",from:"emath2",to:"imrm",t:"req"},
+  {k:"link",from:"comp",to:"dma",t:"req"},
+  {k:"branch",from:"ipd",to:["pqd","svc"],t:"req"},
+  {k:"link",from:"prod",to:"logi",t:"req"},
+  {k:"link",from:"or1",to:"optm",t:"req"},
+  {k:"link",from:"optm",to:"opta",t:"req"},
+  {k:"merge",from:["or2","iestat"],to:"sim",t:"req"},
+  {k:"merge",from:["dma","iestat"],to:"dmine",t:"req"},
+  {k:"branch",from:"dmine",to:["bigdata","textan"],t:"req"},
+  {k:"link",from:"iestat",to:"textan",t:"req"},
+  // recommended (dashed grey)
+  {k:"link",from:"scimgmt",to:"creative",t:"rec"},
+  {k:"link",from:"icomp",to:"imrm",t:"rec"},
+  {k:"link",from:"or1",to:"or2",t:"rec"},
+  {k:"vertical",from:"ergo",to:"ergolab",t:"rec"},
+  {k:"link",from:"ergo",to:"ergodes",t:"rec"},
+  {k:"link",from:"ergodes",to:"hid",t:"rec"},
+  {k:"link",from:"techm",to:"econ",t:"rec"},
+  {k:"branch",from:"econ",to:["finintro","fintech"],t:"rec"}
+];
+const SVG_NS="http://www.w3.org/2000/svg", OFF=18;
+
+function drawConnectors(){
+  const wrapper=document.querySelector(".roadmap-wrapper");
+  const grid=document.querySelector(".roadmap-grid");
+  const svg=document.querySelector(".connector-svg");
+  if(!wrapper||!grid||!svg)return;
+  const width=Math.max(wrapper.clientWidth,grid.scrollWidth);
+  const height=Math.max(wrapper.clientHeight,grid.scrollHeight);
+  svg.setAttribute("viewBox",`0 0 ${width} ${height}`);
+  svg.setAttribute("width",width);svg.setAttribute("height",height);
+  svg.style.width=width+"px";svg.style.height=height+"px";
+  svg.replaceChildren();
+  const wb=wrapper.getBoundingClientRect();
+  const sx=wrapper.scrollLeft, sy=wrapper.scrollTop;
+  const P=id=>{const b=document.getElementById(id);if(!b)return null;const r=b.getBoundingClientRect();
+    const left=r.left-wb.left+sx,right=r.right-wb.left+sx,top=r.top-wb.top+sy,bottom=r.bottom-wb.top+sy;
+    return{left,right,top,bottom,cx:left+r.width/2,cy:top+r.height/2};};
+  const add=(d,t)=>{const p=document.createElementNS(SVG_NS,"path");p.setAttribute("d",d);p.setAttribute("fill","none");
+    p.setAttribute("stroke",t==="req"?REQ:(t==="solid"?"#555":REC));p.setAttribute("stroke-width",t==="req"?"2.4":"1.8");
+    if(t==="rec")p.setAttribute("stroke-dasharray","4,5");p.setAttribute("stroke-linecap","round");p.setAttribute("stroke-linejoin","round");
+    svg.appendChild(p);};
+  const arrow=(x,y,dir)=>{ // small arrowhead pointing dir: 'r' right,'d' down
+    const s=5;let d;
+    if(dir==="d")d=`M ${x-s} ${y-s} L ${x} ${y} L ${x+s} ${y-s}`;
+    else d=`M ${x-s} ${y-s} L ${x} ${y} L ${x-s} ${y+s}`;
+    return d;};
+  const link=(a,b,t)=>{const s=P(a),e=P(b);if(!s||!e)return;
+    const midX=e.left>s.right?(s.right+e.left)/2:s.right+OFF;
+    add(`M ${s.right} ${s.cy} H ${midX} V ${e.cy} H ${e.left}`,t);
+    add(arrow(e.left,e.cy,"r"),t);};
+  const branch=(a,bs,t)=>{const s=P(a),es=bs.map(P);if(!s||es.some(x=>!x))return;
+    const tx=s.right+OFF;const ys=es.map(p=>p.cy);
+    add(`M ${s.right} ${s.cy} H ${tx} M ${tx} ${Math.min(...ys)} V ${Math.max(...ys)}`,t);
+    es.forEach(p=>{add(`M ${tx} ${p.cy} H ${p.left}`,t);add(arrow(p.left,p.cy,"r"),t);});};
+  const merge=(as,b,t)=>{const ss=as.map(P),e=P(b);if(!e||ss.some(x=>!x))return;
+    const tx=e.left-OFF;const ys=ss.map(p=>p.cy);
+    ss.forEach(p=>add(`M ${p.right} ${p.cy} H ${tx}`,t));
+    add(`M ${tx} ${Math.min(...ys,e.cy)} V ${Math.max(...ys,e.cy)} M ${tx} ${e.cy} H ${e.left}`,t);
+    add(arrow(e.left,e.cy,"r"),t);};
+  const vertical=(a,b,t)=>{const s=P(a),e=P(b);if(!s||!e)return;
+    const x=s.cx,y1=s.cy<=e.cy?s.bottom:s.top,y2=s.cy<=e.cy?e.top:e.bottom;
+    add(`M ${x} ${y1} V ${y2}`,t);add(arrow(x,y2,"d"),t);};
+  specs.forEach(sp=>{
+    if(sp.k==="link")link(sp.from,sp.to,sp.t);
+    else if(sp.k==="branch")branch(sp.from,sp.to,sp.t);
+    else if(sp.k==="merge")merge(sp.from,sp.to,sp.t);
+    else if(sp.k==="vertical")vertical(sp.from,sp.to,sp.t);
+  });
+}
+function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
+const dDraw=debounce(drawConnectors,80);
+
+document.addEventListener("DOMContentLoaded",()=>{
+  buildGradGrid();
+  bindTips(document.getElementById("ugGrid"));
+  bindTips(document.getElementById("gradPanel"));
+  initGradToggle();
+  drawConnectors();
+});
+window.addEventListener("load",drawConnectors);
+window.addEventListener("resize",dDraw);
+window.addEventListener("scroll",hideTip,true);
+if("ResizeObserver"in window){
+  document.addEventListener("DOMContentLoaded",()=>{const g=document.querySelector(".roadmap-grid");if(g)new ResizeObserver(dDraw).observe(g);});
+}
+if(document.fonts)document.fonts.ready.then(drawConnectors);
+</script>
 </body>
 </html>
