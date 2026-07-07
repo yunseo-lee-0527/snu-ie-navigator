@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SNU IE Navigator</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
   <link rel="stylesheet" href="css/base.css">
   <script defer src="js/script.js"></script>
 </head>
@@ -25,33 +27,43 @@
     <section class="home-hero" aria-labelledby="homeTitle">
       <div class="home-copy">
         <p class="eyebrow">서울대학교 산업공학과 학업 가이드</p>
-        <h1 id="homeTitle">산업공학과 학업 정보를 한눈에 확인하세요</h1>
+        <h1 id="homeTitle">산업공학과 학업 정보를<br>한눈에 확인하세요.</h1>
         <p>
           전공 로드맵부터 이수 규정, 자주 묻는 질문, 개설 과목 정보까지 한곳에 모았습니다.
           필요한 정보를 빠르게 찾아 학업 계획을 세워보세요.
         </p>
+        <div class="home-actions">
+          <a class="button-pill" href="roadmap.html">전공 로드맵 보기</a>
+          <a class="button-pill secondary" href="courses.html">개설 과목 검색</a>
+        </div>
       </div>
+    </section>
 
+    <section class="portal-section">
       <div class="portal-grid" aria-label="세부 페이지 링크">
         <a class="portal-card" href="roadmap.html">
-          <span>01</span>
+          <span class="num">01</span>
           <h2>전공 로드맵</h2>
           <p>학부 전공 과목의 흐름과 대학원 연계 과목을 단계별로 확인합니다.</p>
+          <span class="more">자세히 보기 →</span>
         </a>
         <a class="portal-card" href="rules.html">
-          <span>02</span>
+          <span class="num">02</span>
           <h2>이수규정</h2>
           <p>학번별 이수학점, 전선 인정 과목, 복수전공·부전공·자유전공 기준을 정리했습니다.</p>
+          <span class="more">자세히 보기 →</span>
         </a>
         <a class="portal-card" href="faq.html">
-          <span>03</span>
+          <span class="num">03</span>
           <h2>자주 묻는 질문</h2>
           <p>졸업, 복수전공, 대학원 준비 등 학생들이 자주 찾는 질문을 모았습니다.</p>
+          <span class="more">자세히 보기 →</span>
         </a>
         <a class="portal-card" href="courses.html">
-          <span>04</span>
+          <span class="num">04</span>
           <h2>개설 과목 검색</h2>
           <p>개설 과목을 검색하고 필수 과목, 데이터 관련 과목 등을 쉽게 찾아봅니다.</p>
+          <span class="more">자세히 보기 →</span>
         </a>
       </div>
     </section>

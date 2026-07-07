@@ -126,7 +126,7 @@ const ruleData = {
     label: "21학번",
     group: "2021-2023",
     totalCredits: "130학점",
-    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    liberalCredits: "교양 52학점 기준",
     majorCredits: "주전공 59학점",
     requiredCredits: "전필 28학점",
     electiveCredits: "학과 전선 21학점 이상",
@@ -147,7 +147,7 @@ const ruleData = {
     label: "22학번",
     group: "2021-2023",
     totalCredits: "130학점",
-    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    liberalCredits: "교양 52학점 기준",
     majorCredits: "주전공 59학점",
     requiredCredits: "전필 28학점",
     electiveCredits: "학과 전선 21학점 이상",
@@ -168,7 +168,7 @@ const ruleData = {
     label: "23학번",
     group: "2021-2023",
     totalCredits: "130학점",
-    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    liberalCredits: "교양 52학점 기준",
     majorCredits: "주전공 59학점",
     requiredCredits: "전필 28학점",
     electiveCredits: "학과 전선 21학점 이상",
@@ -189,7 +189,7 @@ const ruleData = {
     label: "24학번",
     group: "2024",
     totalCredits: "130학점",
-    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    liberalCredits: "교양 52학점 기준",
     majorCredits: "주전공 59학점",
     requiredCredits: "전필 28학점",
     electiveCredits: "학과 전선 21학점 이상",
@@ -210,7 +210,7 @@ const ruleData = {
     label: "25학번",
     group: "2025-2026",
     totalCredits: "130학점",
-    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    liberalCredits: "교양 52학점 기준",
     majorCredits: "주전공 59학점",
     requiredCredits: "전필 28학점",
     electiveCredits: "학과 전선 21학점 이상",
@@ -230,7 +230,7 @@ const ruleData = {
     label: "26학번",
     group: "2025-2026",
     totalCredits: "130학점",
-    liberalCredits: "교양 52학점 기준, 상세 교양표는 50학점 이상으로 제시",
+    liberalCredits: "교양 52학점 기준",
     majorCredits: "주전공 59학점",
     requiredCredits: "전필 28학점",
     electiveCredits: "학과 전선 21학점 이상",
@@ -507,6 +507,7 @@ const majorCreditRows = [
 
 const courseGrid = document.querySelector("#courseGrid");
 const courseSearch = document.querySelector("#courseSearch");
+const courseCount = document.querySelector("#courseCount");
 const filterButtons = document.querySelectorAll(".filter");
 let activeFilter = "all";
 
@@ -532,6 +533,10 @@ function renderCourses() {
     return matchesQuery && matchesFilter;
   });
 
+  if (courseCount) {
+    courseCount.textContent = `${filtered.length}개 과목`;
+  }
+
   courseGrid.innerHTML = filtered.map((course) => `
     <article class="course-card">
       <header>
@@ -554,7 +559,10 @@ function initFaqs() {
 
   faqList.innerHTML = faqs.map((item, index) => `
     <article class="faq-item ${index === 0 ? "open" : ""}">
-      <button type="button" aria-expanded="${index === 0 ? "true" : "false"}">${item.q}</button>
+      <button type="button" aria-expanded="${index === 0 ? "true" : "false"}">
+        <span>${item.q}</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
       <div class="faq-answer">${item.a}</div>
     </article>
   `).join("");
@@ -563,8 +571,18 @@ function initFaqs() {
     const button = event.target.closest("button");
     if (!button) return;
     const item = button.closest(".faq-item");
-    const open = item.classList.toggle("open");
-    button.setAttribute("aria-expanded", open ? "true" : "false");
+    const willOpen = !item.classList.contains("open");
+
+    faqList.querySelectorAll(".faq-item").forEach((target) => {
+      target.classList.remove("open");
+      const targetButton = target.querySelector("button");
+      if (targetButton) targetButton.setAttribute("aria-expanded", "false");
+    });
+
+    if (willOpen) {
+      item.classList.add("open");
+      button.setAttribute("aria-expanded", "true");
+    }
   });
 }
 
@@ -573,7 +591,7 @@ function initRulesPage() {
   const ruleOutput = document.querySelector("#ruleOutput");
   const yearChips = document.querySelectorAll(".year-chip");
   const selectedPdfLink = document.querySelector("#selectedPdfLink");
-  if (!yearInput || !ruleOutput) return;
+  if (!ruleOutput) return;
 
   function listItems(items) {
     return items.map((item) => `<li>${item}</li>`).join("");
@@ -636,12 +654,6 @@ function initRulesPage() {
     `;
   }
 
-  function pdfLink(activeYear) {
-    return `
-      <a class="active" href="${requirementPdfs[activeYear]}" target="_blank" rel="noreferrer">${String(activeYear).slice(2)}학번_이수규정</a>
-    `;
-  }
-
   function renderRules(year) {
     const data = ruleData[year];
     if (!data) {
@@ -655,13 +667,10 @@ function initRulesPage() {
       return;
     }
 
-    yearInput.value = year;
+    if (yearInput) yearInput.value = year;
     yearChips.forEach((chip) => chip.classList.toggle("active", Number(chip.dataset.year) === year));
     if (selectedPdfLink) {
-      selectedPdfLink.innerHTML = `
-        <span>${data.label} 이수 규정 PDF 보기:</span>
-        <div class="pdf-link-grid">${pdfLink(year)}</div>
-      `;
+      selectedPdfLink.textContent = `${data.label} 이수 규정 PDF · ${String(year).slice(2)}학번_이수규정`;
     }
 
     ruleOutput.innerHTML = `
@@ -675,7 +684,7 @@ function initRulesPage() {
 
       <section class="rule-section">
         <h2>추가 이수 요건</h2>
-        <ul class="required-list">${listItems(additionalRequirements)}</ul>
+        <ul class="rule-list">${listItems(additionalRequirements)}</ul>
         <h3 class="subsection-title">외국어진행강좌 기준</h3>
         ${foreignLanguageLectureTable(year)}
       </section>
@@ -692,7 +701,7 @@ function initRulesPage() {
 
       <section class="rule-section">
         <h2>전공필수 과목</h2>
-        <div class="placeholder-box">${commonMajorRequired.join(" / ")}</div>
+        <div class="pill-list">${commonMajorRequired.map((course) => `<span>${course}</span>`).join("")}</div>
       </section>
 
       <section class="rule-section">
@@ -708,14 +717,16 @@ function initRulesPage() {
       <section class="rule-section multi-major-section">
         <h2>복수전공·부전공·자유전공</h2>
         <p class="section-note">단전공생 이수학점과 별도로 확인해야 하는 다전공 기준입니다. 복수전공, 부전공, 자유전공학부 학생은 이 섹션을 꼭 확인하세요.</p>
-        <ul class="required-list">${listItems(multiMajorRules)}</ul>
+        <ul class="rule-list">${listItems(multiMajorRules)}</ul>
       </section>
     `;
   }
 
-  yearInput.addEventListener("input", () => {
-    renderRules(Number(yearInput.value));
-  });
+  if (yearInput) {
+    yearInput.addEventListener("input", () => {
+      renderRules(Number(yearInput.value));
+    });
+  }
 
   yearChips.forEach((chip) => {
     chip.addEventListener("click", () => {

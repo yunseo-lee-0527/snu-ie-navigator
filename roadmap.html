@@ -4,85 +4,72 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>전공 로드맵 | SNU IE Navigator</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <style>
 :root{
-  --ink:#18212f; --muted:#5d6877; --line:#dbe2ea; --paper:#fbfcfe; --wash:#eef4f7;
-  --snu:#243f9f; --snu-dark:#17366d; --blue:#1b3f8b; --green:#2f7d6d; --gold:#b77b27; --white:#fff;
-  --req:#1f3fb0;      /* 필수 선수 (진한 파랑) */
-  --link:#2f7d6d;     /* 대학원 연계 */
-  font-family:"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Arial,sans-serif;
+  --ink:#1d1d1f; --muted:#6e6e73; --quiet:#86868b; --line:#e5e5e7; --line-strong:#d2d2d7;
+  --paper:#fff; --wash:#f5f5f7; --wash-2:#eef0f3; --blue:#0a5fd6; --blue-soft:#eef2fb; --white:#fff;
+  --req:#0a5fd6;
+  font-family:"Pretendard Variable",-apple-system,BlinkMacSystemFont,"SF Pro Display","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
 }
 *{box-sizing:border-box;}
-body{margin:0;color:var(--ink);background:var(--paper);}
+body{margin:0;color:var(--ink);background:var(--paper);letter-spacing:0;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--blue);color:#fff;}
 a{color:inherit;}
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
-  min-height:64px;padding:0 3vw;border-bottom:1px solid rgba(24,33,47,.08);
-  background:rgba(251,252,254,.94);backdrop-filter:blur(16px);}
-.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;}
-.brand-mark{display:grid;width:36px;height:36px;place-items:center;border-radius:8px;color:#fff;background:var(--snu-dark);}
-.nav{display:flex;gap:6px;font-size:14px;}
-.nav a{padding:9px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;}
-.nav a:hover{background:var(--wash);}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  height:54px;padding:0 clamp(20px,5vw,48px);border-bottom:1px solid rgba(0,0,0,.08);
+  background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);}
+.brand{display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-size:15px;font-weight:600;text-decoration:none;}
+.brand-mark{display:grid;width:28px;height:28px;place-items:center;border-radius:7px;color:#fff;background:var(--blue);font-size:12px;font-weight:700;}
+.nav{display:flex;gap:2px;font-size:14px;}
+.nav a{padding:7px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;font-weight:500;}
+.nav a:hover,.nav a.active{background:rgba(10,95,214,.08);color:var(--blue);}
 
-.roadmap-hero{padding:22px 2vw 48px;background:linear-gradient(180deg,#f7f9fc 0%,#fff 88%);}
-.roadmap-title{width:min(1500px,100%);margin:0 auto 16px;}
-.eyebrow{margin:0 0 8px;color:var(--green);font-size:13px;font-weight:800;text-transform:uppercase;}
-.roadmap-title h1{margin:0 0 8px;font-size:clamp(30px,4vw,52px);line-height:1.1;}
-.roadmap-title .subtitle{margin:0 0 18px;color:var(--muted);font-size:16px;line-height:1.6;}
+.roadmap-hero{max-width:1500px;margin:0 auto;padding:72px clamp(20px,4vw,40px) 100px;background:#fff;}
+.roadmap-title{margin:0 0 20px;}
+.eyebrow{margin:0 0 12px;color:var(--blue);font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;}
+.roadmap-title h1{margin:0 0 16px;font-size:48px;font-weight:700;line-height:1.08;}
+.roadmap-title .subtitle{max-width:720px;margin:0 0 24px;color:var(--muted);font-size:19px;line-height:1.5;}
 
-.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
-.code-guide-btn{display:inline-flex;align-items:center;gap:12px;padding:15px 24px;border-radius:12px;
-  background:linear-gradient(135deg,var(--snu) 0%,var(--snu-dark) 100%);color:#fff;text-decoration:none;
-  font-size:17px;font-weight:900;letter-spacing:.2px;box-shadow:0 12px 30px rgba(36,63,159,.38);
-  border:2px solid transparent;transition:transform .16s ease,box-shadow .16s ease;}
-.code-guide-btn:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 18px 40px rgba(36,63,159,.5);}
-.code-guide-btn .kbd{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.18);font-size:18px;}
-.code-guide-btn .arrow{font-size:19px;transition:transform .16s ease;}
-.code-guide-btn:hover .arrow{transform:translateX(4px);}
-
-.grad-toggle{display:inline-flex;align-items:center;gap:12px;padding:15px 24px;border:none;border-radius:12px;cursor:pointer;
-  background:linear-gradient(135deg,var(--snu-dark) 0%,#0f2650 100%);color:#fff;font:inherit;font-size:17px;font-weight:900;
-  box-shadow:0 12px 30px rgba(23,54,109,.34);transition:transform .16s ease,box-shadow .16s ease;}
-.grad-toggle:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(23,54,109,.46);}
-.grad-toggle .badge{padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.18);font-size:13px;font-weight:800;}
-.grad-toggle .chev{font-size:20px;transition:transform .25s ease;}
-.grad-toggle[aria-expanded="true"] .chev{transform:rotate(180deg);}
+.actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:20px;}
+.grad-toggle{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 22px;border:none;border-radius:999px;cursor:pointer;
+  background:var(--blue);color:#fff;font:inherit;font-size:15px;font-weight:600;}
 .grad-toggle .label-open{display:none;}
 .grad-toggle[aria-expanded="true"] .label-closed{display:none;}
 .grad-toggle[aria-expanded="true"] .label-open{display:inline;}
 
-.roadmap-wrapper{position:relative;width:min(1500px,100%);min-width:1100px;margin:0 auto;overflow:auto;
-  border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 18px 44px rgba(24,33,47,.12);}
-.roadmap-grid{position:relative;display:grid;grid-template-columns:118px repeat(8,minmax(112px,1fr));
-  grid-template-rows:40px repeat(10,minmax(72px,auto));gap:12px 10px;min-width:1080px;padding:12px;}
-.roadmap-grid.show-grad{grid-template-columns:118px repeat(8,minmax(102px,1fr)) 24px repeat(8,minmax(116px,1fr));min-width:2300px;}
+.roadmap-wrapper{position:relative;width:100%;overflow:auto;border:1px solid var(--line);border-radius:8px;background:#fff;}
+.roadmap-grid{position:relative;display:grid;grid-template-columns:96px repeat(8,minmax(112px,1fr));
+  grid-template-rows:40px repeat(10,minmax(64px,auto));gap:12px 10px;min-width:1080px;padding:14px;}
+.roadmap-grid.show-grad{grid-template-columns:96px repeat(8,minmax(102px,1fr)) 24px repeat(8,minmax(116px,1fr));min-width:2300px;}
 .connector-svg{position:absolute;top:0;left:0;z-index:2;width:100%;height:100%;pointer-events:none;overflow:visible;}
 
 .term-header,.area-header{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-height:40px;padding:8px;border-radius:5px;text-align:center;font-size:13px;font-weight:700;line-height:1.25;}
-.term-header{border:1px solid #cfd6de;background:#fff;color:var(--ink);}
-.area-header{position:sticky;left:0;z-index:10;background:#eef1f5;color:#101820;font-weight:800;}
-.area-header.corner{background:var(--snu-dark);color:#fff;font-weight:900;}
-.ghead{grid-row:1;border:1px solid var(--blue);background:#eaf0fb;color:var(--snu-dark);font-weight:900;}
-.grad-divider{grid-column:10;grid-row:1 / -1;z-index:1;align-self:stretch;justify-self:center;width:0;border-left:2px solid #b9c6d6;}
-.grad-sep{grid-row:1 / -1;z-index:1;align-self:stretch;justify-self:start;width:0;border-left:1px solid #d5dbe3;}
+  min-height:40px;padding:8px;border-radius:8px;text-align:center;font-size:12px;font-weight:700;line-height:1.3;}
+.term-header{background:#f6f6f8;color:var(--muted);}
+.area-header{position:sticky;left:0;z-index:10;background:#eef0f4;color:#3a3a3c;font-weight:700;}
+.area-header.corner{background:var(--blue);color:#fff;font-weight:700;}
+.ghead{grid-row:1;background:var(--blue-soft);color:var(--blue);font-weight:700;}
+.grad-divider{grid-column:10;grid-row:1 / -1;z-index:1;align-self:stretch;justify-self:center;width:0;border-left:1px solid var(--line-strong);}
+.grad-sep{display:none !important;}
 
-.lane-bg{z-index:0;grid-column:2 / -1;min-height:72px;border-radius:7px;background:#ededed;}
-.lane-bg.alt{background:#e9edf2;}
+.lane-bg{z-index:0;grid-column:2 / -1;min-height:64px;border-radius:8px;background:#fafafa;}
+.lane-bg.alt{background:#f5f7fa;}
 
 .course-cell,.course-box{position:relative;z-index:3;}
 .course-cell{display:flex;align-items:center;justify-content:center;min-width:0;}
 .course-stack{display:grid;width:100%;gap:8px;align-content:center;justify-items:center;}
 .course-box{display:flex;align-items:center;justify-content:center;align-self:center;justify-self:center;
-  width:calc(100% - 14px);min-width:0;min-height:40px;padding:6px 10px;border:1px solid #ccc;border-radius:6px;
-  background:#fff;color:#333;font-size:12px;font-weight:700;line-height:1.25;text-align:center;word-break:keep-all;
-  cursor:default;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;}
-.course-box:hover,.course-box:focus-visible{transform:translateY(-2px);border-color:var(--snu);
+  width:calc(100% - 16px);min-width:0;min-height:42px;padding:7px 10px;border:1px solid var(--line-strong);border-radius:8px;
+  background:#fff;color:var(--ink);font-size:12.5px;font-weight:600;line-height:1.3;text-align:center;word-break:keep-all;
+  cursor:default;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;}
+.course-box:hover,.course-box:focus-visible{transform:translateY(-2px);border-color:var(--blue);
   box-shadow:0 8px 20px rgba(24,33,47,.18);outline:none;z-index:6;}
 .course-box.highlight{border-color:var(--blue);background:var(--blue);color:#fff;}
-.course-box.foundation{border-color:#b8c5df;color:var(--blue);}
-.course-box.graduate{border-color:var(--blue);color:var(--blue);background:#fff;}
-.course-box.graduate:hover{background:var(--blue);color:#fff;}
+.course-box.foundation{border-color:#d5e0f5;color:#4b6ca8;}
+.course-box.graduate{border-color:transparent;color:var(--blue);background:var(--blue-soft);}
+.course-box.graduate:hover{border-color:transparent;background:var(--blue-soft);color:var(--blue);}
 .course-box.slot-top{align-self:start;}
 .course-box.slot-bottom{align-self:end;}
 .course-box .star{color:var(--req);font-weight:900;margin-left:2px;}
@@ -98,47 +85,32 @@ a{color:inherit;}
 .g-cell{flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:4px 8px;min-width:0;}
 .g-cell .course-box{width:auto;max-width:100%;flex:0 1 auto;}
 
-.road-meta{width:min(1500px,100%);margin:16px auto 0;display:grid;grid-template-columns:1fr;gap:14px;}
-.legend,.notes{border:1px solid var(--line);border-radius:10px;background:#fff;padding:16px 18px;}
-.legend h3,.notes h3{margin:0 0 10px;font-size:15px;color:var(--snu-dark);}
-.legend ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px;font-weight:500;}
+.legend ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:16px;}
 .legend li{display:flex;align-items:center;gap:8px;}
-.swatch{width:26px;height:0;border-top:2.6px solid var(--req);}
-.swatch.rec{border-top:2.6px solid #8a94a3;}
-.swatch.grad{border-top:2.6px solid #8a94a3;}
-.swatch.box{width:16px;height:16px;border-radius:4px;border:1px solid var(--blue);background:var(--blue);}
-.swatch.boxf{width:16px;height:16px;border-radius:4px;border:1px solid #b8c5df;background:#fff;}
-.swatch.boxg{width:16px;height:16px;border-radius:4px;border:1px solid var(--blue);background:#fff;}
-.notes p{margin:0 0 6px;font-size:13px;line-height:1.6;color:var(--muted);}
-.notes .req-title{color:var(--req);font-weight:800;}
+.swatch{width:22px;height:0;border-top:2.2px solid var(--blue);}
+.swatch.rec{border-top:2px solid #b9c0cc;}
+.swatch.box{width:13px;height:13px;border-radius:4px;border:0;background:var(--blue);}
+.swatch.boxf{width:13px;height:13px;border-radius:4px;border:1px solid #c9d7f2;background:#fff;}
+.swatch.boxg{width:13px;height:13px;border-radius:4px;border:0;background:var(--blue-soft);}
 
-.grad-notes{width:min(1500px,100%);margin:16px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.grad-notes[hidden]{display:none;}
-.grad-notes .card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fbfcfe;}
-.grad-notes h4{margin:0 0 8px;font-size:14px;}
-.grad-notes .req-title{color:var(--req);}
-.grad-notes p{margin:0 0 5px;font-size:13px;line-height:1.6;color:var(--muted);}
-
-.course-tip{position:fixed;z-index:60;max-width:280px;min-width:190px;padding:0;border-radius:10px;
-  background:#0f1c34;color:#fff;box-shadow:0 16px 40px rgba(9,18,34,.42);pointer-events:none;
-  opacity:0;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease;overflow:hidden;}
-.course-tip.show{opacity:1;transform:translateY(0);}
-.course-tip .tip-name{padding:11px 14px 9px;font-size:14px;font-weight:800;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.12);}
+.course-tip{position:fixed;z-index:60;max-width:280px;min-width:200px;padding:0;border-radius:8px;
+  background:rgba(29,29,31,.96);color:#fff;box-shadow:0 16px 40px rgba(0,0,0,.28);pointer-events:none;
+  opacity:0;transition:opacity .12s ease;overflow:hidden;}
+.course-tip.show{opacity:1;}
+.course-tip .tip-name{padding:11px 14px 9px;font-size:13.5px;font-weight:700;border-bottom:1px solid rgba(255,255,255,.14);}
 .course-tip .tip-rows{padding:10px 14px;display:grid;gap:6px;}
 .course-tip .tip-row{display:flex;justify-content:space-between;gap:14px;font-size:12.5px;}
-.course-tip .tip-row span{color:#9fb3d4;font-weight:700;}
-.course-tip .tip-row b{font-weight:800;letter-spacing:.3px;}
-.course-tip .tip-row b.old{color:#ffd9a8;}
-.course-tip .tip-row b.new{color:#bfe0ff;}
-.course-tip .tip-desc{padding:0 14px 12px;font-size:12px;line-height:1.55;color:#cdd8ea;}
-.course-tip .tip-desc.empty{color:#7186a8;font-style:italic;}
+.course-tip .tip-row span{color:#a9c3f0;font-weight:600;}
+.course-tip .tip-row b{font-weight:700;}
 
 @media (max-width:720px){
-  .topbar{flex-direction:column;align-items:flex-start;padding-top:12px;padding-bottom:12px;}
+  .topbar{height:auto;flex-direction:column;align-items:flex-start;padding-top:12px;padding-bottom:12px;}
   .nav{width:100%;overflow-x:auto;}
-  .road-meta,.grad-notes{grid-template-columns:1fr;}
   .actions{flex-direction:column;align-items:stretch;}
-  .code-guide-btn,.grad-toggle{width:100%;justify-content:center;font-size:16px;}
+  .grad-toggle{width:100%;justify-content:center;font-size:16px;}
+  .roadmap-title h1{font-size:38px;}
+  .roadmap-title .subtitle{font-size:18px;}
 }
 </style>
 </head>
@@ -148,7 +120,7 @@ a{color:inherit;}
     <span class="brand-mark">IE</span><span>SNU IE Navigator</span>
   </a>
   <nav class="nav" aria-label="주요 메뉴">
-    <a href="roadmap.html">전공 로드맵</a>
+    <a class="active" href="roadmap.html">전공 로드맵</a>
     <a href="rules.html">이수규정</a>
     <a href="faq.html">자주 묻는 질문</a>
     <a href="courses.html">개설 과목 검색</a>
@@ -160,17 +132,22 @@ a{color:inherit;}
     <div class="roadmap-title">
       <p class="eyebrow">Roadmap</p>
       <h1 id="roadmapTitle">산업공학과 전공 로드맵</h1>
-      <p class="subtitle">각 과목 위에 마우스를 올리면 <b>구 교과목코드 · 신 교과목코드 · 과목 설명</b>이 나타납니다.
+      <p class="subtitle">각 과목 위에 마우스를 올리면 구·신 교과목코드가 나타납니다.
         <b>대학원 교과목</b>은 학부 로드맵 오른쪽으로 이어 <b>기초 · 심화 · 응용</b>으로 나누어 펼쳐볼 수 있습니다.</p>
       <div class="actions">
-        <a class="code-guide-btn" href="code-guide.html">
-          <span class="kbd">🔑</span><span>신 교과목 코드 읽는 방법</span><span class="arrow">→</span>
-        </a>
         <button class="grad-toggle" id="gradToggle" aria-expanded="false" aria-controls="ugGrid">
-          <span class="chev">▾</span>
           <span class="label-closed">대학원 교과목 이어보기</span>
           <span class="label-open">대학원 교과목 접기</span>
         </button>
+        <div class="legend" aria-label="범례">
+          <ul>
+            <li><span class="swatch"></span>필수 선수과목</li>
+            <li><span class="swatch rec"></span>권장 선수과목</li>
+            <li><span class="swatch box"></span>전공필수</li>
+            <li><span class="swatch boxf"></span>교양필수</li>
+            <li><span class="swatch boxg"></span>대학원</li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -331,19 +308,6 @@ a{color:inherit;}
       <svg class="connector-svg" aria-hidden="true"></svg>
     </div>
 
-    <div class="road-meta">
-      <div class="legend">
-        <h3>범례</h3>
-        <ul>
-          <li><span class="swatch"></span> 필수 선수과목</li>
-          <li><span class="swatch rec"></span> 권장 선수과목</li>
-          <li><span class="swatch box"></span> 전공필수</li>
-          <li><span class="swatch boxf"></span> 교양필수</li>
-          <li><span class="swatch boxg"></span> 대학원</li>
-        </ul>
-      </div>
-    </div>
-
   </section>
 </main>
 
@@ -356,11 +320,10 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 const tip=document.getElementById("courseTip");
 function showTip(el,evt){
   const name=el.dataset.name||el.textContent.trim();
-  const oldc=el.dataset.old||"—", newc=el.dataset.new||"—", desc=(el.dataset.desc||"").trim();
+  const oldc=el.dataset.old||"—", newc=el.dataset.new||"—";
   tip.innerHTML='<div class="tip-name">'+esc(name)+'</div><div class="tip-rows">'+
     '<div class="tip-row"><span>구 교과목코드</span><b class="old">'+esc(oldc)+'</b></div>'+
-    '<div class="tip-row"><span>신 교과목코드</span><b class="new">'+esc(newc)+'</b></div></div>'+
-    (desc?'<div class="tip-desc">'+esc(desc)+'</div>':'<div class="tip-desc empty">과목 설명 준비 중</div>');
+    '<div class="tip-row"><span>신 교과목코드</span><b class="new">'+esc(newc)+'</b></div></div>';
   tip.classList.add("show");tip.setAttribute("aria-hidden","false");moveTip(evt,el);
 }
 function moveTip(evt,el){
@@ -400,7 +363,7 @@ function initGradToggle(){
 }
 
 /* ---------- connectors ---------- */
-const REQ="#1f3fb0", REC="#8a94a3", LINK="#8a94a3", SOLID="#555";
+const REQ="#0a5fd6", REC="#b9c0cc", SOLID="#c9cdd6";
 const specs=[
   {k:"link",from:"math1",to:"math2",t:"solid"},
   {k:"link",from:"math2",to:"stat",t:"solid"},
@@ -448,9 +411,9 @@ function drawConnectors(){
     const r=b.getBoundingClientRect();
     const left=r.left-wb.left+sx,right=r.right-wb.left+sx,top=r.top-wb.top+sy,bottom=r.bottom-wb.top+sy;
     return{left,right,top,bottom,cx:left+r.width/2,cy:top+r.height/2};};
-  const col=t=>t==="req"?REQ:(t==="grad"?LINK:(t==="rec"?REC:SOLID));
+  const col=t=>t==="req"?REQ:(t==="rec"?REC:SOLID);
   const add=(d,t)=>{const p=document.createElementNS(SVG_NS,"path");p.setAttribute("d",d);p.setAttribute("fill","none");
-    p.setAttribute("stroke",col(t));p.setAttribute("stroke-width",t==="req"?"2.4":"1.8");
+    p.setAttribute("stroke",col(t));p.setAttribute("stroke-width",t==="req"?"2.2":"1.6");
     p.setAttribute("stroke-linecap","round");p.setAttribute("stroke-linejoin","round");svg.appendChild(p);};
   const arrow=(x,y,dir,t)=>{const s=5;let d;
     if(dir==="d")d=`M ${x-s} ${y-s} L ${x} ${y} L ${x+s} ${y-s}`;else d=`M ${x-s} ${y-s} L ${x} ${y} L ${x-s} ${y+s}`;
