@@ -468,6 +468,10 @@ p {
   line-height: 1.7;
 }
 
+.faq-answer strong {
+  color: var(--ink);
+}
+
 .faq-item.open .faq-answer {
   display: block;
 }
