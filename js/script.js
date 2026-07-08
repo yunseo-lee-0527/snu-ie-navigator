@@ -70,32 +70,28 @@ const upcomingCourses = [
 // ─── FAQ 데이터 (faq.html) ────────────────────────────────────────────────────
 const faqs = [
   {
-    q: "졸업 요건은 이 사이트만 보고 판단해도 되나요?",
-    a: "아니요. 이 사이트는 계획을 세우기 위한 안내용입니다. 최종 졸업 요건, 학점 인정, 예외 처리, 학번별 차이는 공식 이수규정 문서와 학과 행정실 확인이 기준입니다."
+    q: "영어강의(외국어진행강좌)는 꼭 이수해야 하나요?",
+    a: "학번별로 다릅니다. 이 사이트의 이수규정 기준으로 2020~2023학번은 대학영어를 제외하고 1강좌 이상의 주전공 교과목을 포함해 3과목 이상의 외국어진행강좌를 의무 수강해야 합니다. 2024~2026학번은 같은 기준이 의무가 아니라 권장 사항으로 표시됩니다."
   },
   {
-    q: "복수전공을 하면 산업공학과 전공필수도 들어야 하나요?",
-    a: "공개된 전공교과목 이수규정 PDF에는 복수전공 이수규정이 학과내규에 따르며 전공필수과목을 이수해야 한다고 안내되어 있습니다. 세부 학점과 인정 범위는 본인 학번 기준으로 확인하세요."
+    q: "향후 2년 개설 과목 파일은 언제 확인하는 것이 정확한가요?",
+    a: "개설 과목 검색의 자료는 학업 계획용 참고 자료입니다. 실제 개설 여부는 보통 해당 학기 한 학기 전에 확정되므로, 예를 들어 2026년 2학기 개설 과목은 2026년 1학기 중 5~6월경 확정 자료로 확인하는 것이 가장 정확합니다."
   },
   {
-    q: "대학원 진학을 생각하면 어떤 과목을 우선 챙기면 좋나요?",
-    a: "최적화, 확률과 통계, 생산관리, 인간공학, 컴퓨터 기초는 대학원 입시면접 FAQ에서 기초 범위로 언급됩니다. 관심 연구실 분야에 따라 데이터마이닝, 물류관리, 신뢰성분석, 휴먼인터페이스디자인 같은 심화 과목을 더하면 좋습니다."
+    q: "대학원 세미나 과목도 졸업 요건에 포함되나요?",
+    a: "네. 주전공 기준 전공 이수학점 구조에는 대학원 세미나 1학점이 포함되어 있습니다. 다만 복수전공과 부전공 학생에게는 대학원 세미나 과목 이수 요건이 적용되지 않습니다. 자유전공학부 주전공자는 산업공학과 주전공생과 동일한 요건을 적용받습니다."
   },
   {
-    q: "개설 과목 목록은 매 학기 수강편람과 같나요?",
-    a: "아닙니다. 여기의 과목표는 교과과정 문서의 전공 과목 목록을 학업 탐색용으로 정리한 것입니다. 실제 개설 여부, 담당 교원, 시간표, 정원은 수강편람과 수강신청 시스템에서 확인해야 합니다."
+    q: "산업공학개론은 산업공학과 학생이 반드시 수강해야 하나요?",
+    a: "아니요. 이 사이트의 전공필수 목록에는 산업공학개론이 아니라 산업공학의 이해가 포함되어 있습니다. 산업공학개론은 개설 과목 검색에서 타과수강전선으로 분류되어 있으므로, 산업공학과 주전공 졸업요건의 필수 과목으로 보지는 않습니다."
   },
   {
-    q: "전공선택 인정교과목은 어디서 확인하나요?",
-    a: "전공교과목 이수규정 PDF에 타 학과 및 공과대학 공통과목 중 전공선택으로 인정 가능한 과목 목록이 포함되어 있습니다. 인정 여부가 애매하면 수강 전에 학과 행정실에 확인하는 편이 안전합니다."
+    q: "산업공학과 전공선택 21학점에는 어떤 과목이 들어가나요?",
+    a: "학과 전공선택 21학점 요건에는 산업공학과에서 개설한 전공선택 과목만 포함됩니다. 주전공 59학점 중 전공필수 28학점과 학과 전공선택 21학점을 채운 뒤 남는 10학점은 학과 전공선택이나 타과 전선 인정 과목으로 충족할 수 있습니다. 교환학생으로 국외수학 허가를 받은 과목은 산업공학과 개설 전공선택 과목으로 봅니다."
   },
   {
-    q: "졸업학점 중 학과 전공선택 21학점에 타과 전선 인정 과목도 포함되나요?",
-    a: "아니요. 학과 전공선택 21학점 요건에는 산업공학과에서 개설한 전공선택 과목만 포함됩니다. 다만 교환학생으로 국외수학 허가를 받은 과목은 산업공학과 개설 전공선택 과목으로 봅니다."
-  },
-  {
-    q: "자유전공학부 소속 학생도 학과 전공선택 21학점을 채워야 하나요?",
-    a: "네. 자유전공학부 소속 학생도 산업공학과 주전공생이므로 학과 개설 전공선택 21학점을 포함한 산업공학과 졸업 이수학점을 동일하게 적용받습니다. 졸업논문 작성, 생명존중 교육, 영어 과목, 공과대학 공통 교과목 이수 요건도 동일하게 적용되며, 교양 이수 규정은 자유전공학부 규정을 따릅니다."
+    q: "산업공학의 이해를 정해진 학기에 듣지 않으면 성적 제한이 있나요?",
+    a: "네. <a href='https://ie.snu.ac.kr/notice/?mod=document&uid=6290' target='_blank' rel='noopener'>학과 공지</a>에 따르면 산업공학의 이해(406.434, IE.1010)는 산업공학 주전공 학생과 자유전공학부 주전공 진입생이 1학년 2학기 또는 전공 진입 후 2학기 이내에 반드시 수강해야 하는 전공필수 과목입니다. 휴학 등 공식적 사유 없이 정해진 학기에 수강하지 않으면 부여 가능한 최고 성적이 B+로 제한되며, 이 원칙은 산업공학과 학사과정 26학번 이후 또는 2026년 이후 전공 진입한 자유전공학부 학생부터 적용됩니다."
   }
 ];
 
@@ -249,41 +245,43 @@ const ruleData = {
 };
 
 // ─── 전공필수 과목 (20-26학번 공통) ──────────────────────────────────────────
+// 구·신 교과목코드 병기 (신 코드는 전공 로드맵 기준)
 const commonMajorRequired = [
-  "406.434 산업공학의 이해",
-  "406.211 과학적 관리",
-  "406.304 인간공학",
-  "406.305A 인간공학실험",
-  "406.315 경영과학 1",
-  "406.426B 데이터관리와 분석",
-  "406.317 경영과학 2",
-  "406.432 산업공학통계",
-  "406.310 생산관리",
-  "406.314 경제성공학"
+  { name: "산업공학의 이해", old: "406.434", new: "IE.1010" },
+  { name: "과학적 관리", old: "406.211", new: "IE.2020" },
+  { name: "인간공학", old: "406.304", new: "IE.2610" },
+  { name: "인간공학실험", old: "406.305A", new: "IE.2620" },
+  { name: "경영과학 1", old: "406.315", new: "IE.2310" },
+  { name: "데이터관리와 분석", old: "406.426B", new: "IE.2510" },
+  { name: "경영과학 2", old: "406.317", new: "IE.3410" },
+  { name: "산업공학통계", old: "406.432", new: "IE.3420" },
+  { name: "생산관리", old: "406.310", new: "IE.3210" },
+  { name: "경제성공학", old: "406.314", new: "IE.4720" }
 ];
 
 // ─── 학과 전공선택 과목 ───────────────────────────────────────────────────────
+// 구·신 교과목코드 병기 (신 코드 출처: docs/ie_codes.xlsx)
 const departmentMajorElectives = [
-  "406.436 산업공정설계",
-  "406.324A 공학도를 위한 창의적 사고",
-  "406.325 물류관리",
-  "406.327 산업경영수리기법",
-  "406.319 기술경영",
-  "406.322 서비스공학",
-  "406.321 최적화모형 및 응용",
-  "406.326 인간공학 설계",
-  "M1505.001500 제품개발 및 품질설계",
-  "M1540.000200 기술경영개론",
-  "4251.002A 지식경영전략",
-  "406.311 시뮬레이션",
-  "406.427A 휴먼인터페이스디자인",
-  "406.429 데이터마이닝",
-  "M0000.026700 빅데이터 산업응용",
-  "M1505.002100 산업 텍스트 애널리틱스",
-  "406.433 금융공학개론",
-  "M1505.001900 핀테크 개론",
-  "M1540.000100 기술창업론",
-  "M1505.002000 최적화알고리즘"
+  { name: "산업공정설계", old: "406.436", new: "IE.2110" },
+  { name: "공학도를 위한 창의적 사고", old: "406.324A", new: "IE.3051" },
+  { name: "물류관리", old: "406.325", new: "IE.3251" },
+  { name: "산업경영수리기법", old: "406.327", new: "IE.3061" },
+  { name: "기술경영", old: "406.319", new: "IE.3710" },
+  { name: "서비스공학", old: "406.322", new: "IE.3161" },
+  { name: "최적화모형 및 응용", old: "406.321", new: "IE.3351" },
+  { name: "인간공학 설계", old: "406.326", new: "IE.3661" },
+  { name: "제품개발 및 품질설계", old: "M1505.001500", new: "IE.3151" },
+  { name: "기술경영개론", old: "M1540.000200", new: "MOT.3750" },
+  { name: "지식경영전략", old: "4251.002A", new: "MOT.3711" },
+  { name: "시뮬레이션", old: "406.311", new: "IE.4451" },
+  { name: "휴먼인터페이스디자인", old: "406.427A", new: "IE.4651" },
+  { name: "데이터마이닝", old: "406.429", new: "IE.4520" },
+  { name: "빅데이터 산업응용", old: "M0000.026700", new: "IE.4561" },
+  { name: "산업 텍스트 애널리틱스", old: "M1505.002100", new: "IE.4551" },
+  { name: "금융공학개론", old: "406.433", new: "IE.4820" },
+  { name: "핀테크 개론", old: "M1505.001900", new: "IE.4810" },
+  { name: "기술창업론", old: "M1540.000100", new: "MOT.4761" },
+  { name: "최적화알고리즘", old: "M1505.002000", new: "IE.4362" }
 ];
 
 // ─── 이수규정 PDF 링크 ────────────────────────────────────────────────────────
@@ -537,20 +535,26 @@ function renderCourses() {
     courseCount.textContent = `${filtered.length}개 과목`;
   }
 
-  courseGrid.innerHTML = filtered.map((course) => `
+  courseGrid.innerHTML = filtered.map((course) => {
+    const isGraduate = course.category === "대학원";
+    return `
     <article class="course-card">
       <header>
         <div>
           <span class="course-code">${course.category}</span>
           <h3>${course.name}</h3>
         </div>
-        ${course.type ? `<span class="badge ${course.type === "전필" ? "required" : ""}">${course.type}</span>` : '<span class="badge">교과목</span>'}
+        ${isGraduate ? "" : (course.type ? `<span class="badge ${course.type === "전필" ? "required" : ""}">${course.type}</span>` : '<span class="badge">교과목</span>')}
       </header>
       <div class="offering-list">
-        ${course.offerings.map(([term, note]) => `<span>${term}${note !== "O" ? ` · ${note}` : ""}</span>`).join("")}
+        ${course.offerings.map(([term, note]) => {
+          const detail = note === "O" ? "" : note.replace(/^O/, "").trim();
+          return `<span>${term}${detail ? ` · ${detail}` : ""}</span>`;
+        }).join("")}
       </div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 }
 
 function initFaqs() {
@@ -571,18 +575,8 @@ function initFaqs() {
     const button = event.target.closest("button");
     if (!button) return;
     const item = button.closest(".faq-item");
-    const willOpen = !item.classList.contains("open");
-
-    faqList.querySelectorAll(".faq-item").forEach((target) => {
-      target.classList.remove("open");
-      const targetButton = target.querySelector("button");
-      if (targetButton) targetButton.setAttribute("aria-expanded", "false");
-    });
-
-    if (willOpen) {
-      item.classList.add("open");
-      button.setAttribute("aria-expanded", "true");
-    }
+    const open = item.classList.toggle("open");
+    button.setAttribute("aria-expanded", open ? "true" : "false");
   });
 }
 
@@ -670,7 +664,10 @@ function initRulesPage() {
     if (yearInput) yearInput.value = year;
     yearChips.forEach((chip) => chip.classList.toggle("active", Number(chip.dataset.year) === year));
     if (selectedPdfLink) {
-      selectedPdfLink.textContent = `${data.label} 이수 규정 PDF · ${String(year).slice(2)}학번_이수규정`;
+      const pdf = requirementPdfs[year];
+      selectedPdfLink.innerHTML = pdf
+        ? `<span>${data.label} 이수 규정 원문:</span><a href="${pdf}" target="_blank" rel="noreferrer">${String(year).slice(2)}학번_이수규정 PDF 열기 ↗</a>`
+        : "";
     }
 
     ruleOutput.innerHTML = `
@@ -701,12 +698,12 @@ function initRulesPage() {
 
       <section class="rule-section">
         <h2>전공필수 과목</h2>
-        <div class="pill-list">${commonMajorRequired.map((course) => `<span>${course}</span>`).join("")}</div>
+        <div class="pill-list">${commonMajorRequired.map((course) => `<span><b>${course.name}</b><em>${course.old} · ${course.new}</em></span>`).join("")}</div>
       </section>
 
       <section class="rule-section">
         <h2>학과 전공선택 과목</h2>
-        <div class="major-elective-list">${departmentMajorElectives.map((course) => `<span>${course}</span>`).join("")}</div>
+        <div class="major-elective-list">${departmentMajorElectives.map((course) => `<span><b>${course.name}</b><em>${course.old} · ${course.new}</em></span>`).join("")}</div>
       </section>
 
       <section class="rule-section">
