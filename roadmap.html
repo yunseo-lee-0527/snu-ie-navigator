@@ -29,8 +29,8 @@ a{color:inherit;}
 .roadmap-hero{max-width:1500px;margin:0 auto;padding:72px clamp(20px,4vw,40px) 100px;background:#fff;}
 .roadmap-title{margin:0 0 20px;}
 .eyebrow{margin:0 0 12px;color:var(--blue);font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;}
-.roadmap-title h1{margin:0 0 16px;font-size:48px;font-weight:700;line-height:1.08;}
-.roadmap-title .subtitle{margin:0 0 24px;color:var(--muted);font-size:19px;line-height:1.5;}
+.roadmap-title h1{margin:0 0 16px;font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.08;}
+.roadmap-title .subtitle{margin:0 0 24px;color:var(--muted);font-size:clamp(16px,1.7vw,19px);line-height:1.5;}
 
 .actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .code-guide-btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 22px;border:1px solid var(--line-strong);border-radius:999px;
@@ -50,7 +50,7 @@ a{color:inherit;}
 
 .roadmap-wrapper{position:relative;width:100%;overflow:auto;border:1px solid var(--line);border-radius:8px;background:#fff;}
 .roadmap-grid{position:relative;display:grid;grid-template-columns:96px repeat(8,minmax(112px,1fr));
-  grid-template-rows:40px repeat(10,minmax(64px,auto));gap:12px 10px;min-width:1080px;padding:14px;}
+  grid-template-rows:40px minmax(64px,auto) minmax(64px,auto) minmax(108px,auto) repeat(7,minmax(64px,auto));gap:12px 10px;min-width:1080px;padding:14px;}
 .roadmap-grid.show-grad{grid-template-columns:96px repeat(8,minmax(102px,1fr)) 24px repeat(8,minmax(116px,1fr));min-width:2300px;}
 .connector-svg{position:absolute;top:0;left:0;z-index:2;width:100%;height:100%;pointer-events:none;overflow:visible;}
 
@@ -101,6 +101,12 @@ a{color:inherit;}
 .swatch.box{width:13px;height:13px;border-radius:4px;border:0;background:var(--blue);}
 .swatch.boxf{width:13px;height:13px;border-radius:4px;border:1px solid #c9d7f2;background:#fff;}
 .swatch.boxg{width:13px;height:13px;border-radius:4px;border:0;background:var(--blue-soft);}
+.prereq-notes{margin:-2px 0 22px;padding:13px 16px;border-radius:10px;background:var(--blue-soft);
+  border:1px solid #d5e0f5;color:var(--ink);font-size:13.5px;line-height:1.7;}
+.prereq-notes p{margin:0;}
+.prereq-notes .tag{display:inline-block;margin-right:9px;padding:3px 11px;border-radius:999px;
+  background:var(--blue);color:#fff;font-size:12px;font-weight:700;vertical-align:1px;}
+.prereq-notes b{color:var(--blue);font-weight:700;}
 
 .course-tip{position:fixed;z-index:60;max-width:280px;min-width:200px;padding:0;border-radius:8px;
   background:rgba(29,29,31,.96);color:#fff;box-shadow:0 16px 40px rgba(0,0,0,.28);pointer-events:none;
@@ -118,8 +124,6 @@ a{color:inherit;}
   .actions{flex-direction:column;align-items:stretch;}
   .code-guide-btn{width:100%;justify-content:center;}
   .grad-toggle{width:100%;justify-content:center;font-size:16px;}
-  .roadmap-title h1{font-size:38px;}
-  .roadmap-title .subtitle{font-size:18px;}
 }
 </style>
 </head>
@@ -141,8 +145,7 @@ a{color:inherit;}
     <div class="roadmap-title">
       <p class="eyebrow">Roadmap</p>
       <h1 id="roadmapTitle">산업공학과 전공 로드맵</h1>
-      <p class="subtitle">각 과목 위에 마우스를 올리면 구·신 교과목코드가 나타납니다.
-        <b>대학원 교과목</b>은 학부 로드맵 오른쪽으로 이어 <b>기초 · 심화 · 응용</b>으로 나누어 펼쳐볼 수 있습니다.</p>
+      <p class="subtitle"><b>대학원 교과목</b>은 학부 로드맵 오른쪽으로 이어 펼쳐볼 수 있습니다.</p>
       <div class="actions">
         <a class="code-guide-btn" href="code-guide.html">
           <span class="ico" aria-hidden="true">🔑</span>
@@ -163,6 +166,9 @@ a{color:inherit;}
           <li><span class="swatch boxf"></span>교양필수</li>
           <li><span class="swatch boxg"></span>대학원</li>
         </ul>
+      </div>
+      <div class="prereq-notes">
+        <p><span class="tag">추가 권장 선수과목</span><b>경영과학2</b>는 공학수학2를, <b>산업공학통계</b>는 공학수학2·통계학을, <b>데이터마이닝</b>은 산업컴퓨팅개론을, <b>생산관리·물류관리</b>는 경영과학1·2를 먼저 이수하는 것을 권장합니다.</p>
       </div>
     </div>
 
@@ -211,8 +217,8 @@ a{color:inherit;}
         <div class="lane-bg" style="grid-row:4;"></div>
         <div class="area-header ca" style="grid-row:4;">시스템<br>설계</div>
         <span id="ipd" class="course-box c3" style="grid-row:4;" data-name="산업공정설계" data-old="406.436" data-new="IE.2110" data-desc="">산업공정설계</span>
-        <span id="pqd" class="course-box c5" style="grid-row:4;" data-name="제품개발 및 품질설계" data-old="M1505.001500" data-new="IE.3151" data-desc="">제품개발 및 품질설계</span>
-        <span id="svc" class="course-box c6" style="grid-row:4;" data-name="서비스공학" data-old="406.322" data-new="IE.3161" data-desc="">서비스공학</span>
+        <span id="pqd" class="course-box c5 slot-top" style="grid-row:4;" data-name="제품개발 및 품질설계" data-old="M1505.001500" data-new="IE.3151" data-desc="">제품개발 및 품질설계</span>
+        <span id="svc" class="course-box c6 slot-bottom" style="grid-row:4;" data-name="서비스공학" data-old="406.322" data-new="IE.3161" data-desc="">서비스공학</span>
         <div class="g-cell grad-col" style="grid-row:4;grid-column:11/13;"><span id="g_pengr" class="course-box graduate" data-name="제품공학" data-old="406.547" data-new="IE.G150" data-desc="">제품공학</span></div>
         <div class="g-cell grad-col" style="grid-row:4;grid-column:13/17;"><span id="g_health" class="course-box graduate" data-name="헬스케어 서비스 혁신" data-old="M1505.002600" data-new="IE.G161" data-desc="">헬스케어 서비스 혁신</span></div>
         <div class="g-cell grad-col" style="grid-row:4;grid-column:17/19;"><span id="g_collab" class="course-box graduate" data-name="협업설계 및 공학응용" data-old="M1505.000900" data-new="IE.G182" data-desc="">협업설계 및 공학응용</span></div>
@@ -331,14 +337,14 @@ a{color:inherit;}
 <script>
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
 
-/* ---------- tooltip ---------- */
+/* ---------- hover tooltip (구/신 교과목코드) ---------- */
 const tip=document.getElementById("courseTip");
 function showTip(el,evt){
   const name=el.dataset.name||el.textContent.trim();
   const oldc=el.dataset.old||"—", newc=el.dataset.new||"—";
   tip.innerHTML='<div class="tip-name">'+esc(name)+'</div><div class="tip-rows">'+
-    '<div class="tip-row"><span>구 교과목코드</span><b class="old">'+esc(oldc)+'</b></div>'+
-    '<div class="tip-row"><span>신 교과목코드</span><b class="new">'+esc(newc)+'</b></div></div>';
+    '<div class="tip-row"><span>구 교과목코드</span><b>'+esc(oldc)+'</b></div>'+
+    '<div class="tip-row"><span>신 교과목코드</span><b>'+esc(newc)+'</b></div></div>';
   tip.classList.add("show");tip.setAttribute("aria-hidden","false");moveTip(evt,el);
 }
 function moveTip(evt,el){
@@ -388,7 +394,7 @@ const specs=[
   {k:"link",from:"emath2",to:"imrm",t:"req"},
   {k:"link",from:"comp",to:"dma",t:"req",mid:"src"},
   {k:"link",from:"ipd",to:"pqd",t:"req"},
-  {k:"link",from:"pqd",to:"svc",t:"req"},
+  {k:"link",from:"ipd",to:"svc",t:"req"},
   {k:"link",from:"prod",to:"logi",t:"req"},
   {k:"link",from:"or1",to:"optm",t:"req"},
   {k:"link",from:"optm",to:"opta",t:"req"},
@@ -431,7 +437,9 @@ function drawConnectors(){
     p.setAttribute("stroke",col(t));p.setAttribute("stroke-width",t==="req"?"2.2":"1.6");
     p.setAttribute("stroke-linecap","round");p.setAttribute("stroke-linejoin","round");svg.appendChild(p);};
   const arrow=(x,y,dir,t)=>{const s=5;let d;
-    if(dir==="d")d=`M ${x-s} ${y-s} L ${x} ${y} L ${x+s} ${y-s}`;else d=`M ${x-s} ${y-s} L ${x} ${y} L ${x-s} ${y+s}`;
+    if(dir==="d")d=`M ${x-s} ${y-s} L ${x} ${y} L ${x+s} ${y-s}`;
+    else if(dir==="u")d=`M ${x-s} ${y+s} L ${x} ${y} L ${x+s} ${y+s}`;
+    else d=`M ${x-s} ${y-s} L ${x} ${y} L ${x-s} ${y+s}`;
     add(d,t);};
 
   /* distribute exit / entry points so multiple arrows on one box start at different y */
@@ -453,6 +461,8 @@ function drawConnectors(){
     const sy=exY(a,idx,s),ey=enY(b,idx,e);
     if(opt.enter==="top"){const tx=e.cx;
       add(`M ${s.right} ${sy} H ${tx} V ${e.top}`,t);arrow(tx,e.top,"d",t);return;}
+    if(opt.route==="under"){const tx=s.right+OFF, uy=e.bottom+7;
+      add(`M ${s.right} ${sy} H ${tx} V ${uy} H ${e.cx} V ${e.bottom}`,t);arrow(e.cx,e.bottom,"u",t);return;}
     let midX;
     if(e.left>s.right){ midX = (opt.mid==="src") ? s.right+OFF : e.left-OFF; }
     else { midX = s.right+OFF; }
