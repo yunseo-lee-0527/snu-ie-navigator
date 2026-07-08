@@ -74,12 +74,20 @@ const faqs = [
     a: "학과 전공선택 21학점 요건에는 <strong>산업공학과에서 개설한 전공선택 과목</strong>만 포함됩니다. 주전공 59학점 중 전공필수 28학점과 학과 전공선택 21학점을 채운 뒤 남는 10학점은 학과 전공선택이나 타과 전선 인정 과목으로 충족할 수 있습니다. 교환학생으로 국외수학 허가를 받은 과목은 산업공학과 개설 전공선택 과목으로 봅니다."
   },
   {
+    q: "복수전공이나 부전공으로 이수할 때도 전공선택 학점을 타과 전선 인정 과목으로 채울 수 있나요?",
+    a: "학과 전공선택 21학점 요건 자체는 다전공 학생에게도 동일하게 적용됩니다. 다만 단전공 주전공자에게 허용되는 '나머지 10학점을 타과 전선 인정 과목으로 채우는' 방식은 다전공에는 해당하지 않습니다. 복수전공은 학과 개설 전공선택 과목을 추가로 이수해 최소 39학점을 만족해야 하고, 부전공은 전공교과목 21학점 이상(전공필수 12학점 포함)을 이수해야 하며, 두 경우 모두 타과 전선 인정 과목이 아니라 다전공 이수 자체로 요건을 충족하는 구조입니다."
+  },
+  {
     q: "산업공학의 이해를 정해진 학기에 듣지 않으면 성적 제한이 있나요?",
     a: "네. <a href='https://ie.snu.ac.kr/notice/?mod=document&uid=6290' target='_blank' rel='noopener'>학과 공지</a>에 따르면 산업공학의 이해(406.434, IE.1010)는 산업공학 주전공 학생과 자유전공학부 주전공 진입생이 1학년 2학기 또는 전공 진입 후 2학기 이내에 반드시 수강해야 하는 전공필수 과목입니다. 휴학 등 공식적 사유 없이 정해진 학기에 수강하지 않으면 부여 가능한 최고 성적이 B+로 제한되며, 이 원칙은 산업공학과 학사과정 26학번 이후 또는 2026년 이후 전공 진입한 자유전공학부 학생부터 적용됩니다."
   },
   {
     q: "수강신청 시스템에는 선이수 요건이 안 보이는데, 이 사이트의 선이수 요건은 어디서 나온 건가요?",
-    a: "수강신청 시스템 자체에는 선이수 요건이 별도로 지정되어 있지 않습니다. 이 사이트의 로드맵은 담당 교수님들께 직접 문의해 받은 답변을 바탕으로 구성했습니다. '필수 선이수'는 먼저 알지 못하면 수강 자체가 불허될 수 있을 만큼 반드시 선행 학습이 필요한 과목을 뜻하고, '권장 선이수'는 먼저 들으면 이해에 도움이 되지만 필수는 아닌 과목을 뜻합니다."
+    a: "수강신청 시스템 자체에는 선이수 요건이 별도로 지정되어 있지 않습니다. 이 사이트의 로드맵은 담당 교수님들께 직접 문의해 받은 답변을 바탕으로 구성했습니다. 교과목 코드상 선수과목으로 확인되는 과목 중에서도 교수님이 직접 선수과목으로 강조해 언급하신 과목은 '필수 선이수'로, 별도로 언급하지 않으신 과목은 '권장 선이수'로 표기했습니다. '필수 선이수' 중 일부는 사전 지식이 없으면 교수님 판단에 따라 실제로 수강 자체가 불허될 수 있으니 반드시 먼저 이수해야 합니다."
+  },
+  {
+    q: "공과대학 공통 교과목 중 '공학기타' 제외 영역 3학점은 구체적으로 어떤 과목인가요?",
+    a: "공과대학 공통 교과목은 공학개론, 공학경영, 공학기초, 창의공학, 공학실습, 공학기타 6개 영역으로 구성됩니다. 이수 요건 3학점은 이 중 '공학기타' 영역(예: 컴퓨터과학 입문, 한국의 건축과 도시화 등)을 제외한 나머지 5개 영역(공학개론·공학경영·공학기초·창의공학·공학실습)에서 채워야 합니다. 2024학년도 기준 전체 과목 목록은 <a href='docs/college_common_courses_2024.pdf' target='_blank' rel='noopener'>공과대학 공통 교과목 PDF(2024학년도 기준)</a>에서 확인할 수 있으며, <a href='https://www.snu.ac.kr/academics/undergraduate/curriculum' target='_blank' rel='noopener'>서울대학교 학사 교육과정 페이지</a>의 전공별 교과목(학사) 자료에서 내려받았습니다."
   },
   {
     q: "영어강의(외국어진행강좌)는 꼭 이수해야 하나요?",
@@ -601,6 +609,7 @@ function initRulesPage() {
   const ruleOutput = document.querySelector("#ruleOutput");
   const yearChips = document.querySelectorAll(".year-chip");
   const selectedPdfLink = document.querySelector("#selectedPdfLink");
+  const pdfPreview = document.querySelector("#pdfPreview");
   if (!ruleOutput) return;
 
   function listItems(items) {
@@ -682,8 +691,12 @@ function initRulesPage() {
     if (selectedPdfLink) {
       const pdf = requirementPdfs[year];
       selectedPdfLink.innerHTML = pdf
-        ? `<span>${data.label} 이수 규정 원문:</span><a href="${pdf}" target="_blank" rel="noreferrer">${String(year).slice(2)}학번_이수규정 PDF 열기 ↗</a>`
+        ? `<span>${data.label} 이수 규정 원문:</span><button type="button" class="pdf-toggle" data-pdf="${pdf}" data-label="${data.label}" aria-expanded="false" aria-controls="pdfPreview">미리보기</button><a href="${pdf}" target="_blank" rel="noreferrer">새 탭에서 열기 ↗</a>`
         : "";
+    }
+    if (pdfPreview) {
+      pdfPreview.hidden = true;
+      pdfPreview.innerHTML = "";
     }
 
     ruleOutput.innerHTML = `
@@ -746,6 +759,27 @@ function initRulesPage() {
       renderRules(Number(chip.dataset.year));
     });
   });
+
+  if (selectedPdfLink && pdfPreview) {
+    selectedPdfLink.addEventListener("click", (event) => {
+      const toggle = event.target.closest(".pdf-toggle");
+      if (!toggle) return;
+      const isOpen = !pdfPreview.hidden;
+      if (isOpen) {
+        pdfPreview.hidden = true;
+        pdfPreview.innerHTML = "";
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.textContent = "미리보기";
+      } else {
+        const pdf = toggle.dataset.pdf;
+        const label = toggle.dataset.label || "이수규정";
+        pdfPreview.innerHTML = `<iframe class="pdf-frame" src="${pdf}#view=FitH" title="${label} 이수규정 PDF 미리보기" loading="lazy"></iframe><p class="pdf-preview-note">미리보기가 보이지 않으면 <a href="${pdf}" target="_blank" rel="noreferrer">새 탭에서 열기 ↗</a>를 이용하세요. (모바일에서는 새 탭 열기를 권장합니다.)</p>`;
+        pdfPreview.hidden = false;
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.textContent = "미리보기 닫기";
+      }
+    });
+  }
 
   renderRules(2025);
 }
