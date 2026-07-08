@@ -729,6 +729,7 @@ p {
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 16px;
+  margin-bottom: 14px;
   padding: 16px;
   border: 1px solid #dbe6fb;
   border-radius: 8px;
