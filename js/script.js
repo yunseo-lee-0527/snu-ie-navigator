@@ -320,14 +320,37 @@ const requirementPdfs = {
 };
 
 // ─── 복수전공·부전공·자유전공 규정 ───────────────────────────────────────────
-const multiMajorRules = [
+const doubleMinorRules = [
   "복수전공: 해당 기준년도의 모든 전공필수 교과목을 이수해야 하며, 인간공학실험 및 산업공학의 이해는 면제됩니다.",
   "복수전공: 학과 개설 전공선택 교과목을 추가로 이수하여 최소 39학점을 만족해야 합니다.",
   "부전공: 전공교과목 21학점 이상, 이 중 전공필수 12학점 이상을 이수해야 하며 산업공학의 이해는 제외됩니다.",
-  "복수전공/부전공 학생에게는 대학원 세미나 과목 이수 요건이 적용되지 않습니다.",
-  "복수전공 및 자유전공학부 소속 학생은 졸업논문을 작성해야 하며, 부전공 학생은 졸업논문을 작성하지 않아도 됩니다.",
-  "자유전공학부 주전공자는 산업공학과 주전공생과 동일하게 학과 개설 전공선택 21학점, 졸업논문, 생명존중 교육, 영어 과목, 공과대학 공통 교과목 요건을 적용받습니다. 교양 이수 규정은 자유전공학부 규정을 따릅니다."
+  "복수전공·부전공 학생에게는 대학원 세미나 과목 이수 요건이 적용되지 않습니다.",
+  "복수전공 학생은 졸업논문을 작성해야 하고, 부전공 학생은 졸업논문을 작성하지 않아도 됩니다."
 ];
+
+const freeMajorRules = [
+  "소속만 자유전공학부이고 산업공학을 '주전공'으로 이수하므로 복수전공과 다릅니다. 두 주전공을 병행해 전공은 49학점(전공필수 28 + 학과 전공선택 21)이며 '기타 10학점'이 없어, 타과 과목을 중복인정으로 채울 수 없습니다.",
+  "졸업논문·생명존중 교육·외국어진행강좌·공과대학 공통 과목 요건은 산업공학과 주전공생과 같고, 교양만 자유전공학부 규정을 따릅니다."
+];
+
+const majorCreditViz = `
+  <div class="credit-viz">
+    <div class="cv-row">
+      <div class="cv-label">산업공학과 심화전공<br><b>전공 59학점</b></div>
+      <div class="cv-bar" style="width:100%">
+        <span class="seg s1" style="flex:28">전공필수<em>28학점</em></span>
+        <span class="seg s2" style="flex:21">학과 전공선택 21<em>산공 개설 수업</em></span>
+        <span class="seg s3" style="flex:10">기타 10<em>전선인정 등</em></span>
+      </div>
+    </div>
+    <div class="cv-row">
+      <div class="cv-label">타 전공 병행 · 자유전공학부<br><b>전공 49학점</b></div>
+      <div class="cv-bar" style="width:83.05%">
+        <span class="seg s1" style="flex:28">전공필수<em>28학점</em></span>
+        <span class="seg s2" style="flex:21">학과 전공선택 21<em>산공 개설 수업</em></span>
+      </div>
+    </div>
+  </div>`;
 
 // ─── 추가 이수 요건 ───────────────────────────────────────────────────────────
 const additionalRequirements = [
@@ -708,7 +731,7 @@ function initRulesPage() {
         <article><span>학과 전선</span><strong>${data.electiveCredits}</strong></article>
       </div>
 
-      <section class="rule-section">
+      <section class="rule-section emphasis">
         <h2>추가 이수 요건</h2>
         <ul class="rule-list">${listItems(additionalRequirements)}</ul>
         <h3 class="subsection-title">외국어진행강좌 기준</h3>
@@ -723,6 +746,7 @@ function initRulesPage() {
       <section class="rule-section">
         <h2>전공 이수학점</h2>
         <div class="credit-table compact">${creditRows(majorCreditRows)}</div>
+        ${majorCreditViz}
       </section>
 
       <section class="rule-section">
@@ -732,6 +756,7 @@ function initRulesPage() {
 
       <section class="rule-section">
         <h2>학과 전공선택 과목</h2>
+        <p class="section-note">학과 전공선택은 원칙적으로 <strong>산업공학과에서 개설한 교과목</strong>만 포함합니다(학부 3·4학년 때 수강한 산업공학과 대학원 교과목 포함). 다만 국외수학 허가자가 국외기관에서 이수한 교과목 중 학과 개설 전공선택 교과목과 대응관계가 인정되어 별도 승인을 받은 경우에는 학과 전공선택에 포함됩니다.</p>
         <div class="major-elective-list">${departmentMajorElectives.map((course) => `<span><b>${course.name}</b><em>${course.old} · ${course.new}</em></span>`).join("")}</div>
       </section>
 
@@ -741,9 +766,15 @@ function initRulesPage() {
       </section>
 
       <section class="rule-section multi-major-section">
-        <h2>복수전공·부전공·자유전공</h2>
-        <p class="section-note">단전공생 이수학점과 별도로 확인해야 하는 다전공 기준입니다. 복수전공, 부전공, 자유전공학부 학생은 이 섹션을 꼭 확인하세요.</p>
-        <ul class="rule-list">${listItems(multiMajorRules)}</ul>
+        <h2>복수전공 · 부전공</h2>
+        <p class="section-note">단전공생 이수학점과 별도로 확인해야 하는 다전공 기준입니다.</p>
+        <ul class="rule-list">${listItems(doubleMinorRules)}</ul>
+      </section>
+
+      <section class="rule-section multi-major-section">
+        <h2>자유전공학부 주전공</h2>
+        <p class="section-note">소속은 자유전공학부이지만 산업공학을 '주전공'으로 이수하는 경우로, 복수전공과는 구분됩니다.</p>
+        <ul class="rule-list">${listItems(freeMajorRules)}</ul>
       </section>
     `;
   }

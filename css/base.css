@@ -725,6 +725,93 @@ p {
   line-height: 1.5;
 }
 
+.credit-viz {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.cv-row {
+  display: grid;
+  grid-template-columns: 156px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.cv-label {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.cv-label b {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cv-bar {
+  display: flex;
+  height: 58px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--wash);
+}
+
+.cv-bar .seg {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  border-right: 2px solid #fff;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cv-bar .seg:last-child {
+  border-right: 0;
+}
+
+.cv-bar .seg em {
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 500;
+  opacity: 0.92;
+}
+
+.cv-bar .seg.s1 {
+  background: #0b3d91;
+}
+
+.cv-bar .seg.s2 {
+  background: var(--blue);
+}
+
+.cv-bar .seg.s3 {
+  background: #cdd9f0;
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .cv-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .cv-bar .seg em {
+    display: none;
+  }
+}
+
 .foreign-language-card {
   display: grid;
   grid-template-columns: 120px 1fr;
@@ -805,6 +892,12 @@ p {
 
 .multi-major-section {
   border-left: 4px solid var(--blue);
+}
+
+.rule-section.emphasis {
+  border: 1px solid #cdd9f0;
+  border-left: 4px solid var(--blue);
+  background: var(--blue-soft);
 }
 
 .section-note {
