@@ -752,6 +752,36 @@ p {
   font-weight: 700;
 }
 
+.cv-main {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cv-note {
+  margin: 0;
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.cv-note b {
+  font-weight: 700;
+}
+
+.cv-more {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cv-more a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 .cv-bar {
   display: flex;
   height: 58px;
