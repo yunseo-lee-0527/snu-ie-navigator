@@ -193,18 +193,18 @@ a{color:inherit;}
         <!-- 교양필수 -->
         <div class="lane-bg" style="grid-row:2;"></div>
         <div class="area-header ca" style="grid-row:2;">교양필수</div>
-        <span id="math1" class="course-box foundation c1" style="grid-row:2;" data-name="수학1 및 연습" data-old="—" data-new="교양필수" data-desc="">수학1 및 연습</span>
-        <span id="math2" class="course-box foundation c2" style="grid-row:2;" data-name="수학2 및 연습" data-old="—" data-new="교양필수" data-desc="">수학2 및 연습</span>
+        <span id="math1" class="course-box foundation c1" style="grid-row:2;" data-notip="1">수학1 및 연습</span>
+        <span id="math2" class="course-box foundation c2" style="grid-row:2;" data-notip="1">수학2 및 연습</span>
         <div class="course-cell c3" style="grid-row:2;"><div class="course-stack">
-          <span id="stat" class="course-box foundation" data-name="통계학 및 실험" data-old="—" data-new="교양필수" data-desc="">통계학 및 실험</span>
-          <span id="emath1" class="course-box foundation" data-name="공학수학1" data-old="—" data-new="교양필수" data-desc="">공학수학1</span>
+          <span id="stat" class="course-box foundation" data-notip="1">통계학 및 실험</span>
+          <span id="emath1" class="course-box foundation" data-notip="1">공학수학1</span>
         </div></div>
-        <span id="emath2" class="course-box foundation c4" style="grid-row:2;" data-name="공학수학2" data-old="—" data-new="교양필수" data-desc="">공학수학2</span>
+        <span id="emath2" class="course-box foundation c4" style="grid-row:2;" data-notip="1">공학수학2</span>
 
         <!-- 공통 -->
         <div class="lane-bg alt" style="grid-row:3;"></div>
         <div class="area-header ca" style="grid-row:3;">공통</div>
-        <span id="comp" class="course-box foundation c1" style="grid-row:3;" data-name="컴퓨터의 개념 및 실습" data-old="—" data-new="교양필수" data-desc="">컴퓨터의 개념 및 실습</span>
+        <span id="comp" class="course-box foundation c1" style="grid-row:3;" data-notip="1">컴퓨터의 개념 및 실습</span>
         <span id="ieintro" class="course-box highlight c2" style="grid-row:3;" data-name="산업공학의 이해" data-old="406.434" data-new="IE.1010" data-desc="">산업공학의 이해</span>
         <div class="course-cell c3" style="grid-row:3;"><div class="course-stack">
           <span id="scimgmt" class="course-box highlight" data-name="과학적 관리" data-old="406.211" data-new="IE.2020" data-desc="">과학적 관리</span>
@@ -359,11 +359,12 @@ function moveTip(evt,el){
 }
 function hideTip(){tip.classList.remove("show");tip.setAttribute("aria-hidden","true");}
 function bindTips(scope){
-  scope.addEventListener("mouseover",e=>{const el=e.target.closest(".course-box");if(el)showTip(el,e);});
-  scope.addEventListener("mousemove",e=>{const el=e.target.closest(".course-box");if(el&&tip.classList.contains("show"))moveTip(e,el);});
-  scope.addEventListener("mouseout",e=>{if(e.target.closest(".course-box"))hideTip();});
-  scope.addEventListener("focusin",e=>{const el=e.target.closest(".course-box");if(el)showTip(el,null);});
-  scope.addEventListener("focusout",e=>{if(e.target.closest(".course-box"))hideTip();});
+  const sel=".course-box:not([data-notip])";
+  scope.addEventListener("mouseover",e=>{const el=e.target.closest(sel);if(el)showTip(el,e);});
+  scope.addEventListener("mousemove",e=>{const el=e.target.closest(sel);if(el&&tip.classList.contains("show"))moveTip(e,el);});
+  scope.addEventListener("mouseout",e=>{if(e.target.closest(sel))hideTip();});
+  scope.addEventListener("focusin",e=>{const el=e.target.closest(sel);if(el)showTip(el,null);});
+  scope.addEventListener("focusout",e=>{if(e.target.closest(sel))hideTip();});
 }
 
 /* ---------- graduate toggle (expands grid to the right) ---------- */
