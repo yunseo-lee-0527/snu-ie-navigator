@@ -1014,6 +1014,73 @@ p {
   text-decoration: none;
 }
 
+.feedback-float {
+  position: fixed;
+  right: clamp(18px, 3vw, 34px);
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  z-index: 80;
+  display: inline-flex;
+  width: 64px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 14px 34px rgba(10, 95, 214, 0.28), 0 4px 10px rgba(29, 29, 31, 0.12);
+  color: #fff;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.feedback-float:hover,
+.feedback-float:focus-visible {
+  background: #084fb5;
+  box-shadow: 0 16px 38px rgba(10, 95, 214, 0.34), 0 5px 12px rgba(29, 29, 31, 0.14);
+  transform: translateY(-3px);
+}
+
+.feedback-float:focus-visible {
+  outline: 3px solid rgba(10, 95, 214, 0.28);
+  outline-offset: 4px;
+}
+
+.feedback-float-icon {
+  width: 29px;
+  height: 29px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.feedback-float-label {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 22px rgba(29, 29, 31, 0.12);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(6px, -50%);
+  transition: opacity 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+}
+
+.feedback-float:hover .feedback-float-label,
+.feedback-float:focus-visible .feedback-float-label {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
 @media (max-width: 760px) {
   .topbar {
     align-items: flex-start;
@@ -1043,5 +1110,21 @@ p {
 
   .rule-section {
     padding: 22px;
+  }
+
+  .feedback-float {
+    width: 56px;
+    height: 56px;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .feedback-float-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .feedback-float-label {
+    display: none;
   }
 }
