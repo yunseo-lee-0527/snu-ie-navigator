@@ -341,6 +341,7 @@ const majorCreditViz = `
         <p class="cv-note">산공과 개설 전공선택 과목 <b>21학점 이상</b> (그 이상 들어도 무방)</p>
       </div>
     </div>
+    <p class="cv-more">자유전공학부에서 산업공학과로 주전공 진입한 학생도 위 산업공학과 주전공생 기준을 동일하게 적용받습니다.</p>
     <div class="cv-row">
       <div class="cv-label">다전공하는 산업공학과 주전공생 대상<br><b>전공 49학점</b></div>
       <div class="cv-main">
